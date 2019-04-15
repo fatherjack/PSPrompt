@@ -5,7 +5,7 @@ function Set-Prompt {
         [parameter(parametersetname = "default")][switch]$AddToProfile,
         [parameter(parametersetname = "default")][switch]$Admin,
         [parameter(parametersetname = "default")][switch]$Battery,
-        [parameter(ParameterSetName = "Reset")][switch]
+        [parameter(ParameterSetName = "Reset")  ][switch]$Reset
     )
     # preserve the original prompt so that it can be reset if so desired
     if ($pscmdlet.ShouldProcess("Preserving original prompt")) {

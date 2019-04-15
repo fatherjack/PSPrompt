@@ -26,5 +26,4 @@ The PSPrompt module gets you closer to your search results with a set of functio
 The idea for the custom prompt came from dbatools, visit <https://github.com/sqlcollaborative/dbatools> for a great module to help manage your databases.
 
 Details of how I created this module from a Plaster (<https://github.com/PowerShell/Plaster>) template can be found here
-https://sqldbawithabeard.com/2017/11/09/using-plaster-to-create-a-new-powershell-module/
-
+<https://sqldbawithabeard.com/2017/11/09/using-plaster-to-create-a-new-powershell-module/>

@@ -16,15 +16,31 @@ function Prompt {
     - last command  : execution duration of the last command executed
 
     #>
+    [CmdletBinding(DefaultParameterSetName = 'Custom')]
+    Param(
+        [parameter(parametersetname = "Custom")][switch]$AddToProfile,
+        [parameter(parametersetname = "Custom")][switch]$Admin,
+        [parameter(parametersetname = "Custom")][switch]$Battery,
+        [parameter(ParameterSetName = "Reset")][switch]$Reset
+    )
+    if ($Reset) {
+        $PromptOptions = get-item "$env:APPDATA\prompt*.ps1" | select name, LastWriteTime
+        
+        Write-Output "Prompt returned to original state"
+        return
+    }
     #region Show if using Administrator level account
-    $principal = [Security.Principal.WindowsPrincipal] ([Security.Principal.WindowsIdentity]::GetCurrent())
-    $adm = [Security.Principal.WindowsBuiltInRole]::Administrator
-    if ($principal.IsInRole($adm)) {
-        write-host -ForegroundColor "Black" -BackgroundColor "DarkRed" "[ADMIN]" -NoNewline
+    if ($admin) {
+        $principal = [Security.Principal.WindowsPrincipal] ([Security.Principal.WindowsIdentity]::GetCurrent())
+        $adm = [Security.Principal.WindowsBuiltInRole]::Administrator
+        if ($principal.IsInRole($adm)) {
+            write-host -ForegroundColor "Black" -BackgroundColor "DarkRed" "[ADMIN]" -NoNewline
+        }
+        "added admin"
     }
     #endregion
     
- #region Battery status
+    #region Battery status
     $b = (Get-CimInstance -ClassName CIM_Battery)
     $Battery = $null
     $Battery = @{    
@@ -69,9 +85,9 @@ function Prompt {
         $msg = ("[{0}%:{1}{2}]" -f $Battery.Charge[1], $Battery.Remaining, $EXTRAmsg )
         Write-Host -Object $msg -BackgroundColor $colour -ForegroundColor Black -NoNewline
     } 
-#endregion
+    #endregion
 
-#region Day and date
+    #region Day and date
     $msg = "[{0}]" -f (Get-Date -Format "ddd HH:mm:ss")        
     Write-Host $msg -NoNewline
     #endregion
@@ -120,17 +136,17 @@ function Prompt {
             $ts = New-TimeSpan $history.StartExecutionTime  $history.EndExecutionTime
             Write-Host "[" -NoNewline
             switch ($ts) {
-                {$_.TotalSeconds -lt 1} { 
+                { $_.TotalSeconds -lt 1 } { 
                     [decimal]$d = $_.TotalMilliseconds
                     '{0:f3}ms' -f ($d) | Write-Host  -ForegroundColor Black -NoNewline -BackgroundColor DarkGreen
                     break
                 }
-                {$_.totalminutes -lt 1} { 
+                { $_.totalminutes -lt 1 } { 
                     [decimal]$d = $_.TotalSeconds
                     '{0:f3}s' -f ($d) | Write-Host  -ForegroundColor Black -NoNewline -BackgroundColor DarkYellow
                     break
                 }
-                {$_.totalminutes -lt 30} { 
+                { $_.totalminutes -lt 30 } { 
                     [decimal]$d = $ts.TotalMinutes
                     '{0:f3}m' -f ($d) | Write-Host  -ForegroundColor Gray -NoNewline  -BackgroundColor Red
                     break
@@ -150,8 +166,8 @@ function Prompt {
         $One = $pwd.path.split('\')[-1]
         $Two = $pwd.path.split('\')[-2]
 
-        if ($One.Length -gt 10) {$One = "$($One[0..7] -join '')~"}
-        if ($Two.Length -gt 10) {$Two = "$($Two[0..7] -join '')~"}
+        if ($One.Length -gt 10) { $One = "$($One[0..7] -join '')~" }
+        if ($Two.Length -gt 10) { $Two = "$($Two[0..7] -join '')~" }
 
         write-host " $($pwd.path.split('\')[0], '...', $Two, $One -join ('\'))" -NoNewline
     }

@@ -1,4 +1,21 @@
-#region search engine function
+<#
+.SYNOPSIS
+Quick search the internet for content
+
+.DESCRIPTION
+see short synopsis
+
+.PARAMETER search
+provide the search string and the search engine
+
+.EXAMPLE
+new-websearch -engine google -search 'kitten gifs'
+
+Searches google for gifs of kittens
+.NOTES
+n/a
+#>
+
 function New-WebSearch {
     param(
         # the search string
@@ -16,4 +33,3 @@ function New-WebSearch {
         Start-Process $url
     }    
 }
-#endregion

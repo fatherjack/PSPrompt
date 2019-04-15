@@ -36,7 +36,7 @@ function Prompt {
         $Battery.Remaining = "90m+"
     }
     else {
-        $Battery.Remaining = "$($Battery.Remaining.ToString())m"
+        $Battery.Remaining = "$($Battery.Remaining)m"
     }
 
     Write-Verbose $Battery

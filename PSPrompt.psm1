@@ -19,5 +19,5 @@ foreach ($folder in @('internal', 'functions')) {
 }
 
 # Export functions and aliases
-Export-ModuleMember -alias * -function (Get-ChildItem -Path "$PSScriptRoot\functions\*.ps1").basename 
+#Export-ModuleMember -alias * -function (Get-ChildItem -Path "$PSScriptRoot\functions\*.ps1").basename 
 

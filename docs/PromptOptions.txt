@@ -1,0 +1,9 @@
+    Custom prompt can include the following features:
+    
+    - Admin user    : if the current session is running as Administrator then the prompt shows [Admin] in black on red
+    - Battery       : if you are working on your battery - % charged and est min remaining
+    - Day and date  : the current day and date are shown at the left side of the prompt in all use-cases
+    - UTC offset    : if the system timezone is not UTC then the offset in hours is shown Red/Green for + or - difference
+    - fun function  : put some fun into your PowerShell prompt with a countdown to your next big event ()
+    - current path  : shortens the path if there are more than 2 directories and truncates those to 7 characters
+    - last command  : execution duration of the last command executed

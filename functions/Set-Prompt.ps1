@@ -128,13 +128,12 @@ function Set-PSPrompt {
         #region UTC offset
         cls
         $msg = $null
-        $msg += "`r`n`r`nIf you work across timezones then as your laptop updates to a different timezone we can have your timezone offset indicated in your prompt.`r`n Add the day/date to your prompt?"
+        $msg += "`r`n`r`nIf you work across timezones then as your laptop updates to a different timezone we can have your timezone offset indicated in your prompt.`r`n Add the timezone offset to your prompt?"
         $msg += "Like this:"
         $msg | ForEach-Object { 
             Write-Host $_
             start-sleep -Milliseconds 800
         }
-
 
         Write-Host "`r`n(GMT +1)" -ForegroundColor Green -NoNewline
         Write-Host "`tor`t" -ForegroundColor white -NoNewline
@@ -145,8 +144,7 @@ function Set-PSPrompt {
             $PSPromptData.UTC_offset = $true
         }
         else {
-            $PSPromptData.UTC_offset = $false
-            
+            $PSPromptData.UTC_offset = $false            
         }
         # record selection into xml file
         $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt_dev.config"
@@ -156,6 +154,28 @@ function Set-PSPrompt {
         #endregion
 
         #region last command duration
+        cls
+        $msg = $null
+        $msg += "`r`n`r`nEveryone likes to write fast executing scripts. Have the execution time of your last script shown right where you are focussed.`r`n Add the previous script duration to your prompt?"
+        $msg += "Like this:"
+        $msg | ForEach-Object { 
+            Write-Host $_
+            start-sleep -Milliseconds 800
+        }
+
+
+        Write-Host "`r`n[56ms]" -ForegroundColor Green -NoNewline
+        Write-Host "`tor`t" -ForegroundColor white -NoNewline
+        Write-Host "[29s] `r`n" -ForegroundColor Red 
+        $r = read-host -Prompt "(Y)es to have this in the prompt, (N)o to give it a miss."
+        if ($r -eq "y") {
+            $PSPromptData.last_command = $true
+        }
+        else {
+            $PSPromptData.last_command = $false            
+        }
+        # record selection into xml file
+        $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt_dev.config"
         #endregion
         
 

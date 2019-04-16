@@ -181,6 +181,8 @@ function Set-PSPrompt {
 
         #endregion (option 1)
 
+        # todo:: write out sections of PS to a prompt.ps1 according to the True elements in $PSPromptData
+        # todo:: execute the script created above so that the prompt is set
 
         # temporary check of file contents during development
         start-process notepad "$WorkingFolder\PSPrompt_dev.config"

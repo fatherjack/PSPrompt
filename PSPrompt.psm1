@@ -3,7 +3,9 @@ Write-verbose $PSScriptRoot
 
 Write-verbose 'Import everything in function sub folder' # leaving internal in code incase we need it later
 
-foreach ($folder in @('internal', 'functions')) {
+#foreach ($folder in @('internal', 'functions')) {
+    
+foreach ($folder in @('functions')) {
 
     $root = Join-Path -Path $PSScriptRoot -ChildPath $folder
     Write-verbose "processing folder $root"

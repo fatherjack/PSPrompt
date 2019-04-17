@@ -129,7 +129,7 @@ function Set-PSPrompt {
         cls
         $msg = $null
         $msg += "`r`n`r`nIf you work across timezones then as your laptop updates to a different timezone we can have your timezone offset indicated in your prompt.`r`n Add the timezone offset to your prompt?"
-        $msg += "Like this:"
+        $msg += "`r`nLike this:"
         $msg | ForEach-Object { 
             Write-Host $_
             start-sleep -Milliseconds 800
@@ -157,7 +157,7 @@ function Set-PSPrompt {
         cls
         $msg = $null
         $msg += "`r`n`r`nEveryone likes to write fast executing scripts. Have the execution time of your last script shown right where you are focussed.`r`n Add the previous script duration to your prompt?"
-        $msg += "Like this:"
+        $msg += "`r`nLike this:"
         $msg | ForEach-Object { 
             Write-Host $_
             start-sleep -Milliseconds 800
@@ -178,6 +178,55 @@ function Set-PSPrompt {
         $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt_dev.config"
         #endregion
         
+        #region Short Path
+
+        cls
+        $msg = $null
+        $msg += "`r`n`r`nSometimes you get down a lot of folder levels and the prompt gets really wide.`r`n We can give you a shortened version of the path"
+        $msg += "`r`nLike this:"
+        $msg | ForEach-Object { 
+            Write-Host $_
+            start-sleep -Milliseconds 800
+        }
+
+
+        Write-Host "`r`nC:\...\PowerShell\ProfileF~>" -NoNewline
+        Write-Host "`tinstead of `t" -ForegroundColor white -NoNewline
+        Write-Host "C:\Users\jonallen\OneDrive\Scripts\PowerShell\ProfileFunctions `r`n" 
+        $r = read-host -Prompt "(Y)es to have this in the prompt, (N)o to give it a miss."
+        if ($r -eq "y") {
+            $PSPromptData.shortpath = $true
+        }
+        else {
+            $PSPromptData.shortpath = $false            
+        }
+        
+        # record selection into xml file
+        $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt_dev.config"
+        #endregion
+        
+        #region build up script from components
+        $PromptFile = "$WorkingFolder\MyPrompt.ps1"
+        $ModulePath = ($env:PSModulePath -split (';'))[1]
+        $components = "$(split-path (get-module psprompt).path -Parent)\functions\components"
+
+        get-content "$components\_header.txt" | Out-File $PromptFile -Force
+            
+        switch ($PSPromptData) {
+            { $_.Admin } { get-content "$components\admin.txt" | Out-File $PromptFile -Append }
+            { $_.Battery } { get-content "$components\battery.txt" | Out-File $PromptFile -Append }
+            { $_.Day_and_date } { get-content "$components\daydate.txt" | Out-File $PromptFile -Append }
+            { $_.UTC_offset } { get-content "$components\UTC_offset.txt" | Out-File $PromptFile -Append }
+            { $_.last_command} { get-content "$components\last_command.txt" | Out-File $PromptFile -Append }
+            { $_.shortpath} { get-content "$components\shortpath.txt" | Out-File $PromptFile -Append }
+        }
+
+        # complete the Prompt function in the file so that we can dot source it dreckly
+        get-content "$components\_footer.txt" | Out-File $PromptFile -Append
+        write-verbose $PromptFile
+
+        notepad $PromptFile
+        #endregion
 
         #endregion (option 1)
 

@@ -1,0 +1,14 @@
+#region reduce the path displayed if it is long
+    if (($pwd.Path.Split('\').count -gt 2)) {        
+        $One = $pwd.path.split('\')[-1]
+        $Two = $pwd.path.split('\')[-2]
+
+        if ($One.Length -gt 10) { $One = "$($One[0..7] -join '')~" }
+        if ($Two.Length -gt 10) { $Two = "$($Two[0..7] -join '')~" }
+
+        write-host " $($pwd.path.split('\')[0], '...', $Two, $One -join ('\'))" -NoNewline
+    }
+    else {
+        Write-Host " $($pwd.path)" -NoNewline
+    }
+    #endregion

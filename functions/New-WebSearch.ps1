@@ -19,7 +19,7 @@ n/a
 function New-WebSearch {
     param(
         # the search string
-        [parameter()][string]$search
+        [parameter(ValueFromRemainingArguments)][string]$search
     )
     process {
         $engine = (Get-PSCallStack).InvocationInfo.MyCommand.Definition[1] # -ForegroundColor Red -BackgroundColor Yellow

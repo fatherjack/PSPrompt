@@ -1,0 +1,4 @@
+    #region Day and date
+    $msg = "[{0}]" -f (Get-Date -Format "ddd HH:mm:ss")        
+    Write-Host $msg -NoNewline
+    #endregion

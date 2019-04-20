@@ -1,28 +1,35 @@
-<#
-.SYNOPSIS
-Quick search the internet for content
 
-.DESCRIPTION
-see short synopsis
-
-.PARAMETER search
-provide the search string and the search engine
-
-.EXAMPLE
-new-websearch -engine google -search 'kitten gifs'
-
-Searches google for gifs of kittens
-.NOTES
-n/a
-#>
 
 function New-WebSearch {
+    <#
+        .SYNOPSIS
+        Quick search the internet for content
+
+        .DESCRIPTION
+        see short synopsis
+
+        .PARAMETER search
+        provide the search string and the search engine
+
+        .EXAMPLE
+        new-websearch -engine google -search 'kitten gifs'
+
+        Searches google for gifs of kittens
+        .NOTES
+        n/a
+    #>
+
     param(
         # the search string
         [parameter(ValueFromRemainingArguments)][string]$search
     )
+    begin {
+        if ($search -eq 'gal') {
+            $search = 'https://www.powershellgallery.com/'
+        }
+    }
     process {
-        $engine = (Get-PSCallStack).InvocationInfo.MyCommand.Definition[1] # -ForegroundColor Red -BackgroundColor Yellow
+        $engine = (Get-PSCallStack).InvocationInfo.MyCommand.Definition[1] 
         switch -Regex ($engine) {
             { $_ -match ('DDG | DuckDuckGo') } { $url = "https://duckduckgo.com/?q=$search"; break }
             { $_ -match 'Google' } { $url = "https://www.google.co.uk/search?q=$Search"; break }

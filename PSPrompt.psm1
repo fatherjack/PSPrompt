@@ -20,6 +20,6 @@ foreach ($folder in @('functions')) {
     }
 }
 
-# Export functions and aliases
+# Export functions and aliases // done by psd1
 #Export-ModuleMember -alias * -function (Get-ChildItem -Path "$PSScriptRoot\functions\*.ps1").basename 
 

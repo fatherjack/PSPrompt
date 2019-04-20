@@ -11,6 +11,7 @@ function Set-PSPrompt {
     there are no examples at the moment
 
     #>
+    #requires -modules @{ ModuleName="PSPrompt"; ModuleVersion="0.1.0" }
 
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Custom')]
     Param(
@@ -78,7 +79,7 @@ function Set-PSPrompt {
             #endregion
 
             #region Battery
-            cls
+            Clear-Host
             $msg = $null
             $msg += "`r`n`r`nNext, do you work from a laptop? Do you want an indicator of your battery status while you are working on battery power?"
             $msg += "`r`nLike this:"
@@ -101,7 +102,7 @@ function Set-PSPrompt {
             #endregion
 
             #region Day and Date
-            cls
+            Clear-Host
             $msg = $null
             $msg += "`r`n`r`nNeed to keep your eye on the time? Add the day/date to your prompt?"
             $msg += "`r`nLike this:"
@@ -125,7 +126,7 @@ function Set-PSPrompt {
             #endregion
 
             #region UTC offset
-            cls
+            Clear-Host
             $msg = $null
             $msg += "`r`n`r`nIf you work across timezones then as your laptop updates to a different timezone we can have your timezone offset indicated in your prompt.`r`n Add the timezone offset to your prompt?"
             $msg += "`r`nLike this:"
@@ -153,7 +154,7 @@ function Set-PSPrompt {
             #endregion
 
             #region last command duration
-            cls
+            Clear-Host
             $msg = $null
             $msg += "`r`n`r`nEveryone likes to write fast executing scripts. Have the execution time of your last script shown right where you are focussed.`r`n Add the previous script duration to your prompt?"
             $msg += "`r`nLike this:"
@@ -179,7 +180,7 @@ function Set-PSPrompt {
         
             #region Short Path
 
-            cls
+            Clear-Host
             $msg = $null
             $msg += "`r`n`r`nSometimes you get down a lot of folder levels and the prompt gets really wide.`r`n We can give you a shortened version of the path"
             $msg += "`r`nLike this:"
@@ -215,7 +216,7 @@ function Set-PSPrompt {
             # confirm to user
             Write-Host "There is a config file that will enable the following PSPrompt features:`r`n"
             Write-Output  $Key
-
+            # TODO:: need to add check its OK - then move to (currently) line 230
             Push-PSPrompt $PSPromptData
 
         }

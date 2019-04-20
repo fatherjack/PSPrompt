@@ -17,9 +17,31 @@ With this customised prompt you can see:
 - an abbreviated path when you are a long way down your drive levels
 - current date and time
 
+## enabling the custom prompt
+
+After installing the module with the command `Import-Module PSPrompt` you can run the command `Set-PSPrompt` to be taken through the customisation process to choose what you what information you want to have available to you.
+
+Its a step-by-step process that will let you choose which customisation to accept and your old PowerShell prompt will be preserved so that you can go back to it at any time.
+
 ## accelerator functions
 
-The PSPrompt module gets you closer to your search results with a set of functions designed to speed up your fact checking. By default, search on DuckDuckGo, Bing, Google and Ask from the command prompt.
+The PSPrompt module gets you closer to your search results with a set of functions designed to speed up your fact checking and research. By default, search on DuckDuckGo, Bing, Google and Ask from the command prompt.
+
+| **Alias**      | **Description**                           |
+|---------------:|-------------------------------------------|
+| **Ask**        | Runs search via <https://ask.com>         |
+| **Bing**       | Runs search via <https://bing.com>        |
+| **DuckDuckGo** | Runs search via <https://duckduckgo.com>  |
+| **DDG**        | see DuckDuckGo                            |
+| **Google**     | Runs search via <https://google.co.uk>    |
+
+**Get-OutlookCalendar** [Alias **Cal** or **Events**]
+
+Get details of your calendar appointments in your console.
+
+**Set-DisplayBrightness** [Alias **Dim**]
+
+Control screen brightness from the console.
 
 ### Thanks
 

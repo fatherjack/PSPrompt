@@ -21,10 +21,11 @@ function Prompt {
         [parameter(parametersetname = "Custom")][switch]$AddToProfile,
         [parameter(parametersetname = "Custom")][switch]$Admin,
         [parameter(parametersetname = "Custom")][switch]$Battery,
-        [parameter(ParameterSetName = "Reset")][switch]$Reset
+        [parameter(ParameterSetName = "Reset")][switch]$Reset,
+        [parameter(ParameterSetName = "Custom")][switch]$Only # reserved for future use
     )
     if ($Reset) {
-        $PromptOptions = get-item "$env:APPDATA\prompt*.ps1" | select name, LastWriteTime
+        $PromptOptions = get-item "$env:APPDATA\prompt*.ps1" | Select-Object name, LastWriteTime
         
         Write-Output "Prompt returned to original state"
         return

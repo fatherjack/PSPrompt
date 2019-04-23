@@ -29,7 +29,7 @@ function New-WebSearch {
         }
     }
     process {
-        $engine = (Get-PSCallStack).InvocationInfo.MyCommand.Definition[1] 
+        $engine = (Get-PSCallStack).InvocationInfo.MyCommand.Definition[1] # check how we called the function
         switch -Regex ($engine) {
             { $_ -match ('DDG | DuckDuckGo') } { $url = "https://duckduckgo.com/?q=$search"; break }
             { $_ -match 'Google' } { $url = "https://www.google.co.uk/search?q=$Search"; break }

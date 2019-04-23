@@ -4,7 +4,7 @@ function Push-PSPrompt {
     Worker function that builds up the prompt.ps1 file and dot sources it
     
     #>
-##    [cmdletbinding()]
+    ##    [cmdletbinding()]
     # not sure we need a parameter for this - let's read it every time from the comfig file
     # param(
     #     [parameter()]$PSPromptData

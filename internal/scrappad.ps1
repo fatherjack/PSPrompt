@@ -33,4 +33,5 @@ Write-Host "(GMT -3) `r`n" -ForegroundColor Red
 Import-Module 'C:\Users\jonallen\OneDrive\Github\PSPrompt\PSPrompt.psd1' -Verbose -Force
 
 #home laptop
-import-module 'C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1' -Verbose 
+Remove-Module psprompt
+import-module 'C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1' -Verbose -Force

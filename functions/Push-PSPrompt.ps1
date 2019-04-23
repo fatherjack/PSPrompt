@@ -4,15 +4,15 @@ function Push-PSPrompt {
     Worker function that builds up the prompt.ps1 file and dot sources it
     
     #>
-    [cmdletbinding()]
+##    [cmdletbinding()]
     # not sure we need a parameter for this - let's read it every time from the comfig file
     # param(
     #     [parameter()]$PSPromptData
     # )
     #region build up script from components
-    $PromptFile = "$WorkingFolder\MyPrompt.ps1" # the file we create with the prompt function in it
-    $ModulePath = ($env:PSModulePath -split (';'))[1] 
-    [string]$components = ("$(split-path (get-module psprompt).path[1] -Parent)\functions\components").Split(' ')# [1] # where we go hunting for code segments (the building blocks for the)
+    $PromptFile = "$WorkingFolder\MyPrompt.ps1"
+    $ModulePath = ($env:PSModulePath -split (';'))[1]
+    $components = "$(split-path (get-module psprompt | Sort-Object version -Descending | Select-Object -First 1 ).path -Parent)\functions\components" 
 
     Write-Warning $components
 
@@ -20,11 +20,11 @@ function Push-PSPrompt {
     get-content "$components\_header.txt" | Out-File $PromptFile -Force
 
     # read in the settings from the config file created in Set-PSPrompt
-    if (test-path "$WorkingFolder\PSPrompt_dev.config" ) {
-        $PSPromptData = import-Clixml -Path "$WorkingFolder\PSPrompt_dev.config" 
+    if (test-path "$WorkingFolder\PSPrompt.config" ) {
+        $PSPromptData = import-Clixml -Path "$WorkingFolder\PSPrompt.config" 
     }
     else {
-        $msg = "Unable to read config file at $WorkingFolder\PSPrompt_dev.config, check that it exists and then run Set-PSPrompt. "
+        $msg = "Unable to read config file at $WorkingFolder\PSPrompt.config, check that it exists and then run Set-PSPrompt. "
         Write-Warning $msg
     }
 
@@ -39,13 +39,14 @@ function Push-PSPrompt {
     }
 
     # complete the Prompt function in the file so that we can dot source it dreckly
-    get-content "$components\_footer.txt" | Out-File $PromptFile -Append
-    write-verbose $PromptFile
+    Get-Content "$components\_footer.txt" | Out-File $PromptFile -Append
+    Write-Verbose "PSPrompt set from invoking $PromptFile"
 
     # dot source the prompt to apply the changes
     try {  
         . $PromptFile
-        write-host "Your prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again. `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset"
+        write-host "`r`nCongratulations!! `r`nYour prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again. 
+        `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset`r`n"
     }    
     catch {
         Write-Warning "Something went wrong with applying the PSPrompt changes." 

@@ -24,6 +24,7 @@ function Set-PSPrompt {
         $PSPromptData = [ordered]@{ }
         $WorkingFolder = "$env:APPDATA\PSPrompt"
         $ConfigFile = "PSPrompt.config"
+        $ConfigFile = "PSPrompt_dev.config" # TODO:: removethis line to set correct config file
         # create working folder for module if its not there
         if (!(Test-Path $WorkingFolder)) {
             New-Item -Path $WorkingFolder -ItemType Directory

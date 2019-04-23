@@ -5,16 +5,30 @@ function Push-PSPrompt {
     
     #>
     [cmdletbinding()]
-    param(
-        [parameter()]$PSPromptData
-    )
+    # not sure we need a parameter for this - let's read it every time from the comfig file
+    # param(
+    #     [parameter()]$PSPromptData
+    # )
     #region build up script from components
-    $PromptFile = "$WorkingFolder\MyPrompt.ps1"
-    $ModulePath = ($env:PSModulePath -split (';'))[1]
-    $components = "$(split-path (get-module psprompt).path -Parent)\functions\components"
+    $PromptFile = "$WorkingFolder\MyPrompt.ps1" # the file we create with the prompt function in it
+    $ModulePath = ($env:PSModulePath -split (';'))[1] 
+    [string]$components = ("$(split-path (get-module psprompt).path[1] -Parent)\functions\components").Split(' ')# [1] # where we go hunting for code segments (the building blocks for the)
 
+    Write-Warning $components
+
+    # step one - the start of a function boiler-plate
     get-content "$components\_header.txt" | Out-File $PromptFile -Force
-            
+
+    # read in the settings from the config file created in Set-PSPrompt
+    if (test-path "$WorkingFolder\PSPrompt_dev.config" ) {
+        $PSPromptData = import-Clixml -Path "$WorkingFolder\PSPrompt_dev.config" 
+    }
+    else {
+        $msg = "Unable to read config file at $WorkingFolder\PSPrompt_dev.config, check that it exists and then run Set-PSPrompt. "
+        Write-Warning $msg
+    }
+
+    # now for each value from out hash table we need to gather the 
     switch ($PSPromptData) {
         { $_.Admin } { get-content "$components\admin.txt" | Out-File $PromptFile -Append }
         { $_.Battery } { get-content "$components\battery.txt" | Out-File $PromptFile -Append }

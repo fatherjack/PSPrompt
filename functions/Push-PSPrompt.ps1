@@ -8,12 +8,20 @@ function Push-PSPrompt {
     param(
         [parameter()]$PSPromptData
     )
+
+    $components = $null 
+
+
     #region build up script from components
     $PromptFile = "$WorkingFolder\MyPrompt.ps1"
     $ModulePath = ($env:PSModulePath -split (';'))[1]
-    $components = "$(split-path (get-module psprompt | Sort-Object version -Descending | Select-Object -First 1 ).path -Parent)\functions\components" 
 
-    get-content "$components\_header.txt" | Out-File $PromptFile -Force
+    $ModPath = (get-module psprompt | Sort-Object version -Descending | Select-Object -First 1 ).path
+    $ComponentsPath = join-path (split-path $ModPath -Parent) "functions\components"
+
+    ## $components = "$(split-path (get-module psprompt | Sort-Object version -Descending | Select-Object -First 1 ).path -Parent)\functions\components" 
+
+    get-content "$componentspath\_header.txt" | Out-File $PromptFile -Force
             
     switch ($PSPromptData) {
         { $_.Admin } { get-content "$components\admin.txt" | Out-File $PromptFile -Append }
@@ -25,7 +33,7 @@ function Push-PSPrompt {
     }
 
     # complete the Prompt function in the file so that we can dot source it dreckly
-    get-content "$components\_footer.txt" | Out-File $PromptFile -Append
+    get-content "$componentspath\_footer.txt" | Out-File $PromptFile -Append
     write-verbose $PromptFile
 
     # dot source the prompt to apply the changes

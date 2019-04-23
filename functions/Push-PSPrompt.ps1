@@ -11,7 +11,7 @@ function Push-PSPrompt {
     #region build up script from components
     $PromptFile = "$WorkingFolder\MyPrompt.ps1"
     $ModulePath = ($env:PSModulePath -split (';'))[1]
-    $components = "$(split-path (get-module psprompt).path -Parent)\functions\components"
+    $components = "$(split-path (get-module psprompt | Sort-Object version -Descending | Select-Object -First 1 ).path -Parent)\functions\components" 
 
     get-content "$components\_header.txt" | Out-File $PromptFile -Force
             

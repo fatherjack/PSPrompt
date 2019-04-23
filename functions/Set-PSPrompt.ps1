@@ -35,7 +35,7 @@ function Set-PSPrompt {
             $Date = Get-Date -Format 'yyMMdd-HHmmss'
             $filename = "$WorkingFolder\prompt_$date.ps1"
             $function:prompt | Out-File -FilePath $filename
-            write-verbose "Original prompt written out to $filename"
+            write-verbose "Original prompt written out to $filename."
         }
         #endregion
 
@@ -222,7 +222,7 @@ function Set-PSPrompt {
         }
         #endregion option 2
         
-        #region option 3
+        #region option 3 - custom choice from command line
         #endregion option 3
 
         # temporary check of file contents during development
@@ -230,7 +230,10 @@ function Set-PSPrompt {
 
         Push-PSPrompt $PSPromptData
 
-        #region option 4
+        #region option 4 - reset
+        get-item "$WorkingFolder\prompt_*.ps1"
+
+#        $OldPrompt = 
         #endregion option 4
 
         #endregion all options 

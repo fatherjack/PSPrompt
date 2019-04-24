@@ -30,3 +30,5 @@ Write-Host "`tor`t" -ForegroundColor white -NoNewline
 Write-Host "(GMT -3) `r`n" -ForegroundColor Red 
 
 Import-Module 'C:\Users\jonallen\OneDrive\Github\PSPrompt\PSPrompt.psd1' -Verbose -Force
+
+nudge

@@ -29,6 +29,9 @@ Write-Host "`r`n(GMT +1)" -ForegroundColor Green -NoNewline
 Write-Host "`tor`t" -ForegroundColor white -NoNewline
 Write-Host "(GMT -3) `r`n" -ForegroundColor Red 
 
+# work laptop
 Import-Module 'C:\Users\jonallen\OneDrive\Github\PSPrompt\PSPrompt.psd1' -Verbose -Force
 
-nudge
+#home laptop
+Remove-Module psprompt
+import-module 'C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1' -Verbose -Force

@@ -18,7 +18,3 @@ function Set-Brightness {
         $display.WmiSetBrightness(1, $Brightness)
     }
 }
-
-$c = Get-Ciminstance -Namespace root/WMI -ClassName WmiMonitorBrightness
-
-$c.PSComputerName

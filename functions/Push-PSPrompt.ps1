@@ -4,25 +4,30 @@ function Push-PSPrompt {
     Worker function that builds up the prompt.ps1 file and dot sources it
     
     #>
-    [cmdletbinding()]
-    param(
-        [parameter()]$PSPromptData
-    )
-
-    $components = $null 
-
-
+    ##    [cmdletbinding()]
+    # not sure we need a parameter for this - let's read it every time from the comfig file
+    # param(
+    #     [parameter()]$PSPromptData
+    # )
     #region build up script from components
     $PromptFile = "$WorkingFolder\MyPrompt.ps1"
     $ModulePath = ($env:PSModulePath -split (';'))[1]
 
-    $ModPath = (get-module psprompt | Sort-Object version -Descending | Select-Object -First 1 ).path
-    $ComponentsPath = join-path (split-path $ModPath -Parent) "functions\components"
+    Write-Warning $components
 
-    ## $components = "$(split-path (get-module psprompt | Sort-Object version -Descending | Select-Object -First 1 ).path -Parent)\functions\components" 
+    # step one - the start of a function boiler-plate
+    get-content "$components\_header.txt" | Out-File $PromptFile -Force
 
-    get-content "$componentspath\_header.txt" | Out-File $PromptFile -Force
-            
+    # read in the settings from the config file created in Set-PSPrompt
+    if (test-path "$WorkingFolder\PSPrompt.config" ) {
+        $PSPromptData = import-Clixml -Path "$WorkingFolder\PSPrompt.config" 
+    }
+    else {
+        $msg = "Unable to read config file at $WorkingFolder\PSPrompt.config, check that it exists and then run Set-PSPrompt. "
+        Write-Warning $msg
+    }
+
+    # now for each value from out hash table we need to gather the 
     switch ($PSPromptData) {
         { $_.Admin } { get-content "$components\admin.txt" | Out-File $PromptFile -Append }
         { $_.Battery } { get-content "$components\battery.txt" | Out-File $PromptFile -Append }
@@ -39,7 +44,8 @@ function Push-PSPrompt {
     # dot source the prompt to apply the changes
     try {  
         . $PromptFile
-        write-host "Your prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again. `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset"
+        write-host "`r`nCongratulations!! `r`nYour prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again. 
+        `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset`r`n"
     }    
     catch {
         Write-Warning "Something went wrong with applying the PSPrompt changes." 

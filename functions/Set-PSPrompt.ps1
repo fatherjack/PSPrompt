@@ -23,7 +23,7 @@ function Set-PSPrompt {
     begin {
         $PSPromptData = [ordered]@{ }
         $WorkingFolder = "$env:APPDATA\PSPrompt"
-        $ConfigFile = "PSPrompt.config"
+        $ConfigFile = "PSPrompt*.config" # TODO:: removethis line to set correct config file
         # create working folder for module if its not there
         if (!(Test-Path $WorkingFolder)) {
             New-Item -Path $WorkingFolder -ItemType Directory
@@ -35,7 +35,7 @@ function Set-PSPrompt {
             $Date = Get-Date -Format 'yyMMdd-HHmmss'
             $filename = "$WorkingFolder\prompt_$date.ps1"
             $function:prompt | Out-File -FilePath $filename
-            write-verbose "Original prompt written out to $filename"
+            write-verbose "Original prompt written out to $filename."
         }
         #endregion
 
@@ -46,7 +46,7 @@ function Set-PSPrompt {
         # 4 user wants to revert to their original prompt, prior to installing PSPrompt
     
         #region option 1 first usage of Set-Prompt so we need to collect user preference
-        if (!(test-path $ConfigFile)) {
+        if (!(test-path (join-path $WorkingFolder $ConfigFile))) {
             Clear-Host
             $msg = @()
             $msg += "Welcome to PSPrompt. It looks like this is your first time using the prompt so you need to make some choices on how you want your prompt to look."
@@ -75,7 +75,7 @@ function Set-PSPrompt {
             
             }
             # record selection into xml file
-            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt_dev.config" 
+            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt.config" 
             #endregion
 
             #region Battery
@@ -98,7 +98,7 @@ function Set-PSPrompt {
             
             }
             # record selection into xml file
-            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt_dev.config" 
+            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt.config" 
             #endregion
 
             #region Day and Date
@@ -122,7 +122,7 @@ function Set-PSPrompt {
             
             }
             # record selection into xml file
-            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt_dev.config" 
+            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt.config" 
             #endregion
 
             #region UTC offset
@@ -147,7 +147,7 @@ function Set-PSPrompt {
                 $PSPromptData.UTC_offset = $false            
             }
             # record selection into xml file
-            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt_dev.config"
+            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt.config"
             #endregion
 
             #region Fun function
@@ -175,7 +175,7 @@ function Set-PSPrompt {
                 $PSPromptData.last_command = $false            
             }
             # record selection into xml file
-            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt_dev.config"
+            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt.config"
             #endregion
         
             #region Short Path
@@ -202,7 +202,7 @@ function Set-PSPrompt {
             }
         
             # record selection into xml file
-            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt_dev.config"
+            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt.config"
             #endregion
         }
 
@@ -211,26 +211,44 @@ function Set-PSPrompt {
         #region option 2 - there is config file we can load settings from
         else {
             # load the settings 
-            $PSPromptData = Import-Clixml "$WorkingFolder\$configFile"
+
+            # a handle multiple config files
+            $ConfigFiles = get-item (join-path $WorkingFolder $configFile)   
+            if ($ConfigFiles.count -gt 1){
+                $r = read-host "There are multiple config files - which do you want to implement?" 
+                $i = 1
+                foreach ($File in $ConfigFiles) {
+                    Write-Host "$i - $File"
+                    $i++
+                } 
+                while ($LoadConfig -notin (1..$Configfiles.count) ) {
+                    Write-Host "Please select the number of the file you want to import or press Ctrl + C to cancel."
+            }     
+            }
+            $PSPromptData = Import-Clixml (join-path $WorkingFolder $configFile)
 
             # confirm to user
-            Write-Host "There is a config file that will enable the following PSPrompt features:`r`n"
-            Write-Output  $Key
+            Write-Host "This a config file that will enable the following PSPrompt features:`r`n"
+            Write-Output  $PSPromptData
             # TODO:: need to add check its OK - then move to (currently) line 230
             Push-PSPrompt $PSPromptData
 
         }
         #endregion option 2
         
-        #region option 3
+        #region option 3 - custom choice from command line
         #endregion option 3
 
         # temporary check of file contents during development
-        start-process notepad "$WorkingFolder\PSPrompt_dev.config"
+        # start-process notepad "$WorkingFolder\PSPrompt.config"
 
+        # hand over to function that reads in function sectors based on config file settings and invokes the prompt function
         Push-PSPrompt $PSPromptData
 
-        #region option 4
+        #region option 4 - reset
+        get-item "$WorkingFolder\prompt_*.ps1"
+
+#        $OldPrompt = 
         #endregion option 4
 
         #endregion all options 

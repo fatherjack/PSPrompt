@@ -18,7 +18,6 @@ function Prompt {
     #>
     
     [CmdletBinding()]
-    
     #[CmdletBinding(DefaultParameterSetName = 'Custom')]
     Param(
     #    [parameter(parametersetname = "Custom")][switch]$AddToProfile,
@@ -27,12 +26,12 @@ function Prompt {
     #    [parameter(ParameterSetName = "Reset")][switch]$Reset,
     #    [parameter(ParameterSetName = "Custom")][switch]$Only # reserved for future use
     )
-    if ($Reset) {
-        $PromptOptions = get-item "$env:APPDATA\prompt*.ps1" | Select-Object name, LastWriteTime
-        
-        Write-Output "Prompt returned to original state"
-        return
-    }
+#    if ($Reset) {
+#        $PromptOptions = get-item "$env:APPDATA\prompt*.ps1" | Select-Object name, LastWriteTime
+#        
+#        Write-Output "Prompt returned to original state"
+#        return
+#    }
     #region Show if using Administrator level account
     #if ($admin) {
     $principal = [Security.Principal.WindowsPrincipal] ([Security.Principal.WindowsIdentity]::GetCurrent())
@@ -40,7 +39,7 @@ function Prompt {
     if ($principal.IsInRole($adm)) {
         write-host -ForegroundColor "Black" -BackgroundColor "DarkRed" "[ADMIN]" -NoNewline
     }
-    "added admin"
+    # "added admin"
     #}
     #endregion
     

@@ -3,6 +3,15 @@ function Push-PSPrompt {
     .synopsis
     Worker function that builds up the prompt.ps1 file and dot sources it
     
+    .description
+    This is the function that actually applies the change to the users session
+
+    .example
+
+    no real usage exists for this but it would be called as 
+
+    Push-PSPrompt $PromptConfig
+    
     #>
     ##    [cmdletbinding()]
     # not sure we need a parameter for this - let's read it every time from the comfig file

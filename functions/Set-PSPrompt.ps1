@@ -11,13 +11,14 @@ function Set-PSPrompt {
     there are no examples at the moment
 
     #>
-    #requires -modules @{ ModuleName="PSPrompt"; ModuleVersion="0.1.0" }
+    # #requires -modules @{ ModuleName="PSPrompt"; ModuleVersion="0.1.0" }
 
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Custom')]
     Param(
         [parameter(parametersetname = "default")][switch]$AddToProfile,
         [parameter(parametersetname = "default")][switch]$Admin,
         [parameter(parametersetname = "default")][switch]$Battery,
+        # switch to reset to console prompt back to original state
         [parameter(ParameterSetName = "Reset")  ][switch]$Reset
     )
     begin {

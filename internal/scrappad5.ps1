@@ -1,6 +1,7 @@
 # thinking about adding battery drain analysis by parsing history
 
 # Past Jonathan you are an idiot - the prompt data isnt written to the history - you can see the previous values
+# middle jonathan - remember that you might be able to log battery values ever 10th command (?) and then work out drain rate
 
 get-help Get-History -showwindow
 $hist = Get-History

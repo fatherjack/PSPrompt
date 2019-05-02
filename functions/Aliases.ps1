@@ -6,5 +6,5 @@ Set-Alias -Name Ask -Value New-WebSearch
 Set-Alias -Name Bing -Value New-WebSearch 
 Set-Alias -Name Cal -Value Get-OutlookCalendar
 Set-Alias -Name Events -Value Get-OutlookCalendar 
-New-Alias -Name Dim -Value Set-Brightness
+New-Alias -Name Dim -Value Set-DisplayBrightness
 #endregion

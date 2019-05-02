@@ -23,8 +23,8 @@ function Set-PSPrompt {
     )
     begin {
         $PSPromptData = [ordered]@{ }
-        $WorkingFolder = "$env:APPDATA\PSPrompt"
-        $ConfigFile = "PSPrompt*.config" # TODO:: removethis line to set correct config file
+        new-variable -Name WorkingFolder -Value "$env:APPDATA\PSPrompt" -Option Constant
+        $ConfigFile = "PSPrompt*.config" # TODO:: remove this line to set correct config file
         # create working folder for module if its not there
         if (!(Test-Path $WorkingFolder)) {
             New-Item -Path $WorkingFolder -ItemType Directory
@@ -36,7 +36,7 @@ function Set-PSPrompt {
             $Date = Get-Date -Format 'yyMMdd-HHmmss'
             $filename = "$WorkingFolder\prompt_$date.ps1"
             $function:prompt | Out-File -FilePath $filename
-            write-verbose "Original prompt written out to $filename."
+            write-verbose "Existing prompt written out to $filename."
         }
         #endregion
 
@@ -213,26 +213,35 @@ function Set-PSPrompt {
         else {
             # load the settings 
 
-            # a handle multiple config files
+            # handle multiple config files
             $ConfigFiles = get-item (join-path $WorkingFolder $configFile)   
-            if ($ConfigFiles.count -gt 1){
-                $r = read-host "There are multiple config files - which do you want to implement?" 
+            if ($ConfigFiles.count -gt 1) { 
                 $i = 1
                 foreach ($File in $ConfigFiles) {
                     Write-Host "$i - $File"
                     $i++
                 } 
-                while ($LoadConfig -notin (1..$Configfiles.count) ) {
-                    Write-Host "Please select the number of the file you want to import or press Ctrl + C to cancel."
-            }     
-            }
-            $PSPromptData = Import-Clixml (join-path $WorkingFolder $configFile)
+                do {
+                    $LoadConfig = Read-Host "There are multiple config files - which do you want to implement?"
+                    Write-Host "Please select the number of the file you want to import, enter 'configure' to create a new prompt or press Ctrl + C to cancel."
+                } until($LoadConfig -in ((1..$Configfiles.count), 'configure' ) 
+               
+                ## TODO - need to work out how to go to configure from here. makes me wonder if this should be step 1 ...
+                    $PSPromptData = Import-Clixml $configFiles[$LoadConfig - 1]
+                }
+                else {
+                    $PSPromptData = Import-Clixml $WorkingFolder $configFiles
+                }    
+            Write-Verbose "Loading from (join-path $WorkingFolder $configFiles[$LoadConfig - 1])"
+
+            $msg = ("WorkingFolder{0}; ConfigFiles{1}" -f $WorkingFolder, $ConfigFiles)
+            Write-Verbose $msg
 
             # confirm to user
             Write-Host "This a config file that will enable the following PSPrompt features:`r`n"
             Write-Output  $PSPromptData
             # TODO:: need to add check its OK - then move to (currently) line 230
-            Push-PSPrompt $PSPromptData
+            ##Push-PSPrompt $PSPromptData
 
         }
         #endregion option 2
@@ -244,12 +253,12 @@ function Set-PSPrompt {
         # start-process notepad "$WorkingFolder\PSPrompt.config"
 
         # hand over to function that reads in function sectors based on config file settings and invokes the prompt function
-        Push-PSPrompt $PSPromptData
+ #*#*#*#       Push-PSPrompt $PSPromptData
 
         #region option 4 - reset
         get-item "$WorkingFolder\prompt_*.ps1"
 
-#        $OldPrompt = 
+        #        $OldPrompt = 
         #endregion option 4
 
         #endregion all options 

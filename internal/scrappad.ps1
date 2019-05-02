@@ -30,6 +30,7 @@ Write-Host "`tor`t" -ForegroundColor white -NoNewline
 Write-Host "(GMT -3) `r`n" -ForegroundColor Red 
 
 # work laptop
+Remove-Module psprompt
 Import-Module 'C:\Users\jonallen\OneDrive\Github\PSPrompt\PSPrompt.psd1' -Verbose -Force
 
 #home laptop

@@ -16,29 +16,31 @@ function Prompt {
     - last command  : execution duration of the last command executed
 
     #>
-    [CmdletBinding(DefaultParameterSetName = 'Custom')]
+    
+    [CmdletBinding()]
+    #[CmdletBinding(DefaultParameterSetName = 'Custom')]
     Param(
-        [parameter(parametersetname = "Custom")][switch]$AddToProfile,
-        [parameter(parametersetname = "Custom")][switch]$Admin,
-        [parameter(parametersetname = "Custom")][switch]$Battery,
-        [parameter(ParameterSetName = "Reset")][switch]$Reset,
-        [parameter(ParameterSetName = "Custom")][switch]$Only # reserved for future use
+    #    [parameter(parametersetname = "Custom")][switch]$AddToProfile,
+    #    [parameter(parametersetname = "Custom")][switch]$Admin,
+    #    [parameter(parametersetname = "Custom")][switch]$Battery,
+    #    [parameter(ParameterSetName = "Reset")][switch]$Reset,
+    #    [parameter(ParameterSetName = "Custom")][switch]$Only # reserved for future use
     )
-    if ($Reset) {
-        $PromptOptions = get-item "$env:APPDATA\prompt*.ps1" | Select-Object name, LastWriteTime
-        
-        Write-Output "Prompt returned to original state"
-        return
-    }
+#    if ($Reset) {
+#        $PromptOptions = get-item "$env:APPDATA\prompt*.ps1" | Select-Object name, LastWriteTime
+#        
+#        Write-Output "Prompt returned to original state"
+#        return
+#    }
     #region Show if using Administrator level account
-    if ($admin) {
-        $principal = [Security.Principal.WindowsPrincipal] ([Security.Principal.WindowsIdentity]::GetCurrent())
-        $adm = [Security.Principal.WindowsBuiltInRole]::Administrator
-        if ($principal.IsInRole($adm)) {
-            write-host -ForegroundColor "Black" -BackgroundColor "DarkRed" "[ADMIN]" -NoNewline
-        }
-        "added admin"
+    #if ($admin) {
+    $principal = [Security.Principal.WindowsPrincipal] ([Security.Principal.WindowsIdentity]::GetCurrent())
+    $adm = [Security.Principal.WindowsBuiltInRole]::Administrator
+    if ($principal.IsInRole($adm)) {
+        write-host -ForegroundColor "Black" -BackgroundColor "DarkRed" "[ADMIN]" -NoNewline
     }
+    # "added admin"
+    #}
     #endregion
     
     #region Battery status
@@ -60,7 +62,7 @@ function Prompt {
 
     if (!($Battery.IsCharging)) {
         $msg = $b = $extramsg = $null
-        switch ($Battery.Charge[1]) {
+        switch ($Battery.Charge[0]) {
     
             { $_ -gt 80 } {
                 $colour = "Green"
@@ -83,7 +85,7 @@ function Prompt {
                 $colour = "yellow"
             }
         }
-        $msg = ("[{0}%:{1}{2}]" -f $Battery.Charge[1], $Battery.Remaining, $EXTRAmsg )
+        $msg = ("[{0}%:{1}{2}]" -f $Battery.Charge[0], $Battery.Remaining, $EXTRAmsg )
         Write-Host -Object $msg -BackgroundColor $colour -ForegroundColor Black -NoNewline
     } 
     #endregion
@@ -100,8 +102,8 @@ function Prompt {
     $offset = $tz.BaseUtcOffset # need to place YOUR normal timezone here
     [timespan]$adjustment = 0
     # if we are in daylight saving then the offset from home will be 60 mins, not 0
-    if ($tz.id -eq $tz.daylightname) {
-        $adjustment = New-TimeSpan -minutes 60
+    if ($tz.id -eq $tz.DaylightName) {
+        $adjustment = New-TimeSpan -Minutes 60
     } 
     $fc = "white"
     $p = "GMT"
@@ -142,12 +144,12 @@ function Prompt {
                     '{0:f3}ms' -f ($d) | Write-Host  -ForegroundColor Black -NoNewline -BackgroundColor DarkGreen
                     break
                 }
-                { $_.totalminutes -lt 1 } { 
+                { $_.TotalMinutesutes -lt 1 } { 
                     [decimal]$d = $_.TotalSeconds
                     '{0:f3}s' -f ($d) | Write-Host  -ForegroundColor Black -NoNewline -BackgroundColor DarkYellow
                     break
                 }
-                { $_.totalminutes -lt 30 } { 
+                { $_.TotalMinutestes -lt 30 } { 
                     [decimal]$d = $ts.TotalMinutes
                     '{0:f3}m' -f ($d) | Write-Host  -ForegroundColor Gray -NoNewline  -BackgroundColor Red
                     break

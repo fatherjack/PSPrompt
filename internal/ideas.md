@@ -18,3 +18,14 @@ not sure what. Poss new items since last check ?
 ### calendar events
 
 upcoming today, week? (see scrappad 4)
+## every nth execution
+
+based on modulo of history ID add extra line of information.
+
+perhaps something like Git changes
+
+## warn when editing master
+
+just that - because we shouldnt be editing master. 
+BRANCH BRANCH BRANCH
+

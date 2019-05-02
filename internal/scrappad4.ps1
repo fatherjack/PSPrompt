@@ -19,6 +19,11 @@ Get-OutlookCalendar -StartTime (get-date).date -EndTime ((get-date).adddays(+7))
 .Example
 Get-OutlookCalendar -StartTime (get-date).date -EndTime ((get-date).adddays(+1)).date -verbose
 
+.Example
+Get-OutlookCalendar -Today | ft -a -Wrap
+
+This example uses the -Today switch to get information just for the current day. Output is formatted as a table
+
 .Notes
     # genesis of Outlook access from https://gallery.technet.microsoft.com/scriptcenter/af63364d-8b04-473f-9a98-b5ab37e6b024
     NAME:  Get-OutlookInbox

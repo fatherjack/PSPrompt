@@ -224,7 +224,7 @@ function Set-PSPrompt {
                 do {
                     $LoadConfig = Read-Host "There are multiple config files - which do you want to implement?"
                     Write-Host "Please select the number of the file you want to import, enter 'configure' to create a new prompt or press Ctrl + C to cancel."
-                } until($LoadConfig -in ((1..$Configfiles.count), 'configure' ) 
+                } until($LoadConfig -in ((1..$Configfiles.count), 'configure' ) )
                
                 ## TODO - need to work out how to go to configure from here. makes me wonder if this should be step 1 ...
                     $PSPromptData = Import-Clixml $configFiles[$LoadConfig - 1]

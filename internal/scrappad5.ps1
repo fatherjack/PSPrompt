@@ -1,5 +1,7 @@
 # thinking about adding battery drain analysis by parsing history
 
+# Past Jonathan you are an idiot - the prompt data isnt written to the history - you can see the previous values
+
 get-help Get-History -showwindow
 $hist = Get-History
 

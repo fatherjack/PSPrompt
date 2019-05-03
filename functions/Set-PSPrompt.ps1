@@ -41,10 +41,11 @@ function Set-PSPrompt {
         #endregion
 
         #region code route options:
-        # 1 user selection of prompt features at first execution
-        # 2 gather user preferences from a static json file if it exists
-        # 3 user overrides the json option at (1) and wants to add/remove features
-        # 4 user wants to revert to their original prompt, prior to installing PSPrompt
+        # 1 gather user preferences from a static json file if it exists
+        # 2 user overrides the json option at (1) and wants to add/remove features
+        # 3 user wants to revert to their original prompt, prior to installing PSPrompt
+        # 4 user selection of prompt features at first execution
+        
     
         #region option 1 first usage of Set-Prompt so we need to collect user preference
         if (!(test-path (join-path $WorkingFolder $ConfigFile))) {
@@ -227,11 +228,11 @@ function Set-PSPrompt {
                 } until($LoadConfig -in ((1..$Configfiles.count), 'configure' ) )
                
                 ## TODO - need to work out how to go to configure from here. makes me wonder if this should be step 1 ...
-                    $PSPromptData = Import-Clixml $configFiles[$LoadConfig - 1]
-                }
-                else {
-                    $PSPromptData = Import-Clixml $WorkingFolder $configFiles
-                }    
+                $PSPromptData = Import-Clixml $configFiles[$LoadConfig - 1]
+            }
+            else {
+                $PSPromptData = Import-Clixml $WorkingFolder $configFiles
+            }    
             Write-Verbose "Loading from (join-path $WorkingFolder $configFiles[$LoadConfig - 1])"
 
             $msg = ("WorkingFolder{0}; ConfigFiles{1}" -f $WorkingFolder, $ConfigFiles)
@@ -253,7 +254,7 @@ function Set-PSPrompt {
         # start-process notepad "$WorkingFolder\PSPrompt.config"
 
         # hand over to function that reads in function sectors based on config file settings and invokes the prompt function
- #*#*#*#       Push-PSPrompt $PSPromptData
+        #*#*#*#       Push-PSPrompt $PSPromptData
 
         #region option 4 - reset
         get-item "$WorkingFolder\prompt_*.ps1"

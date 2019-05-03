@@ -48,8 +48,8 @@ function Prompt {
     $Battery = $null
     $Battery = @{    
         IsCharging = if ($b.BatteryStatus -eq 1) { $false } else { $true }
-        Charge     = $b.EstimatedChargeRemaining
-        Remaining  = $b.EstimatedRunTime
+        Charge     = $b.EstimatedChargeRemaining.GetValue(1)
+        Remaining  = $b.EstimatedRunTime.GetValue(1)
     }
     if ($Battery.Remaining -gt 90) {
         $Battery.Remaining = "90m+"
@@ -81,11 +81,11 @@ function Prompt {
                 break
             }
             default {
-                $extramsg = "BATTERY VERY LOW :: SAVE YOUR WORK" 
+                $extramsg = "`r`nBATTERY VERY LOW :: SAVE YOUR WORK`r`n" 
                 $colour = "yellow"
             }
         }
-        $msg = ("[{0}%:{1}{2}]" -f $Battery.Charge[0], $Battery.Remaining, $EXTRAmsg )
+        $msg = ("[{0}%:{1}{2}]" -f ($Battery.Charge), ($Battery.Remaining), $EXTRAmsg )
         Write-Host -Object $msg -BackgroundColor $colour -ForegroundColor Black -NoNewline
     } 
     #endregion

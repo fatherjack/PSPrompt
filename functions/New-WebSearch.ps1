@@ -21,7 +21,7 @@ function New-WebSearch {
 
     param(
         # the search string
-        [parameter(ValueFromRemainingArguments)][string]$search
+        [parameter(ValueFromRemainingArguments=$true)][string]$search
     )
     begin {
         if ($search -eq 'gal') {

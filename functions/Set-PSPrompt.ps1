@@ -23,11 +23,11 @@ function Set-PSPrompt {
     )
     begin {
         $PSPromptData = [ordered]@{ }
-        new-variable -Name WorkingFolder -Value "$env:APPDATA\PSPrompt" -Option Constant
+        New-Variable -Name WorkingFolder -Value "$env:APPDATA\PSPrompt" -Option Constant
         $ConfigFile = "PSPrompt*.config" # TODO:: remove this line to set correct config file
         # create working folder for module if its not there
         if (!(Test-Path $WorkingFolder)) {
-            New-Item -Path $WorkingFolder -ItemType Directory
+            $null = New-Item -Path $WorkingFolder -ItemType Directory
         }
     }
     process {
@@ -94,6 +94,7 @@ function Set-PSPrompt {
         #*#*#*#       Push-PSPrompt $PSPromptData
 
         #region option 3 - reset
+        # need to show options for reset and allow for selection
         get-item "$WorkingFolder\prompt_*.ps1"
 
         #        $OldPrompt = 
@@ -257,6 +258,42 @@ function Set-PSPrompt {
         
             # record selection into xml file
             $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt.config"
+            #endregion
+
+            #region second line every Nth command
+            Clear-Host
+            $msg = $null
+            $msg += @"
+There are some things that its good to keep your eye on but you don't need to see every time you run a command.
+So, we can show you some information every few commands (default is every 5 commands). Would you like a second line to occasionally give you info
+about your Git status or perhaps additional battery information?
+"@
+            $msg += "`r`nLike this:"
+            $msg | ForEach-Object { 
+                Write-Host $_
+                start-sleep -Milliseconds 800
+            }
+
+
+            Write-Host "git status: " -ForegroundColor White -BackgroundColor Black -NoNewline
+            Write-Host "New[0] " -ForegroundColor Green -NoNewline
+            Write-Host "Mod[7] " -ForegroundColor Cyan -NoNewline
+            Write-Host "Del[1]" -ForegroundColor Red 
+            $r = read-host -Prompt "(Y)es to have this in the prompt, (N)o to give it a miss."
+            if ($r -eq "y") {
+                $PSPromptData.SecondLine = $true
+                $PSPromptData.GitStatus = $true
+            }
+            else {
+                $PSPromptData.GitStatus = $false            
+            }
+            # record selection into xml file
+            $PSPromptData | Export-Clixml -Path "$WorkingFolder\PSPrompt.config"
+
+            #endregion
+
+            #region Battery decline rate
+            # still not sure on this so leaving code in Nth command.ps1 - JA 20190503
             #endregion
         }
 

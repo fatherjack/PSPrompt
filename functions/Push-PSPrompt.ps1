@@ -22,7 +22,7 @@ function Push-PSPrompt {
     $PromptFile = "$WorkingFolder\MyPrompt.ps1"
     $ModulePath = ($env:PSModulePath -split (';'))[1]
 
-    Write-Warning $components
+    ####Write-Warning $components
 
     # step one - the start of a function boiler-plate
     get-content "$components\_header.txt" | Out-File $PromptFile -Force
@@ -36,7 +36,8 @@ function Push-PSPrompt {
         Write-Warning $msg
     }
 
-    # now for each value from out hash table we need to gather the 
+    # now for each value from our hash table we need to gather the script component
+    # firstly - components in the permanent prompt line 
     switch ($PSPromptData) {
         { $_.Admin } { get-content "$components\admin.txt" | Out-File $PromptFile -Append }
         { $_.Battery } { get-content "$components\battery.txt" | Out-File $PromptFile -Append }
@@ -45,6 +46,12 @@ function Push-PSPrompt {
         { $_.last_command } { get-content "$components\last_command.txt" | Out-File $PromptFile -Append }
         { $_.shortpath } { get-content "$components\shortpath.txt" | Out-File $PromptFile -Append }
     }
+    # then the second prompt line that is shown occasionally
+    If ($PSPromptData.SecondLine) {
+        switch ($PSPromptData) {
+            { $_.GitStatus } { get-content "$components\shortpath.txt" | Out-File $PromptFile -Append })
+    }
+
 
     # complete the Prompt function in the file so that we can dot source it dreckly
     get-content "$componentspath\_footer.txt" | Out-File $PromptFile -Append

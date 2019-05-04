@@ -11,7 +11,8 @@ if ($Git) {
         Write-Host "*WARNING : Working in MASTER.*" -ForegroundColor Yellow -BackgroundColor Red -NoNewline 
     } 
     else { 
-        Write-Host "$r[0]" -ForegroundColor Blue -BackgroundColor Black -NoNewline 
+        $msg = $r[0] -replace "  ", "`r`n"
+        Write-Host $msg -ForegroundColor Blue -BackgroundColor Black -NoNewline 
     } 
     Write-Host " New[$NewFiles] " -ForegroundColor Green -BackgroundColor Black -NoNewline
     Write-Host " Mod[$ModFiles] " -ForegroundColor DarkCyan -BackgroundColor Black -NoNewline

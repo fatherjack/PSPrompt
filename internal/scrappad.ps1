@@ -40,8 +40,8 @@ Remove-Module psprompt
 import-module 'C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1' -Verbose -Force
 
 #home surface
+
 remove-module PSPrompt
 import-module C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\PSPrompt.psd1 -verbose -force
-
 
 

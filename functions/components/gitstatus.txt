@@ -8,11 +8,11 @@ if ($Git) {
 
     Write-Host "git status: " -ForegroundColor White -BackgroundColor Black -NoNewline
     if (($Branch -eq "On branch master") -and (($NewFiles + $ModFiles + $DelFiles) -ne 0)) {
-        Write-Host "*WARNING : Working in MASTER.*" -ForegroundColor Yellow -BackgroundColor Red -NoNewline 
+        Write-Host "*WARNING : Working in MASTER.*" -ForegroundColor Yellow -BackgroundColor Red
     } 
     else { 
-        $msg = $r[0] -replace "  ", "`r`n"
-        Write-Host $msg -ForegroundColor Blue -BackgroundColor Black -NoNewline 
+        $msg = $r -replace "  ", "`r`n"
+        Write-Host $msg -ForegroundColor Blue -BackgroundColor Black
     } 
     Write-Host " New[$NewFiles] " -ForegroundColor Green -BackgroundColor Black -NoNewline
     Write-Host " Mod[$ModFiles] " -ForegroundColor DarkCyan -BackgroundColor Black -NoNewline

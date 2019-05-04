@@ -1,7 +1,7 @@
 function Push-PSPrompt {
     <#
     .synopsis
-    Worker function that builds up the prompt.ps1 file and dot sources it
+    Worker function that builds up the MyPrompt.ps1 file and dot sources it to apply selecgted changes
     
     .description
     This is the function that actually applies the change to the users session
@@ -10,7 +10,7 @@ function Push-PSPrompt {
 
     no real usage exists for this but it would be called as 
 
-    Push-PSPrompt $PromptConfig
+    Push-PSPrompt
     
     #>
     ##    [cmdletbinding()]
@@ -39,12 +39,13 @@ function Push-PSPrompt {
         get-content "$components\_header.txt" | Out-File $PromptFile -Force
 
         # read in the settings from the config file created in Set-PSPrompt
-        if (test-path "$WorkingFolder\PSPrompt.config" ) {
-            $PSPromptData = import-Clixml -Path "$WorkingFolder\PSPrompt.config" 
+    if (!(test-path "$WorkingFolder\PSPrompt.config" ) {
+            $msg = "Unable to read config file at $WorkingFolder\PSPrompt.config, check that it exists or run Set-PSPrompt. "
+            Write-Warning $msg
+            return
         }
         else {
-            $msg = "Unable to read config file at $WorkingFolder\PSPrompt.config, check that it exists and then run Set-PSPrompt. "
-            Write-Warning $msg
+            $PSPromptData = Import-Clixml -Path "$WorkingFolder\PSPrompt.config" 
         }
 
         # now for each value from our hash table we need to gather the script component
@@ -62,7 +63,6 @@ function Push-PSPrompt {
             switch ($PSPromptData) {
                 { $_.GitStatus } { get-content "$components\shortpath.txt" | Out-File $PromptFile -Append }
             }
-
 
             # complete the Prompt function in the file so that we can dot source it dreckly
             get-content "$components\_footer.txt" | Out-File $PromptFile -Append

@@ -14,17 +14,17 @@ Function Get-OutlookCalendar {
     results into a variable, and using that.
 
     .Example
-Get-OutlookCalendar -StartTime (get-date).date -EndTime ((get-date).adddays(+7)).date
+    Get-OutlookCalendar -StartTime (get-date).date -EndTime ((get-date).adddays(+7)).date
 
-.Example
-Get-OutlookCalendar -StartTime (get-date).date -EndTime ((get-date).adddays(+1)).date -verbose
+    .Example
+    Get-OutlookCalendar -StartTime (get-date).date -EndTime ((get-date).adddays(+1)).date -verbose
 
-.Example
-Get-OutlookCalendar -Today | ft -a -Wrap
+    .Example
+    Get-OutlookCalendar -Today | ft -a -Wrap
 
-This example uses the -Today switch to get information just for the current day. Output is formatted as a table
+    This example uses the -Today switch to get information just for the current day. Output is formatted as a table
 
-.Notes
+    .Notes
     # genesis of Outlook access from https://gallery.technet.microsoft.com/scriptcenter/af63364d-8b04-473f-9a98-b5ab37e6b024
     NAME:  Get-OutlookInbox
     AUTHOR: ed wilson, msft
@@ -59,7 +59,7 @@ This example uses the -Today switch to get information just for the current day.
     begin {
         Write-Verbose "command is : $command"
         Write-Verbose " folder items : $(($script:eventsfolder).count) "
-        Add-type -assembly "Microsoft.Office.Interop.Outlook" | out-null
+        $null = Add-type -assembly "Microsoft.Office.Interop.Outlook" 
         $olFolders = "Microsoft.Office.Interop.Outlook.olDefaultFolders" -as [type]
         $outlook = new-object -comobject outlook.application
         $namespace = $outlook.GetNameSpace("MAPI")
@@ -73,8 +73,6 @@ This example uses the -Today switch to get information just for the current day.
             $StartTime = (get-date).Date 
             $EndTime = ((get-date).AddDays(+7)).date        
         } 
-
-
     }
     process {
         $script:eventsfolder.items | Where-Object { $_.start -gt $StartTime -and $_.start -lt $EndTime } | Select-Object subject, start, end, busystatus, @{name = 'Duration'; expression = { "*" * (New-TimeSpan -Start $_.start -End $_.end).TotalHours } }

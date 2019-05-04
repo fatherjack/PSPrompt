@@ -65,7 +65,7 @@ function Push-PSPrompt {
 
 
             # complete the Prompt function in the file so that we can dot source it dreckly
-            get-content "$componentspath\_footer.txt" | Out-File $PromptFile -Append
+            get-content "$components\_footer.txt" | Out-File $PromptFile -Append
             write-verbose $PromptFile
 
             # dot source the prompt to apply the changes

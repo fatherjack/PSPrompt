@@ -7,7 +7,7 @@ if ($Git) {
     $Branch = $r[0]
 
     Write-Host "git status: " -ForegroundColor White -BackgroundColor Black -NoNewline
-    if (($Branch -eq "On branch master") -and ($NewFiles + $ModFiles + $DelFiles -ne 0)) {
+    if (($Branch -eq "On branch master") -and (($NewFiles + $ModFiles + $DelFiles) -ne 0)) {
         Write-Host "*WARNING : Working in MASTER.*" -ForegroundColor Yellow -BackgroundColor Red -NoNewline 
     } 
     else { 

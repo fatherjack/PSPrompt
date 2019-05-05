@@ -36,11 +36,11 @@ Remove-Module psprompt
 Import-Module 'C:\Users\jonallen\OneDrive\Github\PSPrompt\PSPrompt.psd1' -Verbose -Force
 
 #home laptop
-Remove-Module psprompt
+if(get-module psprompt) { Remove-Module psprompt }
 import-module 'C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1' -Verbose -Force
+#C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1
 
 #home surface
-
 remove-module PSPrompt
 import-module C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\PSPrompt.psd1 -verbose -force
 

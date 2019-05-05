@@ -1,2 +1,4 @@
+# PowerShell prompt configured by PSPrompt.
+# www.github.com/fatherjack/psprompt
     "> "
 }

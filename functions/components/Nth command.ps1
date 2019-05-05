@@ -3,8 +3,6 @@
 if ((Get-History -Count 1).ID % 5 -eq 0) {
     if ($BatteryHistory -or $Git) {
         #region Git status every Nth command
-        if ($Git) {
-        
             $r = git status
             $NewFiles = ($r -match 'new file:').count
             $ModFiles = ($r -match 'modified:').count
@@ -17,11 +15,10 @@ if ((Get-History -Count 1).ID % 5 -eq 0) {
             Write-Host " New[$NewFiles] " -ForegroundColor Green -BackgroundColor Black -NoNewline
             Write-Host " Mod[$ModFiles] " -ForegroundColor DarkCyan -BackgroundColor Black -NoNewline
             Write-Host " Del[$DelFiles] " -ForegroundColor Red -BackgroundColor Black 
-        }
         #endregion
 
         #region BatteryHistory 
-        if ($BatteryHistory) {
+        if ($BatteryHistory) { # not live yet so being kept apart
             #region BatteryHistory logging
             $b = (Get-CimInstance -ClassName CIM_Battery)
             Write-PSPLog -Message "$($b.EstimatedChargeRemaining)" -Source "BatteryPct"
@@ -46,7 +43,8 @@ if ((Get-History -Count 1).ID % 5 -eq 0) {
             $PowerLoss = ($Drain[1].message - $Drain[0].message) / $Duration.TotalMinutes # Percent loss per minute
             write-verbose ("Battery % loss per min {0:N1}" -f $PowerLoss)
             $msg ="[{0:N0}m]" -f ($Battery.Charge / $PowerLoss)
-Write-Host $msg
+
+            Write-Host $msg
             #endregion
         }
         #endregion    

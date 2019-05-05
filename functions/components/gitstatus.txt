@@ -1,5 +1,5 @@
 #region Git status every Nth command
-if ($Git) {
+
     $r = git status
     $NewFiles = ($r -match 'new file:').count
     $ModFiles = ($r -match 'modified:').count
@@ -8,7 +8,7 @@ if ($Git) {
 
     Write-Host "git status: " -ForegroundColor White -BackgroundColor Black -NoNewline
     if (($Branch -eq "On branch master") -and (($NewFiles + $ModFiles + $DelFiles) -ne 0)) {
-        Write-Host "*WARNING : Working in MASTER.*" -ForegroundColor Yellow -BackgroundColor Red
+        Write-Host "*WARNING : Working in MASTER.*" -ForegroundColor Black -BackgroundColor Red
     } 
     else { 
         $msg = $r -replace "  ", "`r`n"
@@ -17,5 +17,5 @@ if ($Git) {
     Write-Host " New[$NewFiles] " -ForegroundColor Green -BackgroundColor Black -NoNewline
     Write-Host " Mod[$ModFiles] " -ForegroundColor DarkCyan -BackgroundColor Black -NoNewline
     Write-Host " Del[$DelFiles] " -ForegroundColor Red -BackgroundColor Black 
-}
+
 #endregion

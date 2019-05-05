@@ -279,7 +279,7 @@ about your Git status or perhaps additional battery information?
             Write-Host "New[0] " -ForegroundColor Green -NoNewline
             Write-Host "Mod[7] " -ForegroundColor Cyan -NoNewline
             Write-Host "Del[1]" -ForegroundColor Red 
-            $r = read-host -Prompt "(Y)es to have this in the prompt, (N)o to give it a miss."
+            $r = read-host -Prompt "(Y)es to have this occasionally in your prompt, (N)o to give it a miss."
             if ($r -eq "y") {
                 $PSPromptData.SecondLine = $true
                 $PSPromptData.GitStatus = $true

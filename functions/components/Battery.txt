@@ -17,7 +17,7 @@
 
     if (!($Battery.IsCharging)) {
         $msg = $b = $extramsg = $null
-        switch ($Battery.Charge[1]) {
+        switch ($Battery.Charge) {
     
             { $_ -gt 80 } {
                 $colour = "Green"

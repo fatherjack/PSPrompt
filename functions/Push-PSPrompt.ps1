@@ -37,7 +37,7 @@ function Push-PSPrompt {
         # step one - the start of a function boiler-plate
         get-content "$components\_header.txt" | Out-File $PromptFile -Force
 
-        # read in the settings from the config file created in Set-PSPrompt
+        # next read in the settings from the config file created in Set-PSPrompt
         if (!(test-path "$WorkingFolder\PSPrompt.config" )) {
             $msg = "Unable to read config file at $WorkingFolder\PSPrompt.config, check that it exists or run Set-PSPrompt. "
             Write-Warning $msg
@@ -47,9 +47,9 @@ function Push-PSPrompt {
             $PSPromptData = Import-Clixml -Path "$WorkingFolder\PSPrompt.config" 
         }
 
-        # now for each value from our hash table we need to gather the script component
+        # now for each value from our hash table where True means we need to gather the script component to build up the prompt
         
-        #region firstly the second prompt line that is shown occasionally
+        #region first to build is the 'second' prompt line that is shown occasionally above the prompt
         If ($PSPromptData.SecondLine) {
             # add header of Nth command
             get-content "$components\NthCommandHeader.txt" | Out-File $PromptFile -Force -Append
@@ -59,11 +59,10 @@ function Push-PSPrompt {
             }
             # add footer of Nth command
             get-content "$components\NthCommandFooter.txt" | Out-File $PromptFile -Force -Append
-
         }
         #endregion
 
-        #region - all the components in the permanent prompt line 
+        #region - now, all the components selected to be shown in the permanent prompt line 
         switch ($PSPromptData) {
             { $_.Admin } { get-content "$components\admin.txt" | Out-File $PromptFile -Append }
             { $_.Battery } { get-content "$components\battery.txt" | Out-File $PromptFile -Append }
@@ -78,8 +77,8 @@ function Push-PSPrompt {
         get-content "$components\_footer.txt" | Out-File $PromptFile -Append
         write-verbose $PromptFile
 
-        #region apply the prompt to the current session
-        # dot source the prompt to apply the changes
+        #region Final step is now to apply the prompt to the current session
+        # dot source the prompt function to apply the changes
         try {  
             . $PromptFile
             write-host "`r`nCongratulations!! `r`nYour prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again. 

@@ -65,7 +65,7 @@ Function Get-OutlookCalendar {
         $namespace = $outlook.GetNameSpace("MAPI")
         $script:eventsfolder = $namespace.getDefaultFolder($olFolders::olFolderCalendar)
 
-        $msg = "Getting you outlook calendar takes about 12s ..."
+        $msg = "Getting you outlook calendar takes a few seconds ..."
         Write-Host $msg 
 
         # just todays events

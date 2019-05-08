@@ -45,3 +45,6 @@ remove-module PSPrompt
 import-module C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\PSPrompt.psd1 -verbose -force
 
 
+function prompt { "$pwd>" }
+
+code $PromptFile

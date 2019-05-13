@@ -10,18 +10,26 @@ if ((Get-History -Count 1).ID % 5 -eq 0) {
     $NewFiles = $status -match "New:"
     $ModFiles = $status -match "modified:"
     $DelFiles = $status -match "deleted:"
-    $Pull = if ($status -match "git pull") { $true }
-    $Push = if ($status -match "git push") { $true }
-    if ($Pull) { $AhdFiles = ($status -match "\d+ commit") } else { $AhdFiles = $false }
-    if ($Push) { $BhdFiles = ($status -match "\d+ commit") } else { $BhdFiles = $false }
-    
-    $AhdFiles
-    $BhdFiles
 
-    write-host "Git: "      -NoNewline
-    write-host "New $($NewFiles.Count); " -NoNewline
-    write-host "Mod $($ModFiles.Count); " -NoNewline
-    write-host "Del $($DelFiles.Count)"   
+
+
+    $msg = $null
+    if ($status -match "git pull") { 
+        $msg = ($status -match "\d+ commit")
+        $msg += "`nYou should git pull soon" 
+    }
+    if ($status -match "git push") { 
+        $msg = ($status -match "\d+ commit")
+        $msg += "`nYou should git push soon" 
+    } 
+    
+    Write-Host "Git: " -NoNewline
+    Write-Host "New[$($NewFiles.Count)] " -NoNewline
+    Write-Host "Mod[$($ModFiles.Count)] " -NoNewline
+    Write-Host "Del[$($DelFiles.Count)]"
+    if ($msg) {
+        Write-Host "$msg"
+    }
     
 }
 <#

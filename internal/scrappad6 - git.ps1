@@ -10,6 +10,13 @@ if ((Get-History -Count 1).ID % 5 -eq 0) {
     $NewFiles = $status -match "New:"
     $ModFiles = $status -match "modified:"
     $DelFiles = $status -match "deleted:"
+    $Pull = if ($status -match "git pull") { $true }
+    $Push = if ($status -match "git push") { $true }
+    if ($Pull) { $AhdFiles = ($status -match "\d+ commit") } else { $AhdFiles = $false }
+    if ($Push) { $BhdFiles = ($status -match "\d+ commit") } else { $BhdFiles = $false }
+    
+    $AhdFiles
+    $BhdFiles
 
     write-host "Git: "      -NoNewline
     write-host "New $($NewFiles.Count); " -NoNewline
@@ -18,6 +25,7 @@ if ((Get-History -Count 1).ID % 5 -eq 0) {
     
 }
 <#
+git status | set-clipboard
 if remote has changes we dont
 (use "git pull" to merge the remote branch into yours)
 

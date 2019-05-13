@@ -17,3 +17,10 @@ if ((Get-History -Count 1).ID % 5 -eq 0) {
     write-host "Del $($DelFiles.Count)"   
     
 }
+<#
+if remote has changes we dont
+(use "git pull" to merge the remote branch into yours)
+
+if we have changes that needs to go to the remote
+(use "git push" to publish your local commits)
+#>

@@ -11,8 +11,6 @@ if ((Get-History -Count 1).ID % 5 -eq 0) {
     $ModFiles = $status -match "modified:"
     $DelFiles = $status -match "deleted:"
 
-
-
     $msg = $null
     if ($status -match "git pull") { 
         $msg = ($status -match "\d+ commit")

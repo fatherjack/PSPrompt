@@ -8,14 +8,27 @@
 
     Write-Host "git status: " -ForegroundColor White -BackgroundColor Black -NoNewline
     if (($Branch -eq "On branch master") -and (($NewFiles + $ModFiles + $DelFiles) -ne 0)) {
-        Write-Host "*WARNING : Working in MASTER.*" -ForegroundColor Black -BackgroundColor Red
+        write-host "WARNING YOU ARE EDITING MASTER. STOP IT. YOU SHOULD BRANCH BEFORE YOU EDIT" -ForegroundColor Black -BackgroundColor Red
     } 
     else { 
         $msg = $r -replace "  ", "`r`n"
         Write-Host $msg -ForegroundColor Blue -BackgroundColor Black
     } 
+    
+    $msg = $null
+    if ($status -match "git pull") { 
+        $msg = ($status -match "\d+ commit")
+        $msg += "`nYou should git pull soon" 
+    }
+    if ($status -match "git push") { 
+        $msg = ($status -match "\d+ commit")
+        $msg += "`nYou should git push soon" 
+    } 
     Write-Host " New[$NewFiles] " -ForegroundColor Green -BackgroundColor Black -NoNewline
     Write-Host " Mod[$ModFiles] " -ForegroundColor DarkCyan -BackgroundColor Black -NoNewline
     Write-Host " Del[$DelFiles] " -ForegroundColor Red -BackgroundColor Black 
+    if ($msg) {
+        Write-Host "$msg"
+    }
 
 #endregion

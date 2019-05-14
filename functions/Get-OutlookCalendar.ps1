@@ -67,7 +67,7 @@ Function Get-OutlookCalendar {
 
         $msg = "Getting you outlook calendar takes a few seconds ..."
         Write-Host $msg 
-
+$today = $true
         # just todays events
         if ($Today) {
             $StartTime = (get-date).Date 
@@ -78,17 +78,25 @@ Function Get-OutlookCalendar {
             $StartTime = (get-date).Date 
             $EndTime = ((get-date).AddDays(+7)).date        
         } 
+        $BusyStatus = @{
+            0 = "Free"
+            1 = "Tentative"
+            2 = "Busy"
+            3 = "Out of Office"
+            4 = "Working away"
+        }
     }
     process {
         # actually go and get the calendar events for the chosen period
-        $cal = $script:eventsfolder.items | Where-Object { $_.start -gt $StartTime -and $_.start -lt $EndTime } | Select-Object subject, start, end, busystatus, @{name = 'Duration'; expression = { "*" * (New-TimeSpan -Start $_.start -End $_.end).TotalHours } }
+        $cal = $script:eventsfolder.items | 
+            Where-Object { $_.start -gt $StartTime -and $_.start -lt $EndTime } | 
+                Select-Object subject, start, end, busystatus, @{name = 'Duration'; expression = { "*" * (New-TimeSpan -Start $_.start -End $_.end).TotalHours } }
         if ($cal.count -eq 0) {
             Write-Output "Nothing in your calendar"
         }
         else {
-            $cal
+            $cal | Select-Object Subject, Start, End, @{name = "Busy status"; expression = { $BusyStatus[$_.busystatus]} }, Duration
         }
-        
     }
     end { }
 } #end function 

@@ -24,7 +24,7 @@ function Push-PSPrompt {
         $child = "\functions\components"
         write-verbose $path
         write-verbose $child
-        $components = (Join-Path -path $Path -ChildPath $child)
+        $components = (Join-Path -path $Path -ChildPath $child -Resolve)
 
     }
     process { 
@@ -75,6 +75,7 @@ function Push-PSPrompt {
         #region Final step is now to apply the prompt to the current session
         # dot source the prompt function to apply the changes
         try {  
+            Write-Verbose "Dot sourcing $Promptfile"
             . $PromptFile
             write-host "`r`nCongratulations!! `r`nYour prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again. 
         `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset`r`n"

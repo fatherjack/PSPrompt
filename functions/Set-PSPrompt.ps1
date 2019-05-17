@@ -11,9 +11,9 @@ function Set-PSPrompt {
     there are no examples at the moment
 
     #>
-    # #requires -modules @{ ModuleName="PSPrompt"; ModuleVersion="0.1.0" }
-
+    
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Custom')]
+
     Param(
         [parameter(parametersetname = "default")][switch]$AddToProfile,
         [parameter(parametersetname = "default")][switch]$Admin,
@@ -32,12 +32,12 @@ function Set-PSPrompt {
     }
     process {
         #region preserve the original prompt so that it can be reset if so desired
-        if ($pscmdlet.ShouldProcess("Preserving original prompt")) {
-            $Date = Get-Date -Format 'yyMMdd-HHmmss'
-            $filename = "$WorkingFolder\prompt_$date.ps1"
-            $function:prompt | Out-File -FilePath $filename
-            write-verbose "Existing prompt written out to $filename."
-        }
+        Write-Verbose "Preserving original prompt"
+        $Date = Get-Date -Format 'yyMMdd-HHmmss'
+        $filename = "$WorkingFolder\prompt_$date.ps1"
+        $function:prompt | Out-File -FilePath $filename
+        Write-Verbose "Existing prompt written out to $filename."
+        
         #endregion
 
         #region code route options:
@@ -48,40 +48,39 @@ function Set-PSPrompt {
     
     
         #region option 1 - there is config file we can load settings from
-        else {
-            # load the settings 
+        
+        # load the settings 
 
-            # handle multiple config files
-            $ConfigFiles = get-item (join-path $WorkingFolder $configFile)   
-            if ($ConfigFiles.count -gt 1) { 
-                $i = 1
-                foreach ($File in $ConfigFiles) {
-                    Write-Host "$i - $File"
-                    $i++
-                } 
-                do {
-                    $LoadConfig = Read-Host "There are multiple config files - which do you want to implement?"
-                    Write-Host "Please select the number of the file you want to import, enter 'configure' to create a new prompt or press Ctrl + C to cancel."
-                } until($LoadConfig -in ((1..$Configfiles.count), 'configure' ) )
+        # handle multiple config files
+        $ConfigFiles = get-item (join-path $WorkingFolder $configFile)   
+        if ($ConfigFiles.count -gt 1) { 
+            $i = 1
+            foreach ($File in $ConfigFiles) {
+                Write-Host "$i - $File"
+                $i++
+            } 
+            do {
+                $LoadConfig = Read-Host "There are multiple config files - which do you want to implement?"
+                Write-Host "Please select the number of the file you want to import, enter 'configure' to create a new prompt or press Ctrl + C to cancel."
+            } until($LoadConfig -in ((1..$Configfiles.count), 'configure' ) )
                
-                ## TODO - need to work out how to go to configure from here. makes me wonder if this should be step 1 ...
-                $PSPromptData = Import-Clixml $configFiles[$LoadConfig - 1]
-            }
-            else {
-                $PSPromptData = Import-Clixml $WorkingFolder $configFiles
-            }    
-            Write-Verbose "Loading from (join-path $WorkingFolder $configFiles[$LoadConfig - 1])"
-
-            $msg = ("WorkingFolder{0}; ConfigFiles{1}" -f $WorkingFolder, $ConfigFiles)
-            Write-Verbose $msg
-
-            # confirm to user
-            Write-Host "This a config file that will enable the following PSPrompt features:`r`n"
-            Write-Output  $PSPromptData
-            # TODO:: need to add check its OK - then move to (currently) line 230
-            ##Push-PSPrompt $PSPromptData
-
+            ## TODO - need to work out how to go to configure from here. makes me wonder if this should be step 1 ...
+            $PSPromptData = Import-Clixml $configFiles[$LoadConfig - 1]
         }
+        else {
+            $PSPromptData = Import-Clixml $configFiles
+        }    
+        Write-Verbose "Loading from (join-path $WorkingFolder $configFiles[$LoadConfig - 1])"
+
+        $msg = ("WorkingFolder{0}; ConfigFiles{1}" -f $WorkingFolder, $ConfigFiles)
+        Write-Verbose $msg
+
+        # confirm to user
+        Write-Host "This a config file that will enable the following PSPrompt features:`r`n"
+        Write-Output  $PSPromptData
+        # TODO:: need to add check its OK - then move to (currently) line 230
+        ##Push-PSPrompt $PSPromptData
+
         #endregion option 1
         
         #region option 2 - custom choice from command line
@@ -95,12 +94,13 @@ function Set-PSPrompt {
 
         #region option 3 - reset
         # need to show options for reset and allow for selection
-        get-item "$WorkingFolder\prompt_*.ps1"
-
+        
+        # need to put test for $Reset ahead of other steps to avoid choosing something else before being reset
+        #    get-item "$WorkingFolder\prompt_*.ps1"
         #        $OldPrompt = 
         #endregion option 3
 
-        #region option 4 first usage of Set-Prompt so we need to collect user preference
+        #region option 4 That means we are at first usage of Set-Prompt so we need to collect user preference
         if (!(test-path (join-path $WorkingFolder $ConfigFile))) {
             Clear-Host
             $msg = @()

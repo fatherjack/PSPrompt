@@ -8,17 +8,12 @@ function Push-PSPrompt {
 
     .example
 
-    no real usage exists for this but it would be called as 
+    no real usage exists for this as it should be executed from Set-PsPrompt but it would be called as 
 
     Push-PSPrompt
     
     #>
-    ##    [cmdletbinding()]
-    # not sure we need a parameter for this - let's read it every time from the comfig file
-    # param(
-    #     [parameter()]$PSPromptData
-    # )
-
+    
     #region build up script from components
     begin {
         New-Variable -Name WorkingFolder -Value "$env:APPDATA\PSPrompt" -Option Constant
@@ -31,6 +26,8 @@ function Push-PSPrompt {
         write-verbose $child
         $components = (Join-Path -path $Path -ChildPath $child)
 Write-Debug "" # used as a stop line for review of variable assignment during debug
+        $components = (Join-Path -path $Path -ChildPath $child -Resolve)
+
     }
     process { 
 
@@ -80,12 +77,14 @@ Write-Debug "" # used as a stop line for review of variable assignment during de
         #region Final step is now to apply the prompt to the current session
         # dot source the prompt function to apply the changes
         try {  
+            Write-Verbose "Dot sourcing $Promptfile"
             . $PromptFile
             write-host "`r`nCongratulations!! `r`nYour prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again. 
         `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset`r`n"
         }    
         catch {
             Write-Warning "Something went wrong with applying the PSPrompt changes." 
+            Write-Warning "Try running <. $PromptFile>"
         }
         #endregion
     }

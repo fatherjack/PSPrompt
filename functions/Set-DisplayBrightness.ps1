@@ -14,14 +14,23 @@ function Set-DisplayBrightness {
 
     This example shows the current brightness value in percent
     
+    .Example
+    Dim 75
+
+    This example sets the brightness to 75 using the function alias     
     #>
-    param(# supply the desired brightness as an intger from 1 to 100
-        [parameter()][int]$Brightness = 75, 
+    [alias('dim')]
+    [cmdletbinding()] 
+    param(# supply the desired brightness as an integer from 1 to 100
+        [parameter()]
+        [validaterange(1, 100)]
+        [int]$Brightness = 75, 
         # use this parameter to get the current brightness
         [parameter()][switch]$Report 
     )
+    
     if ($Report) {
-        (Get-Ciminstance -Namespace root/WMI -ClassName WmiMonitorBrightness).CurrentBrightness
+        (Get-CimInstance -Namespace root/WMI -ClassName WmiMonitorBrightness).CurrentBrightness
     }
     else {
         $display = Get-WmiObject -Namespace root\wmi -Class WmiMonitorBrightnessMethods

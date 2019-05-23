@@ -35,7 +35,7 @@ Function Get-OutlookCalendar {
    .Link
      Http://www.ScriptingGuys.com/blog
  #>
- 
+[alias('cal','event')]
     [cmdletbinding(DefaultParameterSetName = "Today")]
     param(
         [Parameter(ParameterSetName = "StartEnd",

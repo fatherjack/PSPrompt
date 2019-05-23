@@ -6,29 +6,30 @@ function New-WebSearch {
         Quick search the internet for content
 
         .DESCRIPTION
-        see short synopsis
+        Access your preferred search engine directly from your powershell console
 
         .PARAMETER search
         provide the search string and the search engine
 
         .EXAMPLE
-        new-websearch -engine google -search 'kitten gifs'
+        New-WebSsearch -engine google -search 'kitten gifs'
 
         Searches google for gifs of kittens
         .NOTES
         n/a
     #>
-
+    [alias('Google','DuckDuckGo','DDG','Ask','Bing')]
+    [cmdletbinding()]
     param(
         # the search string
         [parameter(ValueFromRemainingArguments=$true)][string]$search
     )
-    begin {
+    # begin {
         if ($search -eq 'gal') {
-            $search = 'https://www.powershellgallery.com/'
+            $url = 'https://www.powershellgallery.com/'
         }
-    }
-    process {
+    # }
+    # process {
         $engine = (Get-PSCallStack).InvocationInfo.MyCommand.Definition[1] # check how we called the function
         switch -Regex ($engine) {
             { $_ -match ('DDG | DuckDuckGo') } { $url = "https://duckduckgo.com/?q=$search"; break }
@@ -38,5 +39,5 @@ function New-WebSearch {
             default { $url = "https://www.bing.com/search?q=$Search" }
         }    
         Start-Process $url
-    }    
+    # }    
 }

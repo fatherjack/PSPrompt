@@ -2,7 +2,7 @@ function New-OutlookCalendar {
     <#
     .synopsis
     command line Outlook calendar event creation
-    
+
     .description
     Quickly and easily add meetings and reminders to your Outlook calendar via your keyboard without leaving your PowerShell host
 
@@ -13,7 +13,7 @@ function New-OutlookCalendar {
 
     .example
     New-OutlookCalendar -Start (get-date -date ((get-date).ToShortDateString())).AddHours(18) -Subject "After work drinks" -Status 'Busy' -duration 180
-    
+
     This example create a 3 hour event in the calendar at 18:00 today with a subject of "After work drinks" with a reminder
     .link
     olItems <https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.olitemtype?view=outlook-pia>
@@ -39,9 +39,9 @@ function New-OutlookCalendar {
         [switch]$NoReminder
     )
 
-    begin { 
-    
-        $null = Add-type -assembly "Microsoft.Office.Interop.Outlook" 
+    begin {
+
+        $null = Add-type -assembly "Microsoft.Office.Interop.Outlook"
         $olFolders = "Microsoft.Office.Interop.Outlook.olDefaultFolders" -as [type]
         $outlook = new-object -comobject outlook.application
         $namespace = $outlook.GetNameSpace("MAPI")

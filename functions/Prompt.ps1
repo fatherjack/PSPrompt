@@ -16,7 +16,7 @@ function Prompt {
     - last command  : execution duration of the last command executed
 
     #>
-    
+
     [CmdletBinding()]
     #[CmdletBinding(DefaultParameterSetName = 'Custom')]
     Param(
@@ -28,7 +28,7 @@ function Prompt {
     )
 #    if ($Reset) {
 #        $PromptOptions = get-item "$env:APPDATA\prompt*.ps1" | Select-Object name, LastWriteTime
-#        
+#
 #        Write-Output "Prompt returned to original state"
 #        return
 #    }
@@ -42,11 +42,11 @@ function Prompt {
     # "added admin"
     #}
     #endregion
-    
+
     #region Battery status
     $b = (Get-CimInstance -ClassName CIM_Battery)
     $Battery = $null
-    $Battery = @{    
+    $Battery = @{
         IsCharging = if ($b.BatteryStatus -eq 1) { $false } else { $true }
         Charge     = $b.EstimatedChargeRemaining.GetValue(1)
         Remaining  = $b.EstimatedRunTime.GetValue(1)
@@ -63,7 +63,7 @@ function Prompt {
     if (!($Battery.IsCharging)) {
         $msg = $b = $extramsg = $null
         switch ($Battery.Charge[0]) {
-    
+
             { $_ -gt 80 } {
                 $colour = "Green"
                 break
@@ -71,7 +71,7 @@ function Prompt {
             { $_ -gt 60 } {
                 $colour = "DarkGreen"
                 break
-            } 
+            }
             { $_ -gt 40 } {
                 $colour = "DarkRed"
                 break
@@ -81,17 +81,17 @@ function Prompt {
                 break
             }
             default {
-                $extramsg = "`r`nBATTERY VERY LOW :: SAVE YOUR WORK`r`n" 
+                $extramsg = "`r`nBATTERY VERY LOW :: SAVE YOUR WORK`r`n"
                 $colour = "yellow"
             }
         }
         $msg = ("[{0}%:{1}{2}]" -f ($Battery.Charge), ($Battery.Remaining), $EXTRAmsg )
         Write-Host -Object $msg -BackgroundColor $colour -ForegroundColor Black -NoNewline
-    } 
+    }
     #endregion
 
     #region Day and date
-    $msg = "[{0}]" -f (Get-Date -Format "ddd HH:mm:ss")        
+    $msg = "[{0}]" -f (Get-Date -Format "ddd HH:mm:ss")
     Write-Host $msg -NoNewline
     #endregion
 
@@ -104,7 +104,7 @@ function Prompt {
     # if we are in daylight saving then the offset from home will be 60 mins, not 0
     if ($tz.id -eq $tz.DaylightName) {
         $adjustment = New-TimeSpan -Minutes 60
-    } 
+    }
     $fc = "white"
     $p = "GMT"
     if (($offset.TotalMinutes + $adjustment.TotalMinutes) -ne 0) {
@@ -118,11 +118,11 @@ function Prompt {
             $fc = "Green"
         }
         $p = "(UK $sign$($h.ToString()))"
-    
+
         write-host -ForegroundColor $fc -BackgroundColor Black $p -NoNewline
     }
     #endregion
-    
+
     #region custom/fun function
     if ((get-date).Month -eq 12 -and (get-date).Day -lt 25) {
         $msg = "["
@@ -133,23 +133,23 @@ function Prompt {
     #endregion
 
     #region last command execution duration
-    try {        
+    try {
         $history = Get-History -ErrorAction Ignore -Count 1
         if ($history) {
             $ts = New-TimeSpan $history.StartExecutionTime  $history.EndExecutionTime
             Write-Host "[" -NoNewline
             switch ($ts) {
-                { $_.TotalSeconds -lt 1 } { 
+                { $_.TotalSeconds -lt 1 } {
                     [decimal]$d = $_.TotalMilliseconds
                     '{0:f3}ms' -f ($d) | Write-Host  -ForegroundColor Black -NoNewline -BackgroundColor DarkGreen
                     break
                 }
-                { $_.TotalMinutesutes -lt 1 } { 
+                { $_.TotalMinutesutes -lt 1 } {
                     [decimal]$d = $_.TotalSeconds
                     '{0:f3}s' -f ($d) | Write-Host  -ForegroundColor Black -NoNewline -BackgroundColor DarkYellow
                     break
                 }
-                { $_.TotalMinutestes -lt 30 } { 
+                { $_.TotalMinutestes -lt 30 } {
                     [decimal]$d = $ts.TotalMinutes
                     '{0:f3}m' -f ($d) | Write-Host  -ForegroundColor Gray -NoNewline  -BackgroundColor Red
                     break
@@ -165,7 +165,7 @@ function Prompt {
     #endregion
 
     #region reduce the path displayed if it is long
-    if (($pwd.Path.Split('\').count -gt 2)) {        
+    if (($pwd.Path.Split('\').count -gt 2)) {
         $One = $pwd.path.split('\')[-1]
         $Two = $pwd.path.split('\')[-2]
 

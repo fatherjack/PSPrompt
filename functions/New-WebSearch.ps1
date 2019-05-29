@@ -1,6 +1,6 @@
 
 
-function New-WebSearch {
+function Invoke-WebSearch {
     <#
         .SYNOPSIS
         Quick search the internet for content
@@ -37,7 +37,7 @@ function New-WebSearch {
             { $_ -match 'Bing' } { $url = "https://www.bing.com/search?q=$Search"; break }
             { $_ -match 'Ask' } { $url = "https://uk.ask.com/web?q=$Search"; break }
             default { $url = "https://www.bing.com/search?q=$Search" }
-        }    
+        }
         Start-Process $url
-    # }    
+    # }
 }

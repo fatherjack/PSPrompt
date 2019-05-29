@@ -7,7 +7,7 @@
     # if we are in daylight saving then the offset from home will be 60 mins, not 0
     if ($tz.id -eq $tz.daylightname) {
         $adjustment = New-TimeSpan -minutes 60
-    } 
+    }
     $fc = "white"
     $p = "GMT"
     if (($offset.TotalMinutes + $adjustment.TotalMinutes) -ne 0) {
@@ -21,7 +21,7 @@
             $fc = "Green"
         }
         $p = "(UK $sign$($h.ToString()))"
-    
+
         write-host -ForegroundColor $fc -BackgroundColor Black $p -NoNewline
     }
     #endregion

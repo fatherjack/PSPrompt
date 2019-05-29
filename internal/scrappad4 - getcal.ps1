@@ -35,7 +35,7 @@ Function Get-OutlookCalendar {
    .Link
      Http://www.ScriptingGuys.com/blog
  #>
- 
+
     [cmdletbinding(DefaultParameterSetName = "Today")]
     param(
         [Parameter(ParameterSetName = "StartEnd",
@@ -55,28 +55,28 @@ Function Get-OutlookCalendar {
             HelpMessage = "Show calendar events for just today.")]
         [switch]$Next7
     )
- 
+
     begin {
         Write-Verbose "command is : $command"
         Write-Verbose " folder items : $(($script:eventsfolder).count) "
-        $null = Add-type -assembly "Microsoft.Office.Interop.Outlook" 
+        $null = Add-type -assembly "Microsoft.Office.Interop.Outlook"
         $olFolders = "Microsoft.Office.Interop.Outlook.olDefaultFolders" -as [type]
         $outlook = new-object -comobject outlook.application
         $namespace = $outlook.GetNameSpace("MAPI")
         $script:eventsfolder = $namespace.getDefaultFolder($olFolders::olFolderCalendar)
 
         if ($Today) {
-            $StartTime = (get-date).Date 
+            $StartTime = (get-date).Date
             $EndTime = ((get-date).AddDays(+1)).date
         }
         if ($Next7) {
-            $StartTime = (get-date).Date 
-            $EndTime = ((get-date).AddDays(+7)).date        
-        } 
+            $StartTime = (get-date).Date
+            $EndTime = ((get-date).AddDays(+7)).date
+        }
     }
     process {
         $script:eventsfolder.items | Where-Object { $_.start -gt $StartTime -and $_.start -lt $EndTime } | Select-Object subject, start, end, busystatus, @{name = 'Duration'; expression = { "*" * (New-TimeSpan -Start $_.start -End $_.end).TotalHours } }
     }
     end { }
-} #end function 
+} #end function
 

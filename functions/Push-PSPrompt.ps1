@@ -2,20 +2,19 @@ function Push-PSPrompt {
     <#
     .synopsis
     Worker function that builds up the MyPrompt.ps1 file and dot sources it to apply selecgted changes
-    
+
     .description
     This is the function that actually applies the change to the users session
 
     .example
 
-    no real usage exists for this as it should be executed from Set-PsPrompt but it would be called as 
+    no real usage exists for this as it should be executed from Set-PsPrompt but it would be called as
 
     Push-PSPrompt
-    
+
     #>
-    
+
     #region build up script from components
-    begin {
         New-Variable -Name WorkingFolder -Value "$env:APPDATA\PSPrompt" -Option Constant
         $PromptFile = "$WorkingFolder\MyPrompt.ps1"
         $ModulePath = ($env:PSModulePath -split (';'))[1]
@@ -26,8 +25,6 @@ function Push-PSPrompt {
         write-verbose $child
         $components = (Join-Path -path $Path -ChildPath $child -Resolve)
 
-    }
-    process { 
 
         # step one - the start of a function boiler-plate
         get-content "$components\_header.txt" | Out-File $PromptFile -Force
@@ -39,11 +36,11 @@ function Push-PSPrompt {
             return
         }
         else {
-            $PSPromptData = Import-Clixml -Path "$WorkingFolder\PSPrompt.config" 
+            $PSPromptData = Import-Clixml -Path "$WorkingFolder\PSPrompt.config"
         }
 
         # now for each value from our hash table where True means we need to gather the script component to build up the prompt
-        
+
         #region first to build is the 'second' prompt line that is shown occasionally above the prompt
         If ($PSPromptData.SecondLine) {
             # add header of Nth command
@@ -57,7 +54,7 @@ function Push-PSPrompt {
         }
         #endregion
 
-        #region - now, all the components selected to be shown in the permanent prompt line 
+        #region - now, all the components selected to be shown in the permanent prompt line
         switch ($PSPromptData) {
             { $_.Admin } { get-content "$components\admin.txt" | Out-File $PromptFile -Append }
             { $_.Battery } { get-content "$components\battery.txt" | Out-File $PromptFile -Append }
@@ -74,18 +71,15 @@ function Push-PSPrompt {
 
         #region Final step is now to apply the prompt to the current session
         # dot source the prompt function to apply the changes
-        try {  
+        try {
             Write-Verbose "Dot sourcing $Promptfile"
             . $PromptFile
-            write-host "`r`nCongratulations!! `r`nYour prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again. 
+            write-host "`r`nCongratulations!! `r`nYour prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again.
         `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset`r`n"
-        }    
+        }
         catch {
-            Write-Warning "Something went wrong with applying the PSPrompt changes." 
+            Write-Warning "Something went wrong with applying the PSPrompt changes."
             Write-Warning "Try running <. $PromptFile>"
         }
         #endregion
     }
-    
-    end { }
-}

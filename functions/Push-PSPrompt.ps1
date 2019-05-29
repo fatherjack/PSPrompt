@@ -23,6 +23,8 @@ function Push-PSPrompt {
         $child = "\functions\components"
         write-verbose $path
         write-verbose $child
+        $components = (Join-Path -path $Path -ChildPath $child)
+Write-Debug "" # used as a stop line for review of variable assignment during debug
         $components = (Join-Path -path $Path -ChildPath $child -Resolve)
 
 

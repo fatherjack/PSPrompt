@@ -40,7 +40,9 @@
                 $colour = "yellow"
             }
         }
-        $msg = ("[{0}%:{1}{2}]" -f $Battery.Charge, $Battery.Remaining, $EXTRAmsg )
+        $icon = [char]::convertfromutf32(128267)
+        Write-Host "$icon " -NoNewline
+        $msg = ("[{0}%:{1}{2}]" -f $Battery.Charge, $Battery.Remaining, $EXTRAmsg)
         Write-Host -Object $msg -BackgroundColor $colour -ForegroundColor Black -NoNewline
     }
     #endregion

@@ -10,3 +10,15 @@ cls
 Get-SpeculationControlSettings
 
 # ref https://www.zdnet.com/google-amp/article/how-to-test-mds-zombieload-patch-status-on-windows-systems/
+
+
+
+write-host "$(126008..129931 | ForEach-Object { [char]::convertfromutf32($_) })"
+
+# percentage
+write-host "$(128913..128916 | ForEach-Object { [char]::convertfromutf32($_) })"
+
+# battery
+[char]::convertfromutf32(128267)
+
+

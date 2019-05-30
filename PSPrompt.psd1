@@ -69,7 +69,7 @@ Description = 'Customised PowerShell prompt with information in terminal and cus
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @('Set-PSPrompt', 'Push-PSPrompt', 'Invoke-WebSearch', 'Set-DisplayBrightness', 'Get-OutlookCalendar','ConvertFrom-Bytes')
+    FunctionsToExport = @('Set-PSPrompt', 'Push-PSPrompt', 'Invoke-WebSearch', 'Set-DisplayBrightness', 'Get-OutlookCalendar','convertfrom-byte')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport = @()

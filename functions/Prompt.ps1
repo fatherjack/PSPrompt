@@ -178,5 +178,5 @@ function Prompt {
         Write-Host " $($pwd.path)" -NoNewline
     }
     #endregion
-    "> "
+    Write-Host "> " -NoNewline
 }

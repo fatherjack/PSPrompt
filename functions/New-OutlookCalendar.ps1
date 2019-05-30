@@ -42,9 +42,9 @@ function New-OutlookCalendar {
     begin {
 
         $null = Add-type -assembly "Microsoft.Office.Interop.Outlook"
-        $olFolders = "Microsoft.Office.Interop.Outlook.olDefaultFolders" -as [type]
+        # unused variable ? $olFolders = "Microsoft.Office.Interop.Outlook.olDefaultFolders" -as [type]
         $outlook = new-object -comobject outlook.application
-        $namespace = $outlook.GetNameSpace("MAPI")
+        # unused variable ? $namespace = $outlook.GetNameSpace("MAPI")
 
         switch ($status) {
             'Free' { $olStatus = 0 }

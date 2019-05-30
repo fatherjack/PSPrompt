@@ -26,7 +26,7 @@ function Push-PSPrompt {
         $components = (Join-Path -path $Path -ChildPath $child -Resolve)
 
 
-        # step one - the boiler-plate start of a function 
+        # step one - the boiler-plate start of a function
         get-content "$components\_header.txt" | Out-File $PromptFile -Force
 
         # next read in the settings from the config file created in Set-PSPrompt
@@ -74,7 +74,7 @@ function Push-PSPrompt {
         # dot source the prompt function to apply the changes
         try {
             Write-Verbose "Dot sourcing $Promptfile"
-            . $PromptFile 
+            . $PromptFile
             write-host "`r`nCongratulations!! `r`nYour prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again.
         `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset`r`n"
         }

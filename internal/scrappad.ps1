@@ -50,7 +50,7 @@ Get-Command -Module PSPrompt
 Install-Module PSScriptAnalyzer -Scope CurrentUser
 
 Get-ChildItem -Path C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\functions -Recurse |
-    Invoke-ScriptAnalyzer  -ExcludeRule PSAvoidTrailingWhitespace, PSAvoidUsingWriteHost |
+    Invoke-ScriptAnalyzer  -ExcludeRule PSAvoidUsingWriteHost |
 #        group scriptname |
             Export-Csv "C:\Users\jonat\Documents\PSPrompt_analysis.csv" -NoTypeInformation -Force
 
@@ -78,7 +78,7 @@ Get-ChildItem -Path C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\functions 
         Get-ScriptAnalyzerRule | where RuleName -like "*white*"
 
 
-function prompt  {"$pwd >"}
+function prompt  {write-output "$pwd >"}
 ii $env:APPDATA\psprompt
 
 code . "$env:APPDATA\psprompt\myprompt.ps1"

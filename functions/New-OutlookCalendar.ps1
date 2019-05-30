@@ -19,7 +19,7 @@ function New-OutlookCalendar {
     olItems <https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.olitemtype?view=outlook-pia>
     olBusyStatus https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.olbusystatus?view=outlook-pia
     #>
-    [cmdletbinding()]
+    [cmdletbinding(SupportsShouldProcess = $true)]
     param(
         # Start time of new event
         [Parameter(Mandatory = $true)]
@@ -64,7 +64,9 @@ function New-OutlookCalendar {
         if ($NoReminder) {
             $NewEvent.ReminderSet = $false
         }
-        $NewEvent.save()
+        if ($PSCmdlet.ShouldProcess("Calendar", "Creating new event $($newevent.subject)")) {
+            $NewEvent.save()
+        }
         #endregion
     }
 

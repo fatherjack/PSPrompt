@@ -8,8 +8,6 @@ function Push-PSPrompt {
 
     .example
 
-    no real usage exists for this as it should be executed from Set-PsPrompt but it would be called as
-
     Push-PSPrompt
 
     #>
@@ -17,18 +15,18 @@ function Push-PSPrompt {
     #region build up script from components
         New-Variable -Name WorkingFolder -Value "$env:APPDATA\PSPrompt" -Option Constant
         $PromptFile = "$WorkingFolder\MyPrompt.ps1"
-        $ModulePath = ($env:PSModulePath -split (';'))[1]
+        ## unused variable? $ModulePath = ($env:PSModulePath -split (';'))[1]
         $mpath = (get-module -name psprompt).path
         $Path = split-path $mpath -parent
         $child = "\functions\components"
         write-verbose $path
         write-verbose $child
         $components = (Join-Path -path $Path -ChildPath $child)
-Write-Debug "" # used as a stop line for review of variable assignment during debug
+        Write-Debug "" # used as a stop line for review of variable assignment during debug
         $components = (Join-Path -path $Path -ChildPath $child -Resolve)
 
 
-        # step one - the start of a function boiler-plate
+        # step one - the boiler-plate start of a function 
         get-content "$components\_header.txt" | Out-File $PromptFile -Force
 
         # next read in the settings from the config file created in Set-PSPrompt
@@ -38,6 +36,7 @@ Write-Debug "" # used as a stop line for review of variable assignment during de
             return
         }
         else {
+            Write-Verbose "Reading settings from $WorkingFolder\PSPrompt.config"
             $PSPromptData = Import-Clixml -Path "$WorkingFolder\PSPrompt.config"
         }
 
@@ -67,15 +66,15 @@ Write-Debug "" # used as a stop line for review of variable assignment during de
         }
         #endregion
 
-        # complete the Prompt function in the file so that we can dot source it dreckly
+        # complete the Prompt function boiler plate in the file so that we can dot source it dreckly
         get-content "$components\_footer.txt" | Out-File $PromptFile -Append
-        write-verbose $PromptFile
+        write-verbose "Function compiled from components and now saved as $PromptFile"
 
         #region Final step is now to apply the prompt to the current session
         # dot source the prompt function to apply the changes
         try {
             Write-Verbose "Dot sourcing $Promptfile"
-            . $PromptFile
+            . $PromptFile 
             write-host "`r`nCongratulations!! `r`nYour prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again.
         `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset`r`n"
         }

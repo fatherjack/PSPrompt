@@ -41,7 +41,10 @@ Import-Module 'C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1' -Verbo
 #C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1
 
 #home surface
-if (Get-Module psprompt) { Remove-Module psprompt }
+if (Get-Module psprompt) { 
+    Remove-Module PSPrompt
+    Remove-Module PSPrompt -Force
+}
 
 import-module C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\PSPrompt.psd1 -verbose -force
 
@@ -69,7 +72,7 @@ Get-ChildItem -Path C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\functions 
     Invoke-ScriptAnalyzer  -ExcludeRule PSAvoidTrailingWhitespace, PSAvoidUsingWriteHost |
         group RuleName
 
-        PSAvoidTrailingWhitespace
+
 
 
         get-help Invoke-ScriptAnalyzer -ShowWindow
@@ -81,7 +84,9 @@ Get-ChildItem -Path C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\functions 
 function prompt  {write-output "$pwd >"}
 ii $env:APPDATA\psprompt
 
-code . "$env:APPDATA\psprompt\myprompt.ps1"
+code "$env:APPDATA\psprompt\myprompt.ps1"
+
+ . "$env:APPDATA\psprompt\myprompt.ps1"
 
 
 

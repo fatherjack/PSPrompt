@@ -16,11 +16,12 @@ function Push-PSPrompt {
         New-Variable -Name WorkingFolder -Value "$env:APPDATA\PSPrompt" -Option Constant
         $PromptFile = "$WorkingFolder\MyPrompt.ps1"
         ## unused variable? $ModulePath = ($env:PSModulePath -split (';'))[1]
-        $mpath = (get-module -name psprompt).path
-        $Path = split-path $mpath -parent
+        $mpath = (Get-Module -name psprompt)[-1].path
+        $Path = Split-Path $mpath -parent
         $child = "\functions\components"
-        write-verbose $path
-        write-verbose $child
+        Write-Verbose $mpath
+        Write-Verbose $path
+        Write-Verbose $child
         $components = (Join-Path -path $Path -ChildPath $child)
         Write-Debug "" # used as a stop line for review of variable assignment during debug
         $components = (Join-Path -path $Path -ChildPath $child -Resolve)

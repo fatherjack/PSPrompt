@@ -1,5 +1,3 @@
-
-
 function Invoke-WebSearch {
     <#
         .SYNOPSIS

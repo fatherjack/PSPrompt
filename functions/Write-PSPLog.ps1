@@ -10,7 +10,7 @@ function Write-PSPLog {
     Write-PSPLog -message ("It's test # $_ everybody." ) -Source "Testing"
 
     This writes a message to the PSPLog.log
-    
+
     #>
     [cmdletbinding()]
     param(
@@ -44,17 +44,16 @@ function Write-PSPLog {
                 catch {
                     Write-Warning "Unable to archive / reset PSPrompt Log file"
                     $msg = "{0}`t{1}`t{2}" -f (get-date).ToString("yyyyMMddHHmmss"), $Source, "Unable to archive / reset PSPrompt Log file"
-                    $msg | Out-File -FilePath $LogFile -Append 
+                    $msg | Out-File -FilePath $LogFile -Append
                     $msg = "{0}`t{1}`t{2}" -f (get-date).ToString("yyyyMMddHHmmss"), $Source, $error[0].Exception
-                    $msg | Out-File -FilePath $LogFile -Append -Encoding 
-                    
-                }                
+                    $msg | Out-File -FilePath $LogFile -Append -Encoding
+                }
             }
         }
     }
     process {
         $msg = "{0}`t{1}`t{2}" -f (get-date).ToString("yyyyMMddHHmmss"), $Source, $message
-        $msg | Out-File -FilePath $LogFile -Append 
+        $msg | Out-File -FilePath $LogFile -Append
     }
     end { }
 }

@@ -69,7 +69,7 @@ Description = 'Customised PowerShell prompt with information in terminal and cus
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @('Set-PSPrompt', 'Push-PSPrompt', 'New-WebSearch', 'Set-DisplayBrightness', 'Get-OutlookCalendar')
+    FunctionsToExport = @('Set-PSPrompt', 'Push-PSPrompt', 'Invoke-WebSearch', 'Set-DisplayBrightness', 'Get-OutlookCalendar', 'ConvertFrom-Byte', 'Get-BatteryStatus')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport = @()
@@ -78,7 +78,7 @@ Description = 'Customised PowerShell prompt with information in terminal and cus
     VariablesToExport = @('TEMPLATEDIRECTORY')
 
 # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-    AliasesToExport   = @('Google', 'DuckDuckGo', 'Bing', 'DDG', 'Ask', 'Cal', 'Dim')
+    AliasesToExport   = @('Google', 'DuckDuckGo', 'Bing', 'DDG', 'Ask', 'Cal', 'Dim', 'Battery')
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()

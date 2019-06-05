@@ -35,7 +35,7 @@ Function Get-OutlookCalendar {
    .Link
      Http://www.ScriptingGuys.com/blog
  #>
- 
+[alias('cal','event')]
     [cmdletbinding(DefaultParameterSetName = "Today")]
     param(
         [Parameter(ParameterSetName = "StartEnd",
@@ -55,29 +55,29 @@ Function Get-OutlookCalendar {
             HelpMessage = "Show calendar events for just today.")]
         [switch]$Next7
     )
- 
+
     begin {
         Write-Verbose "command is : $command"
         Write-Verbose " folder items : $(($script:eventsfolder).count) "
-        $null = Add-type -assembly "Microsoft.Office.Interop.Outlook" 
+        $null = Add-type -assembly "Microsoft.Office.Interop.Outlook"
         $olFolders = "Microsoft.Office.Interop.Outlook.olDefaultFolders" -as [type]
         $outlook = new-object -comobject outlook.application
         $namespace = $outlook.GetNameSpace("MAPI")
         $script:eventsfolder = $namespace.getDefaultFolder($olFolders::olFolderCalendar)
 
         $msg = "Getting you outlook calendar takes a few seconds ..."
-        Write-Host $msg 
+        Write-Host $msg
 $today = $true
         # just todays events
         if ($Today) {
-            $StartTime = (get-date).Date 
+            $StartTime = (get-date).Date
             $EndTime = ((get-date).AddDays(+1)).date
         }
         # events for the whole week
         if ($Next7) {
-            $StartTime = (get-date).Date 
-            $EndTime = ((get-date).AddDays(+7)).date        
-        } 
+            $StartTime = (get-date).Date
+            $EndTime = ((get-date).AddDays(+7)).date
+        }
         $BusyStatus = @{
             0 = "Free"
             1 = "Tentative"
@@ -88,8 +88,8 @@ $today = $true
     }
     process {
         # actually go and get the calendar events for the chosen period
-        $cal = $script:eventsfolder.items | 
-            Where-Object { $_.start -gt $StartTime -and $_.start -lt $EndTime } | 
+        $cal = $script:eventsfolder.items |
+            Where-Object { $_.start -gt $StartTime -and $_.start -lt $EndTime } |
                 Select-Object subject, start, end, busystatus, @{name = 'Duration'; expression = { "*" * (New-TimeSpan -Start $_.start -End $_.end).TotalHours } }
         if ($cal.count -eq 0) {
             Write-Output "Nothing in your calendar"
@@ -99,5 +99,5 @@ $today = $true
         }
     }
     end { }
-} #end function 
+} #end function
 

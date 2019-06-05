@@ -49,10 +49,10 @@ $commands = Get-Command -Module $module -CommandType Cmdlet, Function, Workflow 
 
 foreach ($command in $commands) {
     $commandName = $command.Name
-    
+
     # Skip all functions that are on the exclusions list
     if ($script:FunctionHelpTestExceptions -contains $commandName) { continue } ## may not be correct check with a functionthat needs exceptions
-    
+
     # The module-qualified command fails on Microsoft.PowerShell.Archive cmdlets
     $Help = Get-Help $commandName -ErrorAction SilentlyContinue
 	

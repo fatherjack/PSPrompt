@@ -1,5 +1,5 @@
 
-# logic to find every nth execution 
+# logic to find every nth execution
 if ((Get-History -Count 1).ID % 5 -eq 0) {
     $status = git status
 
@@ -12,15 +12,15 @@ if ((Get-History -Count 1).ID % 5 -eq 0) {
     $DelFiles = $status -match "deleted:"
 
     $msg = $null
-    if ($status -match "git pull") { 
+    if ($status -match "git pull") {
         $msg = ($status -match "\d+ commit")
-        $msg += "`nYou should git pull soon" 
+        $msg += "`nYou should git pull soon"
     }
-    if ($status -match "git push") { 
+    if ($status -match "git push") {
         $msg = ($status -match "\d+ commit")
-        $msg += "`nYou should git push soon" 
-    } 
-    
+        $msg += "`nYou should git push soon"
+    }
+
     Write-Host "Git: " -NoNewline
     Write-Host "New[$($NewFiles.Count)] " -NoNewline
     Write-Host "Mod[$($ModFiles.Count)] " -NoNewline
@@ -28,7 +28,7 @@ if ((Get-History -Count 1).ID % 5 -eq 0) {
     if ($msg) {
         Write-Host "$msg"
     }
-    
+
 }
 <#
 git status | set-clipboard

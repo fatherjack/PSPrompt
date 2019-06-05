@@ -1,5 +1,5 @@
 #region reduce the path displayed if it is long
-    if (($pwd.Path.Split('\').count -gt 2)) {        
+    if (($pwd.Path.Split('\').count -gt 2)) {
         $One = $pwd.path.split('\')[-1]
         $Two = $pwd.path.split('\')[-2]
 

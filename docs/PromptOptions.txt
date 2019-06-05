@@ -1,5 +1,5 @@
     Custom prompt can include the following features:
-    
+
     - Admin user    : if the current session is running as Administrator then the prompt shows [Admin] in black on red
     - Battery       : if you are working on your battery - % charged and est min remaining
     - Day and date  : the current day and date are shown at the left side of the prompt in all use-cases

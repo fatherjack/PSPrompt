@@ -1,9 +1,29 @@
 Add-Type -AssemblyName System.Device
-$gcw = New-Object System.Device.Location.GeoCoordinateWatcher
-$gcw.Start()
+$gc = New-Object System.Device.Location.GeoCoordinate; $gc
 
-while ($gcw.Status -ne "Ready" -and $gcw.Permission -ne "Denied") {
-    sleep -milliseconds 10
+$gps = New-Object System.Device.Location.GeoPositionStatus; $gps
+
+
+
+
+$gcw = New-Object System.Device.Location.GeoCoordinateWatcher
+# $gcw.Start()
+
+$gcw.TryStart($false, "00:00:10")
+
+while ($gcw.Status -ne "Ready" -and $gcw.Permission -eq "Denied") {
+    start-sleep -milliseconds 10
+    $gcw
 }
 
-$gcw.Position.Location | Select-Object -Property Latitude, Longitude
+
+if ($gcw.Permission -ne "denied") {
+    $gcw.Position.Location | Select-Object -Property Latitude, Longitude 
+}
+else {
+    "Unable to access computer location information. You may need to allow access to this process."
+}
+
+
+    $gcw.DesiredAccuracy
+    $gcw.Position

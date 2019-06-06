@@ -10,9 +10,7 @@ function ConvertFrom-Epoch {
     The integer value that should be used to convert to a date time value
     
     .EXAMPLE
-    ConvertFrom-Epoch 1428665400 
-
-    
+    ConvertFrom-Epoch 1428665400     
     
     #>
     

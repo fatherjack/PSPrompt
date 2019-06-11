@@ -8,6 +8,9 @@ function Get-BatteryStatus {
 
     .EXAMPLE
     Get-BatteryStatus
+    
+    .EXAMPLE
+    battery 
 
     #>
     [alias('battery')]
@@ -16,12 +19,13 @@ function Get-BatteryStatus {
 
     process {
         $b = (Get-CimInstance -ClassName CIM_Battery)
-        $Battery = @{
+
+        $Battery = [PSCustomObject]@{
             IsCharging = if ($b.BatteryStatus -eq 1) { "Not Charging" } else { "Charging" }
             Charge     = $b.EstimatedChargeRemaining #.GetValue(1)
             Remaining  = $b.EstimatedRunTime #.GetValue(1)
         }
-        $msg = ("{0}% / {1}mins {2}" -f $Battery.Charge, $Battery.Remaining, $Battery.IsCharging)
-        Write-Output $msg
+        $msg = "$($Battery.Charge)% /$($Battery.Remaining)mins $($Battery.IsCharging) "
+        Write-Host $msg -NoNewline
     }
 }

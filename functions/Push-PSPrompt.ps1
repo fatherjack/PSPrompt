@@ -72,11 +72,17 @@ function Push-PSPrompt {
         write-verbose "Function compiled from components and now saved as $PromptFile"
 
         #region Final step is now to apply the prompt to the current session
-        # dot source the prompt function to apply the changes
+        # dot source the prompt function to apply the changes to the prompt 
+        # and then add prompt function code to the profile
         try {
             Write-Verbose "Dot sourcing $Promptfile"
             . $PromptFile
-            write-host "`r`nCongratulations!! `r`nYour prompt has been updated. If you want to change the components in effect, just run Set-PSPrompt again.
+
+            Write-Verbose "Adding prompt to profile"
+            $prompt = get-content $Promptfile
+            $profilefile = $profile.CurrentUserAllHosts
+            $prompt | Out-File $profilefile -Append
+            write-host "`r`nCongratulations!! `r`nYour prompt and your profile have been updated . If you want to change the components in effect, just run Set-PSPrompt again.
         `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset`r`n"
         }
         catch {

@@ -1,3 +1,4 @@
+##PSPROMPTSTART##
 function Prompt {
     <#
     .Synopsis

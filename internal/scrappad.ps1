@@ -36,7 +36,7 @@ set-location "C:\Users\jonallen\OneDrive\Github\PSPrompt\"
 Publish-Module -path 'C:\Users\jonallen\OneDrive\Github\PSPrompt' -Repository LocalRepo 
 
 #install
-Install-Module -Repository localrepo PSPrompt -Force -MinimumVersion 0.2.1
+Install-Module -Repository localrepo PSPrompt -Force -MinimumVersion 0.2.02
 
 get-module psprompt -ListAvailable
 
@@ -64,6 +64,38 @@ get-command -module PSPrompt
 
 
 #home laptop
+
+# publish local
+set-location "C:\Users\jonathan\OneDrive\Github\PSPrompt\"
+Publish-Module -path 'C:\Users\jonathan\OneDrive\Github\PSPrompt' -Repository LocalRepo 
+
+#install
+Install-Module -Repository localrepo PSPrompt -Force -MinimumVersion 0.2.02
+
+get-module psprompt -ListAvailable
+
+#import
+import-module -name psprompt -Force -RequiredVersion 0.2.1
+
+get-command -module PSPrompt
+
+ddg is this thing working
+
+cal -Next7 | ft -AutoSize -Wrap
+
+#remove
+
+Remove-Module psprompt
+Uninstall-Module psprompt
+
+
+install-Module 'C:\Users\jonathan\OneDrive\Github\PSPrompt\PSPrompt.psd1' -Verbose -Force
+#Import-Module 'C:\Users\jonallen\OneDrive\Github\PSPrompt\PSPrompt.psd1' -Verbose -Force -Scope CurrentUser
+
+
+
+get-command -module PSPrompt
+
 if (Get-Module psprompt) { Remove-Module psprompt }
 Import-Module 'C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1' -Verbose -Force
 #C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1

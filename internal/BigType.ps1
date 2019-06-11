@@ -58,6 +58,6 @@ $str = ($Set.A, $Set.B, $Set.c) -join (" ")
 
 $str
 
-0..10 | % {
+0..10 | ForEach-Object {
     ($Set.A[$_], $Set.B[$_]) -join (" ")
 }

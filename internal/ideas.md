@@ -32,3 +32,7 @@ BRANCH BRANCH BRANCH
 ## git status every n command executions
 
 By using a modulo on the History ID of the last command we can add a second line of information such as Git status
+
+## weather forecast
+
+## Epoch date conversions

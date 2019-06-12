@@ -29,7 +29,7 @@ Write-Host "`r`n(GMT +1)" -ForegroundColor Green -NoNewline
 Write-Host "`tor`t" -ForegroundColor white -NoNewline
 Write-Host "(GMT -3) `r`n" -ForegroundColor Red
 
-# work laptop
+#region work laptop
 
 # publish local
 set-location "C:\Users\jonallen\OneDrive\Github\PSPrompt\"
@@ -61,14 +61,16 @@ install-Module 'C:\Users\jonallen\OneDrive\Github\PSPrompt\PSPrompt.psd1' -Verbo
 
 
 get-command -module PSPrompt
+#endregion
 
-
-#home laptop
+#region home laptop
 if (Get-Module psprompt) { Remove-Module psprompt }
 Import-Module 'C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1' -Verbose -Force
 #C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1
 
-#home surface
+#endregion
+
+#region home surface
 if (Get-Module psprompt) { 
     Remove-Module PSPrompt
     Remove-Module PSPrompt -Force
@@ -107,7 +109,7 @@ get-help Invoke-ScriptAnalyzer -ShowWindow
 get-command -Module PSScriptAnalyzer
 
 Get-ScriptAnalyzerRule | where RuleName -like "*white*"
-
+#endregion
 
 function prompt { write-output "$pwd >" }
 ii $env:APPDATA\psprompt

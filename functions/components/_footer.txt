@@ -2,3 +2,4 @@
 # www.github.com/fatherjack/psprompt
     Write-Host  "> " -NoNewline
 }
+##PSPROMPTEND##

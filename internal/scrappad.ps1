@@ -145,7 +145,7 @@ get-help Invoke-ScriptAnalyzer -ShowWindow
 get-command -Module PSScriptAnalyzer
 
 Get-ScriptAnalyzerRule | where RuleName -like "*white*"
-
+#endregion
 
 function prompt { write-output "$pwd >" }
 ii $env:APPDATA\psprompt

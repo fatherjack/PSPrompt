@@ -29,19 +29,19 @@ Write-Host "`r`n(GMT +1)" -ForegroundColor Green -NoNewline
 Write-Host "`tor`t" -ForegroundColor white -NoNewline
 Write-Host "(GMT -3) `r`n" -ForegroundColor Red
 
-# work laptop
+#region work laptop
 
 # publish local
 set-location "C:\Users\jonallen\OneDrive\Github\PSPrompt\"
 Publish-Module -path 'C:\Users\jonallen\OneDrive\Github\PSPrompt' -Repository LocalRepo 
 
 #install
-Install-Module -Repository localrepo PSPrompt -Force -MinimumVersion 0.2.02
+Install-Module -Repository localrepo PSPrompt -Force -MinimumVersion 0.2.2
 
 get-module psprompt -ListAvailable
 
 #import
-import-module -name psprompt -Force -RequiredVersion 0.2.1
+import-module -name psprompt -Force -RequiredVersion 0.2.2
 
 get-command -module PSPrompt
 
@@ -61,21 +61,25 @@ install-Module 'C:\Users\jonallen\OneDrive\Github\PSPrompt\PSPrompt.psd1' -Verbo
 
 
 get-command -module PSPrompt
+#endregion
 
-
-#home laptop
+#region home laptop
 
 # publish local
 set-location "C:\Users\jonathan\OneDrive\Github\PSPrompt\"
-Publish-Module -path 'C:\Users\jonathan\OneDrive\Github\PSPrompt' -Repository LocalRepo 
+Publish-Module -path 'C:\Users\jonathan\OneDrive\Github\PSPrompt' -Repository LocalRepo
 
 #install
-Install-Module -Repository localrepo PSPrompt -Force -MinimumVersion 0.2.02
+Install-Module -Repository localrepo PSPrompt -Force -MinimumVersion 0.2.2
 
 get-module psprompt -ListAvailable
 
+find-module -Repository LocalRepo 
+
+get-command -noun module
+
 #import
-import-module -name psprompt -Force -RequiredVersion 0.2.1
+import-module -name psprompt -Force -RequiredVersion 0.2.2
 
 get-command -module PSPrompt
 
@@ -99,8 +103,9 @@ get-command -module PSPrompt
 if (Get-Module psprompt) { Remove-Module psprompt }
 Import-Module 'C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1' -Verbose -Force
 #C:\Users\Jonathan\Documents\GitHub\PSPrompt\PSPrompt.psd1
+#endregion
 
-#home surface
+#region home surface
 if (Get-Module psprompt) { 
     Remove-Module PSPrompt
     Remove-Module PSPrompt -Force
@@ -112,6 +117,7 @@ Get-Command -Module PSPrompt
 
 Install-Module PSScriptAnalyzer -Scope CurrentUser
 
+#endregion
 Get-ChildItem -Path C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\functions -Recurse |
 Invoke-ScriptAnalyzer  -ExcludeRule PSAvoidUsingWriteHost |
 #        group scriptname |

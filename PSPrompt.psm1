@@ -8,13 +8,13 @@ Write-verbose 'Import everything in function sub folder' # leaving internal in c
 foreach ($folder in @('functions')) {
 
     $root = Join-Path -Path $PSScriptRoot -ChildPath $folder
-    Write-verbose "processing folder $root"
+    Write-Verbose "processing folder $root"
     if (Test-Path -Path $root) {
         $files = Get-ChildItem -Path $root -Filter *.ps1 -Recurse
         # dot source each file
         $files |
         ForEach-Object {
-            Write-Verbose $_.basename;
+            Write-Verbose $_.basename
             . $_.FullName
         }
     }

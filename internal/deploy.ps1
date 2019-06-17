@@ -16,9 +16,9 @@ import-module -name psprompt -Force -RequiredVersion 0.2.2
 
 get-command -module PSPrompt
 
-ddg is this thing working
+Invoke-WebSearch is this thing working
 
-cal -Next7 | ft -AutoSize -Wrap
+Get-OutlookCalendar -Next7 | Format-Table -AutoSize -Wrap
 
 #remove
 
@@ -39,14 +39,15 @@ get-command -module PSPrompt
 
 # publish local
 set-location "C:\Users\jonathan\OneDrive\Github\PSPrompt\"
-Update-ModuleManifest -Path 'C:\Users\jonathan\OneDrive\Github\PSPrompt\PSPrompt.psd1' 
+Update-ModuleManifest -Path 'C:\Users\jonathan\OneDrive\Github\PSPrompt\PSPrompt.psd1' -ModuleVersion 0.2.2
 
-Publish-Module -path 'C:\Users\jonathan\OneDrive\Github\PSPrompt' -Repository LocalRepo
+Publish-Module -path 'C:\Users\jonathan\OneDrive\Github\PSPrompt' -Repository LocalRepo -NuGetApiKey 'ThisIsAFiller' 
+
 
 #install
 Install-Module -Repository localrepo PSPrompt -Force -Scope CurrentUser
 
-get-module psprompt -ListAvailable
+get-module psprompt -ListAvailable | select Name, RepositorySourceLocation, Version
 
 find-module -Repository LocalRepo 
 
@@ -55,11 +56,11 @@ get-command -noun module
 #import
 import-module -name psprompt -Force -RequiredVersion 0.2.2 -Verbose
 
-get-command -module PSPromptdi
+get-command -module PSPrompt
 
-ddg is this thing working
+Invoke-WebSearch is this thing working
 
-cal -Next7 | ft -AutoSize -Wrap
+Get-OutlookCalendar -Next7 | Format-Table -AutoSize -Wrap
 
 #remove
 

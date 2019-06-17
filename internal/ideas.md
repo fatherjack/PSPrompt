@@ -10,7 +10,19 @@ let people specify file types to have content show in Windows Explorer preview p
 
 ### inbox info (?)
 
-not sure what. Poss new items since last check ?
+not sure what.
+
+- Poss new items since last check ?
+- New email? new todo?
+- new calendar item (added - see New-OutlookCalendar.ps1)
+
+## windows index search function
+
+custom function to allow command line search of key folders (see windowsindexsearch.ps1)
+
+## get/set power plan
+
+allow change to high performance / balanced
 
 ## Things Done
 

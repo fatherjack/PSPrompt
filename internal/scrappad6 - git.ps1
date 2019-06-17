@@ -1,4 +1,4 @@
-
+"##" * 100
 # logic to find every nth execution
 if ((Get-History -Count 1).ID % 5 -eq 0) {
     $status = git status
@@ -20,12 +20,15 @@ if ((Get-History -Count 1).ID % 5 -eq 0) {
         $msg = ($status -match "\d+ commit")
         $msg += "`nYou should git push soon"
     }
+    if ($status -match "untracked") {
+        $msg += "`nNOTE: You have untracked files"
+    }
 
     Write-Host "Git: " -NoNewline
     Write-Host "New[$($NewFiles.Count)] " -NoNewline
     Write-Host "Mod[$($ModFiles.Count)] " -NoNewline
-    Write-Host "Del[$($DelFiles.Count)]"
-    if ($msg) {
+    Write-Host "Del[$($DelFiles.Count)]" 
+    if ($msg.Length -gt 0) {
         Write-Host "$msg"
     }
 

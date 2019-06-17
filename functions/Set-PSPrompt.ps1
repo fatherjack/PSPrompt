@@ -21,16 +21,14 @@ function Set-PSPrompt {
         # switch to reset to console prompt back to original state
         [parameter(ParameterSetName = "Reset")  ][switch]$Reset
     )
-#    begin {
-        $PSPromptData = [ordered]@{ }
+    $PSPromptData = [ordered]@{ }
         New-Variable -Name WorkingFolder -Value "$env:APPDATA\PSPrompt" -Option Constant
         $ConfigFile = "PSPrompt*.config" # TODO:: remove this line to set correct config file
         # create working folder for module if its not there
         if (!(Test-Path $WorkingFolder)) {
             $null = New-Item -Path $WorkingFolder -ItemType Directory
         }
- #   }
- #   process {
+
         #region preserve the original prompt so that it can be reset if so desired
         Write-Verbose "Preserving original prompt"
         $Date = Get-Date -Format 'yyMMdd-HHmmss'
@@ -46,7 +44,17 @@ function Set-PSPrompt {
         # 3 user wants to revert to their original prompt, prior to installing PSPrompt
         # 4 user selection of prompt features at first execution
 
+#region Option A - Reset to original prompt
+        # need to show options for reset and allow for selection
 
+        # need to put test for $Reset ahead of other steps to avoid choosing something else before being reset
+        #    get-item "$WorkingFolder\prompt_*.ps1"
+        #        $OldPrompt =
+        if($Reset){
+
+            return # no more processing in this script
+        }
+#endregion Option A 
         #region option 1 - there is config file we can load settings from
 
         # load the settings
@@ -131,11 +139,7 @@ function Set-PSPrompt {
         #*#*#*#       Push-PSPrompt $PSPromptData
 
         #region option 3 - reset
-        # need to show options for reset and allow for selection
 
-        # need to put test for $Reset ahead of other steps to avoid choosing something else before being reset
-        #    get-item "$WorkingFolder\prompt_*.ps1"
-        #        $OldPrompt =
         #endregion option 3
 
         #region option 4 That means we are at first usage of Set-Prompt so we need to collect user preference
@@ -338,6 +342,5 @@ about your Git status or perhaps additional battery information?
         #endregion (option 4)
 
         #endregion all options
-  #  }
-  #  end { }
+        
 }

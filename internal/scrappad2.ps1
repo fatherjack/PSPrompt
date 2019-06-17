@@ -1,6 +1,7 @@
 find-Module SpeculationControl -ListAvailable
 
 
+update-Module SpeculationControl -Force
 Install-Module SpeculationControl -Scope CurrentUser
 
 get-command -Module SpeculationControl

@@ -34,20 +34,20 @@ Invoke-ScriptAnalyzer  -ExcludeRule PSAvoidUsingWriteHost |
 #        group scriptname |
 Export-Csv "C:\Users\jonat\Documents\PSPrompt_analysis.csv" -NoTypeInformation -Force
 
-ii "C:\Users\jonat\Documents\PSPrompt_analysis.csv"
+Invoke-Item "C:\Users\jonat\Documents\PSPrompt_analysis.csv"
 
 Get-ChildItem -Path C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\functions -Recurse |
 Invoke-ScriptAnalyzer |
-group scriptname, severity
+Group-Object scriptname, severity
 
 Get-ChildItem -Path C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\functions -Recurse |
 Invoke-ScriptAnalyzer |
-group severity
+Group-Object severity
 
 
 Get-ChildItem -Path C:\Users\jonat\OneDrive\Documents\GitHub\psprompt\functions -Recurse |
 Invoke-ScriptAnalyzer  -ExcludeRule PSAvoidTrailingWhitespace, PSAvoidUsingWriteHost |
-group RuleName
+Group-Object RuleName
 
 
 
@@ -55,11 +55,11 @@ group RuleName
 get-help Invoke-ScriptAnalyzer -ShowWindow
 get-command -Module PSScriptAnalyzer
 
-Get-ScriptAnalyzerRule | where RuleName -like "*white*"
+Get-ScriptAnalyzerRule | Where-Object RuleName -like "*white*"
 #endregion
 
 function prompt { write-output "$pwd >" }
-ii $env:APPDATA\psprompt
+Invoke-Item $env:APPDATA\psprompt
 
 code "$env:APPDATA\psprompt\myprompt.ps1"
 
@@ -67,7 +67,7 @@ code "$env:APPDATA\psprompt\myprompt.ps1"
 
 
 
-ii C:\Users\jonat\AppData\Roaming\PSPrompt
+Invoke-Item C:\Users\jonat\AppData\Roaming\PSPrompt
 function prompt { "$pwd>" }
 
 code $PromptFile

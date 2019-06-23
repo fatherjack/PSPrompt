@@ -1,5 +1,14 @@
 # things to add
 
+## git - need to include untracked items
+
+do these need to be included in info ?
+
+## add option to allow choice of which profile gets the function
+
+we can alter either currentusercurrenthost or currentuserallhosts ...
+need to check it is in only one
+
 ## update markdown content in readme and so on
 
 ## windows explorer file preview changes

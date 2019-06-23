@@ -51,6 +51,15 @@ function Set-PSPrompt {
         #    get-item "$WorkingFolder\prompt_*.ps1"
         #        $OldPrompt =
         if($Reset){
+            $ProfileCUAHPath = $profile.CurrentUserAllHosts
+            $ProfileCUCHPath = $profile.CurrentUserCurrentHost
+            $ProfileCUAH = Get-Content $ProfileCUAHPath -Raw
+            $ProfileCUCH = Get-Content $ProfileCUCHPath -Raw
+
+            if($ProfileCUAH -match ""){
+                
+            }
+
 
             return # no more processing in this script
         }

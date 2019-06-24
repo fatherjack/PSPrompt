@@ -49,7 +49,7 @@ function Get-Forecast {
     )
 # If we dont get a location value then we try to get current location from the computer
 
-## Thisshould be a call to a location function, not testing the location info in a weather function
+## This should be a call to a location function, not testing the location info in a weather function
     if (!($Location)){
         Add-Type -AssemblyName System.Device
         $Location = New-Object System.Device.Location.GeoCoordinateWatcher

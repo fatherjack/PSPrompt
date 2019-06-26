@@ -71,3 +71,6 @@ Invoke-Item C:\Users\jonat\AppData\Roaming\PSPrompt
 function prompt { "$pwd>" }
 
 code $PromptFile
+
+# get the github app key
+(import-csv -Path "C:\Users\jonallen\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip

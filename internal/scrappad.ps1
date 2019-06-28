@@ -88,3 +88,5 @@ if (($profile.CurrentUserCurrentHost).Length -gt 0){
 #    code $profile.CurrentUserCurrentHost
 }
 
+# get the github app key
+(import-csv -Path "C:\Users\jonallen\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip

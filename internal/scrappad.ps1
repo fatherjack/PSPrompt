@@ -72,6 +72,22 @@ function prompt { "$pwd>" }
 
 code $PromptFile
 
+if (($profile.CurrentUserAllHosts).Length -gt 0) {
+    $p = get-content $profile.CurrentUserAllHosts
+    if ($p -match "(##PSPROMPT*)"){
+        write-output "PSPROMPT content found in CurrentUserAllHosts"
+    }
+#    code $profile.CurrentUserAllHosts
+}
+
+if (($profile.CurrentUserCurrentHost).Length -gt 0){
+    $p = get-content $profile.CurrentUserCurrentHost
+    if ($p -match "(##PSPROMPT*)") {
+        write-output "PSPROMPT content found in CurrentUserCurrentHost"
+    }
+#    code $profile.CurrentUserCurrentHost
+}
+
 # get the github app key
 <#work laptop#>(import-csv -Path "C:\Users\jonallen\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip
 <#surface#>(import-csv -Path "C:\Users\jonat\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip

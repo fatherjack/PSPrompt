@@ -25,7 +25,13 @@ function Get-BatteryStatus {
             Charge     = $b.EstimatedChargeRemaining #.GetValue(1)
             Remaining  = $b.EstimatedRunTime #.GetValue(1)
         }
-        $msg = "$($Battery.Charge)% /$($Battery.Remaining)mins $($Battery.IsCharging) "
+        $msg = "$($Battery.Charge)%"
+        if($Battery.IsCharging -eq "Charging"){
+             $msg += " $($Battery.IsCharging) "
+        }
+        else{
+            $msg += "/ $($Battery.Remaining)mins Discharging"
+        }
         Write-Host $msg -NoNewline
     }
 }

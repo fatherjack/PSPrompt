@@ -73,4 +73,6 @@ function prompt { "$pwd>" }
 code $PromptFile
 
 # get the github app key
-(import-csv -Path "C:\Users\jonallen\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip
+<#work laptop#>(import-csv -Path "C:\Users\jonallen\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip
+<#surface#>(import-csv -Path "C:\Users\jonat\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip
+

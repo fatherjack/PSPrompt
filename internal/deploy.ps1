@@ -8,15 +8,20 @@
 
 # publish local
 set-location "C:\Users\jonallen\OneDrive\Github\PSPrompt\"
+
+Update-ModuleManifest -Path 'C:\Users\jonallen\OneDrive\Github\PSPrompt\PSPrompt.psd1' -ModuleVersion 0.2.3
+
 Publish-Module -path 'C:\Users\jonallen\OneDrive\Github\PSPrompt' -Repository LocalRepo 
 
 #install
-Install-Module -Repository localrepo PSPrompt -Force -MinimumVersion 0.2.2
+update-Module -Repository localrepo PSPrompt -Force -MinimumVersion 0.2.3
 
 get-module psprompt -ListAvailable
 
 #import
-import-module -name psprompt -Force -RequiredVersion 0.2.2
+import-module -name psprompt -Force -RequiredVersion 0.2.3
+
+update-module -name psprompt -Verbose 
 
 get-command -module PSPrompt
 
@@ -26,7 +31,7 @@ Get-OutlookCalendar -Next7 | Format-Table -AutoSize -Wrap
 
 #remove
 
-Remove-Module psprompt
+Remove-Module psprompt -Verbose
 Uninstall-Module psprompt
 
 

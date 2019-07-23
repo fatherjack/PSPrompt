@@ -73,17 +73,20 @@ function prompt { "$pwd>" }
 code $PromptFile
 
 if (($profile.CurrentUserAllHosts).Length -gt 0) {
-    $p = get-content $profile.CurrentUserAllHosts
-    if ($p -match "(##PSPROMPT*)"){
-        write-output "PSPROMPT content found in CurrentUserAllHosts"
+    $p = get-content $profile.CurrentUserAllHosts -Raw
+    if ($p -match "(##PSPROMPT*)") {
+        write-host "PSPROMPT content found in CurrentUserAllHosts" -ForegroundColor Magenta
+        select-string -path "$($profile.CurrentUserAllHosts)" -Pattern "##PSPROMPT"
     }
 #    code $profile.CurrentUserAllHosts
 }
 
+
 if (($profile.CurrentUserCurrentHost).Length -gt 0){
-    $p = get-content $profile.CurrentUserCurrentHost
+    $p = get-content $profile.CurrentUserCurrentHost -Raw
     if ($p -match "(##PSPROMPT*)") {
-        write-output "PSPROMPT content found in CurrentUserCurrentHost"
+        Write-Host "PSPROMPT content found in CurrentUserCurrentHost" -ForegroundColor DarkCyan
+        select-string -path "$($profile.CurrentUserAllHosts)" -Pattern "##PSPROMPT"
     }
 #    code $profile.CurrentUserCurrentHost
 }
@@ -91,4 +94,8 @@ if (($profile.CurrentUserCurrentHost).Length -gt 0){
 # get the github app key
 <#work laptop#>(import-csv -Path "C:\Users\jonallen\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip
 <#surface#>(import-csv -Path "C:\Users\jonat\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip
+
+
+
+
 

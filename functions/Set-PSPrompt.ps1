@@ -15,9 +15,9 @@ function Set-PSPrompt {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Custom')]
 
     Param(
-        [parameter(parametersetname = "default")][switch]$AddToProfile,
-        [parameter(parametersetname = "default")][switch]$Admin,
-        [parameter(parametersetname = "default")][switch]$Battery,
+    #     [parameter(parametersetname = "default")][switch]$AddToProfile,
+    #     [parameter(parametersetname = "default")][switch]$Admin,
+    #     [parameter(parametersetname = "default")][switch]$Battery,
         # switch to reset to console prompt back to original state
         [parameter(ParameterSetName = "Reset")  ][switch]$Reset
     )
@@ -56,9 +56,14 @@ function Set-PSPrompt {
             $ProfileCUAH = Get-Content $ProfileCUAHPath -Raw
             $ProfileCUCH = Get-Content $ProfileCUCHPath -Raw
 
-            if($ProfileCUAH -match ""){
-                
-            }
+if (($ProfileCUAHPath).Length -gt 0){
+#    code $profile.CurrentUserCurrentHost
+    $p = get-content $ProfileCUAHPath
+                  
+    if ($p -match "(##PSPROMPT*)") {
+        write-output "PSPROMPT content found in CurrentUserCurrentHost"
+    }      
+}
 
 
             return # no more processing in this script

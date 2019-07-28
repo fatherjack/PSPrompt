@@ -78,7 +78,7 @@ function Push-PSPrompt {
             Write-Verbose "Dot sourcing $Promptfile"
             . $PromptFile
 
-            Write-Verbose "Adding prompt to profile"
+            Write-Verbose "Adding prompt to CurrentUserAllHosts profile"
             $prompt = get-content $Promptfile
             $profilefile = $profile.CurrentUserAllHosts
             # check if there is a PSPROMPT function already there
@@ -86,10 +86,10 @@ function Push-PSPrompt {
             if($Exists -match "PSPROMPTSTART(?s)(.*)PSPROMPTEND","jumboreplace" ){
                 Write-Verbose "Existing prompt found in profile"
                 $Exists -replace "PSPROMPTSTART(?s)(.*)PSPROMPTEND",$null | Set-Content $profilefile
-                Write-Verbose "Existing prompt removed from profile"
+                Write-Verbose "Previous PSPrompt found and removed from profile"
             }
             $prompt | Out-File $profilefile -Append
-            write-host "`r`nCongratulations!! `r`nYour prompt and your profile have been updated . If you want to change the components in effect, just run Set-PSPrompt again.
+            write-host "`r`nCongratulations!! `r`nYour prompt and your CurrentUserAllHosts profile have been updated . If you want to change the components in effect, just run Set-PSPrompt again.
         `r`nIf you want to remove the PSPrompt changes run Set-PSPrompt -reset`r`n"
         }
         catch {

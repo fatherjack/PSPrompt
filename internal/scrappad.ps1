@@ -74,9 +74,9 @@ code $PromptFile
 
 if (($profile.CurrentUserAllHosts).Length -gt 0) {
     $p = get-content $profile.CurrentUserAllHosts -Raw
-    if ($p -match "(##PSPROMPTSTART##)(?s)(.*)(##PSPROMPTEND##)") {
-        write-output "PSPROMPT content found in CurrentUserAllHosts"
-        $p -match "(##PSPROMPTSTART##)(?s)(.*)(##PSPROMPTEND##)" -replace $Matches[0], ""
+    if ($p -match "(##PSPROMPT*)") {
+        write-host "PSPROMPT content found in CurrentUserAllHosts" -ForegroundColor Magenta
+        select-string -path "$($profile.CurrentUserAllHosts)" -Pattern "##PSPROMPT"
     }
     #    code $profile.CurrentUserAllHosts
 }
@@ -84,12 +84,12 @@ else {
     Write-Output "CurrentUserAllHosts profile is empty"
 }
 
-if (($profile.CurrentUserCurrentHost).Length -gt 0){
-    $p = get-content $profile.CurrentUserCurrentHost
-#    if ($p -match "(##PSPROMPT*)") {
 
-if($p -match "(##PSPROMPTSTART##)(?s)(.*)(##PSPROMPTEND##)"){
-    write-output "PSPROMPT content found in CurrentUserCurrentHost"
+if (($profile.CurrentUserCurrentHost).Length -gt 0){
+    $p = get-content $profile.CurrentUserCurrentHost -Raw
+    if ($p -match "(##PSPROMPT*)") {
+        Write-Host "PSPROMPT content found in CurrentUserCurrentHost" -ForegroundColor DarkCyan
+        select-string -path "$($profile.CurrentUserAllHosts)" -Pattern "##PSPROMPT"
     }
 #    code $profile.CurrentUserCurrentHost
 }
@@ -99,4 +99,10 @@ else {
 
 
 # get the github app key
-(import-csv -Path "C:\Users\jonallen\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip
+<#work laptop#>(import-csv -Path "C:\Users\jonallen\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip
+<#surface#>(import-csv -Path "C:\Users\jonat\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip
+
+
+
+
+

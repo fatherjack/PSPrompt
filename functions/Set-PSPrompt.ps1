@@ -116,22 +116,22 @@ function Set-PSPrompt {
         Write-Verbose $msg
 
         # confirm to user
-        Write-Host "There a config file that will enable the following PSPrompt features:`r`n"
-        Write-Output  $PSPromptData
-
-        $msg = "Do you want to (e)nable these features or (c)onfigure different ones?"
-
-        do {
-            $r = Read-Host -Prompt $msg 
-        }while ($r -notin ('e', 'c'))
-      
-        if ($r -eq 'e') {
-            write-host "Loading custom fprompt from $Configfiles"
-            Push-PSPrompt 
-        }
-        else {
-            Remove-Item    $configFiles
-        }  
+        #Write-Host "There a config file that will enable the following PSPrompt features:`r`n"
+        #Write-Output  $PSPromptData
+#
+        #$msg = "Do you want to (e)nable these features or (c)onfigure different ones?"
+#
+        #do {
+        #    $r = Read-Host -Prompt $msg 
+        #}while ($r -notin ('e', 'c'))
+      #
+        #if ($r -eq 'e') {
+        #    write-host "Loading custom fprompt from $Configfiles"
+        #    Push-PSPrompt 
+        #}
+        #else {
+        #    Remove-Item    $configFiles
+        #}  
         # TODO:: need to add check its OK - then move to (currently) line 230
         ##Push-PSPrompt $PSPromptData
 

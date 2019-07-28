@@ -73,20 +73,30 @@ function prompt { "$pwd>" }
 code $PromptFile
 
 if (($profile.CurrentUserAllHosts).Length -gt 0) {
-    $p = get-content $profile.CurrentUserAllHosts
-    if ($p -match "(##PSPROMPT*)"){
+    $p = get-content $profile.CurrentUserAllHosts -Raw
+    if ($p -match "(##PSPROMPTSTART##)(?s)(.*)(##PSPROMPTEND##)") {
         write-output "PSPROMPT content found in CurrentUserAllHosts"
+        $p -match "(##PSPROMPTSTART##)(?s)(.*)(##PSPROMPTEND##)" -replace $Matches[0], ""
     }
-#    code $profile.CurrentUserAllHosts
+    #    code $profile.CurrentUserAllHosts
+}
+else {
+    Write-Output "CurrentUserAllHosts profile is empty"
 }
 
 if (($profile.CurrentUserCurrentHost).Length -gt 0){
     $p = get-content $profile.CurrentUserCurrentHost
-    if ($p -match "(##PSPROMPT*)") {
-        write-output "PSPROMPT content found in CurrentUserCurrentHost"
+#    if ($p -match "(##PSPROMPT*)") {
+
+if($p -match "(##PSPROMPTSTART##)(?s)(.*)(##PSPROMPTEND##)"){
+    write-output "PSPROMPT content found in CurrentUserCurrentHost"
     }
 #    code $profile.CurrentUserCurrentHost
 }
+else {
+    Write-Output "CurrentUserCurrentHost profile is empty"
+}
+
 
 # get the github app key
 (import-csv -Path "C:\Users\jonallen\Dropbox\git.txt"  | ? name -eq 'git' | select key).key | clip

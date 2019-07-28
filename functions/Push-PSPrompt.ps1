@@ -82,7 +82,7 @@ function Push-PSPrompt {
             $prompt = get-content $Promptfile
             $profilefile = $profile.CurrentUserAllHosts
             # check if there is a PSPROMPT function already there
-            $Exists = get-content $profile
+            $Exists = get-content $profilefile
             if($Exists -match "PSPROMPTSTART(?s)(.*)PSPROMPTEND","jumboreplace" ){
                 Write-Verbose "Existing prompt found in profile"
                 $Exists -replace "PSPROMPTSTART(?s)(.*)PSPROMPTEND",$null | Set-Content $profilefile

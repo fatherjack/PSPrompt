@@ -34,6 +34,7 @@ function Set-DisplayBrightness {
     }
     else {
         $display = Get-WmiObject -Namespace root\wmi -Class WmiMonitorBrightnessMethods
+#        $display = Get-CimInstance   -Namespace root\wmi -Class WmiMonitorBrightnessMethods # pscore requires cim
         if ($PSCmdlet.ShouldProcess("Display", "Setting brightness to $Brightness")) {
             $display.WmiSetBrightness(1, $Brightness)
         }

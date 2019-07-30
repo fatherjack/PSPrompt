@@ -52,20 +52,47 @@ function Set-PSPrompt {
         #        $OldPrompt =
         if($Reset){
             $ProfileCUAHPath = $profile.CurrentUserAllHosts
-            $ProfileCUCHPath = $profile.CurrentUserCurrentHost
-            $ProfileCUAH = Get-Content $ProfileCUAHPath -Raw
-            $ProfileCUCH = Get-Content $ProfileCUCHPath -Raw
+            # $ProfileCUCHPath = $profile.CurrentUserCurrentHost # unused at the moment - may look at different psprompt in different profiles oneday
+            ##$ProfileCUAH = Get-Content $ProfileCUAHPath -Raw
+            ##$ProfileCUCH = Get-Content $ProfileCUCHPath -Raw
 
-if (($ProfileCUAHPath).Length -gt 0){
-#    code $profile.CurrentUserCurrentHost
-    $p = get-content $ProfileCUAHPath
-                  
-    if ($p -match "(##PSPROMPT*)") {
-        write-output "PSPROMPT content found in CurrentUserCurrentHost"
-    }      
-}
+        if (($ProfileCUAHPath).Length -gt 0) {
+            #    code $profile.CurrentUserCurrentHost
+            $p = @()
+            $p = get-content $ProfileCUAHPath
 
+            if (($profile.CurrentUserAllHosts).Length -gt 0) {
+                ## think this isnt needed here $p = get-content $profile.CurrentUserAllHosts
+                if ($p.IndexOf("##PSPROMPTSTART##")) {
+                    Write-Verbose "PSPROMPT content found in CurrentUserAllHosts"
+                }
+            }
+            else {
+                Write-Verbose "CurrentUserAllHosts profile is empty"
+            }
+            # locate start and end of psprompt content
+            $Start = $a.IndexOf('##PSPROMPTSTART##')
+            $End = $a.IndexOf('##PSPROMPTEND##')
+            # identify content in profile before psprompt
+            if ($start -ne 0) {
+                $Before = $a[0..($Start - 1)].Clone()
+            }
+            else {
+                $Before = $null
+            }
 
+            # identify content in profile after  psprompt
+            if ($End -ne ($a.Count - 1)) {
+                $After = $a[($End + 1)..($a.Length)].Clone()
+            }
+            else {
+                $After = $null
+            }
+
+            # put 'before' and 'after' content into the profile file
+            $Before | Out-File -FilePath ($profile.CurrentUserAllHosts) 
+            $After | Out-File -FilePath ($profile.CurrentUserAllHosts) -append
+        }
             return # no more processing in this script
         }
 #endregion Option A 

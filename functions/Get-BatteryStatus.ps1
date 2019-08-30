@@ -32,6 +32,6 @@ function Get-BatteryStatus {
         else{
             $msg += "/ $($Battery.Remaining)mins Discharging"
         }
-        Write-Host $msg -NoNewline
+        Write-Host $msg
     }
 }

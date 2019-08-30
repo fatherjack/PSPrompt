@@ -4,7 +4,8 @@
 # debug files
 launch.json
 
-#spellcheck additions
+#spellcheck and  additions
 settings.json
 
 # notes and comments file
+*.bak

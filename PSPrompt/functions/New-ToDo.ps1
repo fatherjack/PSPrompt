@@ -19,7 +19,7 @@
     General notes
     #>
     
-    [cmdletbinding()]
+    [cmdletbinding(SupportsShouldProcess = $true)]
     param(
         # semi-colon separated list of items to put in to do list
         [parameter(ValueFromRemainingArguments = $True)]
@@ -38,7 +38,7 @@
 To do list - {0:dd MMM yyyy}`r`n
 "@ -f (get-date)
 
-# add the items to the doc
+    # add the items to the doc
     foreach ($Item in $items) {
         $txt += @"
 []`t$Item`r`n
@@ -50,8 +50,10 @@ To do list - {0:dd MMM yyyy}`r`n
 `r`n** Done **`r`n
 "@
 
-# create the file and display
-    $file = New-TemporaryFile
-    $txt | set-content $file
-    notepad $file
+    # create the file and display
+    if ($PSCmdlet.ShouldProcess("new ToDo list file " , "Creating")) {
+        $file = New-TemporaryFile
+        $txt | set-content $file
+        notepad $file    
+}
 }

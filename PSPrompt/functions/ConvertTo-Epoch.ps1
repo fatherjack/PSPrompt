@@ -13,6 +13,7 @@
     ConvertTo-Epoch '10-Apr-2015 12:30:00' 
 
 #>
+    [outputtype('system.int32')]
     [cmdletbinding()]
     param(
         # date value to convert to epoch

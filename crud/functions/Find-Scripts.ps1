@@ -1,4 +1,4 @@
-﻿function Find-Scripts {
+﻿function Find-Script {
     <#
     .SYNOPSIS
     
@@ -12,7 +12,7 @@
     Find-Script -Search event -Type ps1
     
     .EXAMPLE
-    Find-Scripts -Search audit -Type sql -includecontent
+    Find-Script -Search audit -Type sql -includecontent
     
     .NOTES
     General notes

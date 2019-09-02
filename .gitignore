@@ -1,11 +1,22 @@
-# folders
-*/internal/local
+﻿
+# ignore the settings folder and files for VSCode and PSS
+.vscode/*
+*.psproj
+*TempPoint*
 
-# debug files
-launch.json
+# Ignore staging info from Visual Studio
+library/PSPrompt/.vs/*
+library/PSPrompt/PSPrompt/bin/*
+library/PSPrompt/PSPrompt/obj/*
 
-#spellcheck and  additions
-settings.json
+# ignore PowerShell Studio MetaData
+PSPrompt/PSPrompt.psproj
+PSPrompt/PSPrompt.psproj.bak
+PSPrompt/PSPrompt.psprojs
+PSPrompt/PSPrompt.psproj
 
-# notes and comments file
-*.bak
+# ignore the TestResults
+TestResults/*
+
+# ignore the publishing Directory
+publish/*

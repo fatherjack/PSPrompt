@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{7B31F972-9C40-4CCA-8FEA-354920A662F5}") = "PSPrompt", "PSPrompt\PSPrompt.csproj", "{1C535A91-5456-4F42-9AE8-38734DF0AA1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C535A91-5456-4F42-9AE8-38734DF0AA1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C535A91-5456-4F42-9AE8-38734DF0AA1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C535A91-5456-4F42-9AE8-38734DF0AA1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C535A91-5456-4F42-9AE8-38734DF0AA1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5085CCC5-625A-4B7F-86AE-029750D2C139}
+	EndGlobalSection
+EndGlobal

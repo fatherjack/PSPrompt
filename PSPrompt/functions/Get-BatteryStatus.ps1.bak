@@ -1,0 +1,37 @@
+function Get-BatteryStatus {
+    <#
+    .SYNOPSIS
+    Displays battery status to console
+
+    .DESCRIPTION
+    Displays battery status to console
+
+    .EXAMPLE
+    Get-BatteryStatus
+    
+    .EXAMPLE
+    battery 
+
+    #>
+    [alias('battery')]
+    [CmdletBinding()]
+    param (    )
+
+    process {
+        $b = (Get-CimInstance -ClassName CIM_Battery)
+
+        $Battery = [PSCustomObject]@{
+            IsCharging = if ($b.BatteryStatus -eq 1) { "Not Charging" } else { "Charging" }
+            Charge     = $b.EstimatedChargeRemaining #.GetValue(1)
+            Remaining  = $b.EstimatedRunTime #.GetValue(1)
+        }
+        $msg = "$($Battery.Charge)%"
+        if($Battery.IsCharging -eq "Charging"){
+             $msg += " $($Battery.IsCharging) "
+        }
+        else{
+            $msg += "/ $($Battery.Remaining)mins Discharging"
+        }
+        Write-Host $msg -NoNewline
+    }
+}

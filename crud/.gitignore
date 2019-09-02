@@ -1,0 +1,11 @@
+# folders
+*/internal/local
+
+# debug files
+launch.json
+
+#spellcheck and  additions
+settings.json
+
+# notes and comments file
+*.bak

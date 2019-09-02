@@ -1,0 +1,5 @@
+# PowerShell prompt configured by PSPrompt.
+# www.github.com/fatherjack/psprompt
+    Write-Host  "> " -NoNewline
+}
+##PSPROMPTEND##

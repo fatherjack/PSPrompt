@@ -1,0 +1,31 @@
+#region last command execution duration
+    try {
+        $history = Get-History -ErrorAction Ignore -Count 1
+        if ($history) {
+            $ts = New-TimeSpan $history.StartExecutionTime  $history.EndExecutionTime
+            #Write-Host "[" -NoNewline
+            switch ($ts) {
+                { $_.TotalSeconds -lt 1 } {
+                    [decimal]$d = $_.TotalMilliseconds
+                    '[{0:f3}ms]' -f ($d) | Write-Host  -ForegroundColor Black -NoNewline -BackgroundColor DarkGreen
+                    break
+                }
+                { $_.totalminutes -lt 1 } {
+                    [decimal]$d = $_.TotalSeconds
+                    '[{0:f3}s]' -f ($d) | Write-Host  -ForegroundColor Black -NoNewline -BackgroundColor DarkYellow
+                    break
+                }
+                { $_.totalminutes -lt 30 } {
+                    [decimal]$d = $ts.TotalMinutes
+                    '[{0:f3}m]' -f ($d) | Write-Host  -ForegroundColor Gray -NoNewline  -BackgroundColor Red
+                    break
+                }
+                Default {
+                    "[$($_.Milliseconds)]" | Write-Host  -ForegroundColor Gray -NoNewline
+                }
+            }
+            Write-Host "]" -NoNewline
+        }
+    }
+    catch { }
+    #endregion

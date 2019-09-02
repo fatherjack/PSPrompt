@@ -1,0 +1,34 @@
+#region Git status every Nth command
+
+    $r = git status
+    $NewFiles = ($r -match 'new file:').count
+    $ModFiles = ($r -match 'modified:').count
+    $DelFiles = ($r -match 'deleted:').count
+    $Branch = $r[0]
+
+    Write-Host "git status: " -ForegroundColor White -BackgroundColor Black -NoNewline
+    if (($Branch -eq "On branch master") -and (($NewFiles + $ModFiles + $DelFiles) -ne 0)) {
+        write-host "WARNING YOU ARE EDITING MASTER. STOP IT. YOU SHOULD BRANCH BEFORE YOU EDIT" -ForegroundColor Black -BackgroundColor Red
+    }
+    else {
+        $msg = $r -replace "  ", "`r`n"
+        Write-Host $msg -ForegroundColor Blue -BackgroundColor Black
+    }
+
+    $msg = $null
+    if ($status -match "git pull") {
+        $msg = ($status -match "\d+ commit")
+        $msg += "`nYou should git pull soon"
+    }
+    if ($status -match "git push") {
+        $msg = ($status -match "\d+ commit")
+        $msg += "`nYou should git push soon"
+    }
+    Write-Host " New[$NewFiles] " -ForegroundColor Green -BackgroundColor Black -NoNewline
+    Write-Host " Mod[$ModFiles] " -ForegroundColor DarkCyan -BackgroundColor Black -NoNewline
+    Write-Host " Del[$DelFiles] " -ForegroundColor Red -BackgroundColor Black
+    if ($msg) {
+        Write-Host "$msg"
+    }
+
+#endregion

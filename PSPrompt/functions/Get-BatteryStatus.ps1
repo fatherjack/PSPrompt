@@ -8,10 +8,13 @@
 
     .EXAMPLE
     Get-BatteryStatus
-    
+
+    Get the battery status
+        
     .EXAMPLE
     battery 
 
+    uses the alias to call this function
     #>
     [alias('battery')]
     [CmdletBinding()]
@@ -26,12 +29,13 @@
             Remaining  = $b.EstimatedRunTime #.GetValue(1)
         }
         $msg = "$($Battery.Charge)%"
-        if($Battery.IsCharging -eq "Charging"){
-             $msg += " $($Battery.IsCharging) "
+        if ($Battery.IsCharging -eq "Charging") {
+            $msg += " $($Battery.IsCharging) "
         }
-        else{
-            $msg += "/ $($Battery.Remaining)mins Discharging"
+        else {
+            $msg += "/ $($Battery.Remaining) mins - Discharging"
         }
-        Write-Host $msg
+        
+        $msg
     }
 }

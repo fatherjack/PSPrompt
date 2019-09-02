@@ -1,4 +1,4 @@
-function Prompt {
+﻿function Prompt {
     <#
     .Synopsis
     Your custom PowerShell prompt

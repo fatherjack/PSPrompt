@@ -1,4 +1,4 @@
-function Find-Scripts {
+﻿function Find-Scripts {
     <#
     .SYNOPSIS
     

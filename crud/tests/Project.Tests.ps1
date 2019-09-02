@@ -1,4 +1,4 @@
-$packages = get-package
+﻿$packages = get-package
 if ($packages.Name  -contains "PSScriptAnalyzer") {
     #PSScriptAnalyzer is installed on the system
 } else {

@@ -1,4 +1,4 @@
-# Custom PowerShell Prompt
+﻿# Custom PowerShell Prompt
 
 Customised PowerShell prompt with information in terminal and custom functions loaded
 

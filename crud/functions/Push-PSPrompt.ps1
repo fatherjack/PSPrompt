@@ -1,4 +1,4 @@
-function Push-PSPrompt {
+﻿function Push-PSPrompt {
     <#
     .synopsis
     Worker function that builds up the MyPrompt.ps1 file and dot sources it to apply selecgted changes

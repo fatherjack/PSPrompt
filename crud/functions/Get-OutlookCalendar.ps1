@@ -1,4 +1,4 @@
-Function Get-OutlookCalendar {
+﻿Function Get-OutlookCalendar {
     <#
    .Synopsis
     This function returns InBox items from default Outlook profile

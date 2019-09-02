@@ -1,4 +1,4 @@
-    #region UTC offset
+﻿    #region UTC offset
     # add info if not in home timezone
     # get offset and daylight savings name
     $tz = Get-TimeZone

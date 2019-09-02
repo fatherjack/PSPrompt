@@ -1,4 +1,4 @@
-#region Git status every Nth command
+﻿#region Git status every Nth command
 
     $r = git status
     $NewFiles = ($r -match 'new file:').count

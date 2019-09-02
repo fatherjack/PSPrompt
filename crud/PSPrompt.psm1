@@ -1,4 +1,4 @@
-
+﻿
 Write-verbose $PSScriptRoot
 
 Write-verbose 'Import everything in function sub folder' # leaving internal in code incase we need it later

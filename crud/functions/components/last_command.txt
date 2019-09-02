@@ -1,4 +1,4 @@
-#region last command execution duration
+﻿#region last command execution duration
     try {
         $history = Get-History -ErrorAction Ignore -Count 1
         if ($history) {

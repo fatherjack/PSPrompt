@@ -1,4 +1,4 @@
-function New-OutlookCalendar {
+﻿function New-OutlookCalendar {
     <#
     .synopsis
     command line Outlook calendar event creation

@@ -1,4 +1,4 @@
-#region Show if using Administrator level account
+﻿#region Show if using Administrator level account
     if ($admin) {
         $principal = [Security.Principal.WindowsPrincipal] ([Security.Principal.WindowsIdentity]::GetCurrent())
         $adm = [Security.Principal.WindowsBuiltInRole]::Administrator

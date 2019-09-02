@@ -1,4 +1,4 @@
-function Invoke-WebSearch {
+﻿function Invoke-WebSearch {
     <#
         .SYNOPSIS
         Quick search the internet for content

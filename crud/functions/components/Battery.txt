@@ -1,4 +1,4 @@
-#region Battery status
+﻿#region Battery status
     $b = (Get-CimInstance -ClassName CIM_Battery)
     $Battery = $null
     $Battery = @{

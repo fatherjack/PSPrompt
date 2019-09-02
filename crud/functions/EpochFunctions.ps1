@@ -1,4 +1,4 @@
-function ConvertFrom-Epoch {
+﻿function ConvertFrom-Epoch {
     <#
     .SYNOPSIS
     Converts a unix style epoch time to a datetime value

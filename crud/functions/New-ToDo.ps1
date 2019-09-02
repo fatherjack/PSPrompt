@@ -1,4 +1,4 @@
-function New-ToDo {
+﻿function New-ToDo {
     <#
     .SYNOPSIS
     Creates quick To Do list in Notepad

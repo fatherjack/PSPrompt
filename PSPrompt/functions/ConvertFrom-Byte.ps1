@@ -1,4 +1,4 @@
-function ConvertFrom-Byte{
+﻿function ConvertFrom-Byte{
     param (
         [parameter(ValueFromPipeline=$true)]
         [Alias('Length')]

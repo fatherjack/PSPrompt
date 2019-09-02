@@ -1,4 +1,4 @@
-function Get-BatteryStatus {
+﻿function Get-BatteryStatus {
     <#
     .SYNOPSIS
     Displays battery status to console

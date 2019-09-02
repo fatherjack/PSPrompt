@@ -1,4 +1,4 @@
-# #region Search aliases
+﻿# #region Search aliases
 # set-Alias -Name Google -Value Invoke-WebSearch
 # set-Alias -Name DuckDuckGo -Value Invoke-WebSearch
 # Set-Alias -Name DDG -Value Invoke-WebSearch

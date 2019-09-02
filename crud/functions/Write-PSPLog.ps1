@@ -1,4 +1,4 @@
-function Write-PSPLog {
+﻿function Write-PSPLog {
     <#
     .Synopsis
     Worker function for PSPrompt

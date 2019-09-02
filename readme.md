@@ -1,6 +1,6 @@
 ﻿# Description
 
-Insert a useful description for the PSPrompt project here.
+A customisation of your PS Prompt
 
 Remember, it's the first thing a visitor will see.
 

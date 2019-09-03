@@ -5,6 +5,16 @@
 
     .description
     Quickly and easily add meetings and reminders to your Outlook calendar via your keyboard without leaving your PowerShell host
+    
+    .parameter WhatIf
+    [<SwitchParameter>]
+    If this switch is enabled, no actions are performed but informational messages will be displayed that
+    explain what would happen if the command were to run.
+
+    .parameter Confirm
+    [<SwitchParameter>]
+    If this switch is enabled, you will be prompted for confirmation before executing any operations that
+    change state.
 
     .example
     New-OutlookCalendar -Start '20-Mar-2019 12:00' -Subject "Get birthday present for Timmy" -Status 'Out of Office'

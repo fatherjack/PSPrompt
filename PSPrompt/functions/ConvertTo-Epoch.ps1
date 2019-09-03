@@ -12,6 +12,8 @@
     .EXAMPLE
     ConvertTo-Epoch '10-Apr-2015 12:30:00'
 
+    This returns the epoch value of 1428665400
+
 #>
     [outputtype('system.int32')]
     [cmdletbinding()]

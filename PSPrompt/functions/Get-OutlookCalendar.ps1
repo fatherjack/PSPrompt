@@ -16,8 +16,12 @@
     .Example
     Get-OutlookCalendar -StartTime (get-date).date -EndTime ((get-date).adddays(+7)).date
 
+    This returns all calendar events for the forth-coming 7 days
+
     .Example
     Get-OutlookCalendar -StartTime (get-date).date -EndTime ((get-date).adddays(+1)).date -verbose
+
+    This returns all calendar events for the forth-coming 24 hours
 
     .Example
     Get-OutlookCalendar -Today | ft -a -Wrap

@@ -163,7 +163,7 @@ function Set-PSPrompt {
         #}
         #else {
         #    Remove-Item    $configFiles
-        #} 
+        #}
         # TODO:: need to add check its OK - then move to (currently) line 230
         ##Push-PSPrompt $PSPromptData
 
@@ -383,5 +383,5 @@ about your Git status or perhaps additional battery information?
         #endregion (option 4)
 
         #endregion all options
-       
+      
 }

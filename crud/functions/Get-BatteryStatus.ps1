@@ -8,7 +8,7 @@
 
     .EXAMPLE
     Get-BatteryStatus
-   
+  
     .EXAMPLE
     battery
 

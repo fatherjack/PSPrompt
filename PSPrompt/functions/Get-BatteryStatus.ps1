@@ -10,7 +10,7 @@
     Get-BatteryStatus
 
     Get the battery status
-       
+      
     .EXAMPLE
     battery
 
@@ -36,7 +36,7 @@
         else {
             $msg += "/ $($Battery.Remaining) mins - Discharging"
         }
-       
+      
         $msg
     }
 }

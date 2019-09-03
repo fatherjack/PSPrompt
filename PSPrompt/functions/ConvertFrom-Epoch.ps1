@@ -13,6 +13,7 @@
     ConvertFrom-Epoch 1428665400    
    
     #>
+    [outputtype('system.datetime')]
    
     [cmdletbinding()]
     param(

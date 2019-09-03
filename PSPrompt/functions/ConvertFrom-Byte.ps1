@@ -1,4 +1,27 @@
-﻿function ConvertFrom-Byte{
+﻿function ConvertFrom-Byte {
+    <#
+    .SYNOPSIS
+    Convert a Byte value to a KB, MB, GB, or TB value
+    
+    .DESCRIPTION
+    Convert a Byte value to a KB, MB, GB, or TB value
+    
+    .PARAMETER Bytes
+    The value in bytes that you want to see expressed in a higher metric
+    
+    .EXAMPLE
+    ConvertFrom-Byte 1234342562
+
+    result:
+    1.15GB
+    
+    .EXAMPLE
+    ConvertFrom-Byte 123434
+
+    result:
+    120.54KB
+    
+    #>
     param (
         [parameter(ValueFromPipeline=$true)]
         [Alias('Length')]

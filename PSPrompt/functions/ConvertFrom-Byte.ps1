@@ -22,7 +22,7 @@
     120.54KB
    
     #>
-    [outputtype('system.string')]
+    [outputtype([system.string])]
     param (
         [parameter(ValueFromPipeline=$true)]
         [Alias('Length')]

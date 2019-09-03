@@ -15,7 +15,7 @@
     This returns the date time value of 10 April 2015 12:30:00
   
     #>
-    [outputtype('system.datetime')]
+    [outputtype([system.datetime])]
   
     [cmdletbinding()]
     param(

@@ -16,7 +16,7 @@
 
     uses the alias to call this function
     #>
-    [outputtype('system.string')]
+    [outputtype([system.string])]
     [alias('battery')]
     [CmdletBinding()]
     param (    )

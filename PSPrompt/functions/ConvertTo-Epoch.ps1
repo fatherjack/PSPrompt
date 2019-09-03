@@ -15,7 +15,7 @@
     This returns the epoch value of 1428665400
 
 #>
-    [outputtype('system.int32')]
+    [outputtype([system.int32])]
     [cmdletbinding()]
     param(
         # date value to convert to epoch

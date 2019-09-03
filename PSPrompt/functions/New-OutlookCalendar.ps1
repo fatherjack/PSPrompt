@@ -15,9 +15,11 @@
     New-OutlookCalendar -Start (get-date -date ((get-date).ToShortDateString())).AddHours(18) -Subject "After work drinks" -Status 'Busy' -duration 180
 
     This example create a 3 hour event in the calendar at 18:00 today with a subject of "After work drinks" with a reminder
+    
     .link
     olItems <https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.olitemtype?view=outlook-pia>
     olBusyStatus https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.olbusystatus?view=outlook-pia
+    
     #>
     [cmdletbinding(SupportsShouldProcess = $true)]
     param(

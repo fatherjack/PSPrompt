@@ -10,9 +10,13 @@
   
     .EXAMPLE
     Find-Script -Search event -Type ps1
+
+    Example searches for the string 'event' in filenames with extension matching ps1
   
     .EXAMPLE
     Find-Script -Search audit -Type sql -includecontent
+
+    Example searches for the string 'audit' in file names and content with extension matching sql
   
     .NOTES
     General notes

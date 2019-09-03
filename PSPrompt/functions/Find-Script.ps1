@@ -57,12 +57,12 @@
                                 MatchType = "Content"
                                 FileName  = $($doc.Name)
                                 FilePath  = $($doc.FullName)
-                            }             
+                            }
                         }
                     }
                     catch {
                         write-verbose "unable to open $doc"
-                    }      
+                    }
                 }
             }
         }

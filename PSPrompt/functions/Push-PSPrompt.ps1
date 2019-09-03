@@ -10,6 +10,8 @@
 
     Push-PSPrompt
 
+    Use Push-PSPrompt to make the customisation take effect
+
     #>
 
     #region build up script from components

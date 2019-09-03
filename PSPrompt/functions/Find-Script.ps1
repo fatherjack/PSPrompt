@@ -2,11 +2,11 @@
     <#
     .SYNOPSIS
   
-        # script finder
-        # reviews locations known to have .ps1 files in them for specified string
-  
+    script finder
+    
     .DESCRIPTION
-    Long description
+    
+    reviews locations known to have script files in them for specified string
   
     .EXAMPLE
     Find-Script -Search event -Type ps1
@@ -18,8 +18,7 @@
 
     Example searches for the string 'audit' in file names and content with extension matching sql
   
-    .NOTES
-    General notes
+    
     #>
     [CmdletBinding()]
                 

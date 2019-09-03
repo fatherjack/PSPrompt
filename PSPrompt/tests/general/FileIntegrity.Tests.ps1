@@ -22,12 +22,10 @@ function Get-FileEncoding
 		$Path
 	)
 	
-	if ($PSVersionTable.PSVersion.Major -lt 6)
-	{
-		[byte[]]$byte = get-content -Encoding byte -ReadCount 4 -TotalCount 4 -Path $Path
+	if ($PSVersionTable.PSVersion.Major -lt 6){
+		[byte[]]$byte = Get-Content -Encoding byte -ReadCount 4 -TotalCount 4 -Path $Path
 	}
-	else
-	{
+	else{
 		[byte[]]$byte = Get-Content -AsByteStream -ReadCount 4 -TotalCount 4 -Path $Path
 	}
 	

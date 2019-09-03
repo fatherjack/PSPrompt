@@ -16,6 +16,8 @@
     - last command  : execution duration of the last command executed
 
     .Example
+    Prompt
+    
     There is no valid example for this function - it runs automatically as your console completes commands
     
     #>

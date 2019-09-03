@@ -5,7 +5,7 @@ function Set-DisplayBrightness {
     custom function to set screen brightness
 
     .Description
-    custom function to set screen brightness   
+    custom function to set screen brightness
 
     .Example
     Set-DisplayBrightness 50

@@ -39,24 +39,28 @@
    .Link
      Http://www.ScriptingGuys.com/blog
  #>
-[alias('cal','event')]
+    [alias('cal', 'event')]
     [cmdletbinding(DefaultParameterSetName = "Today")]
     param(
+        # Start of time span to show calendar events.
         [Parameter(ParameterSetName = "StartEnd",
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "Start of time span to show calendar events.")]
         [datetime]$StartTime,
+        # End of time span to show calendar events.
         [Parameter(ParameterSetName = "StartEnd",
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "End of time span to show calendar events.")]
         [datetime]$EndTime,
+        # Show calendar events for just today.
         [Parameter(ParameterSetName = "Today",
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "Show calendar events for just today.")]
         [switch]$Today,
+        # Show calendar events for next 7 days.
         [Parameter(ParameterSetName = "Next7Days",
             ValueFromPipelineByPropertyName = $true,
-            HelpMessage = "Show calendar events for just today.")]
+            HelpMessage = "Show calendar events for next 7 days.")]
         [switch]$Next7
     )
 
@@ -71,7 +75,7 @@
 
         $msg = "Getting you outlook calendar takes a few seconds ..."
         Write-Host $msg
-$today = $true
+        $today = $true
         # just todays events
         if ($Today) {
             $StartTime = (get-date).Date
@@ -93,13 +97,13 @@ $today = $true
     process {
         # actually go and get the calendar events for the chosen period
         $cal = $script:eventsfolder.items |
-            Where-Object { $_.start -gt $StartTime -and $_.start -lt $EndTime } |
-                Select-Object subject, start, end, busystatus, @{name = 'Duration'; expression = { "*" * (New-TimeSpan -Start $_.start -End $_.end).TotalHours } }
+        Where-Object { $_.start -gt $StartTime -and $_.start -lt $EndTime } |
+        Select-Object subject, start, end, busystatus, @{name = 'Duration'; expression = { "*" * (New-TimeSpan -Start $_.start -End $_.end).TotalHours } }
         if ($cal.count -eq 0) {
             Write-Output "Nothing in your calendar"
         }
         else {
-            $cal | Select-Object Subject, Start, End, @{name = "Busy status"; expression = { $BusyStatus[$_.busystatus]} }, Duration
+            $cal | Select-Object Subject, Start, End, @{name = "Busy status"; expression = { $BusyStatus[$_.busystatus] } }, Duration
         }
     }
     end { }

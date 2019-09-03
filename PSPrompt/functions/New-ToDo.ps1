@@ -17,7 +17,8 @@
     .EXAMPLE
     New-ToDo -List "Write todo function", "Update calendar" , "Book travel", "submit expenses claim", "cook dinner"
   
-    Advanced execution of this function to start a new ToDo list with specific items in the list already   
+    Advanced execution of this function to start a new ToDo list with specific items in the list already
+    
     .NOTES
     General notes
     #>
@@ -57,6 +58,6 @@ To do list - {0:dd MMM yyyy}`r`n
     if ($PSCmdlet.ShouldProcess("new ToDo list file " , "Creating")) {
         $file = New-TemporaryFile
         $txt | set-content $file
-        notepad $file  
-}
+        notepad $file
+    }
 }

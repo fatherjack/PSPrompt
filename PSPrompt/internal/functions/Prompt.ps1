@@ -19,7 +19,7 @@
     There is no valid example for this function - it runs automatically as your console completes commands
     
     #>
-
+    [outputtype([system.string])]
     [CmdletBinding()]
     #[CmdletBinding(DefaultParameterSetName = 'Custom')]
     Param(

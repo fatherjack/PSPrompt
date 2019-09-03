@@ -39,7 +39,7 @@
     # }]
     $Results = ForEach ($Item in $List) {
     
-        write-output ".. Checking $($item.name) .."
+        ".. Checking $($item.name) .."
         foreach ($doc in Get-ChildItem $item.Folder -Recurse -include $Type) {
             if ($doc -match $search) {
                 [pscustomobject]@{

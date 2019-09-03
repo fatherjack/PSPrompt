@@ -136,7 +136,7 @@ function Set-PSPrompt {
         $PSPromptData = Import-Clixml $configFiles
         # confirm to user
         Write-Host "There is a config file that will enable the following PSPrompt features:`r`n"
-        Write-Output  $PSPromptData
+        $PSPromptData
         while ($choice -notin ('yes', 'no')) {
             $choice = Read-Host -Prompt "Do you want to apply these settings? (Yes) or (No)."
         }

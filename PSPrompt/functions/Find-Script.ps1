@@ -23,10 +23,10 @@
     [CmdletBinding()]
                 
     param (
-        # The string you want to search for 
+        # The string you want to search for
         [parameter(Mandatory = $false)]$Search,
-        # The file type you want to search for 
-        [parameter(Mandatory = $false)]$Type, 
+        # The file type you want to search for
+        [parameter(Mandatory = $false)]$Type,
         # Do you want to search in file content too
         [parameter(Mandatory = $false)][switch]$IncludeContent
     )

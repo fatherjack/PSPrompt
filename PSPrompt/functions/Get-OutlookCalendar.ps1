@@ -39,6 +39,7 @@
    .Link
      Http://www.ScriptingGuys.com/blog
  #>
+    [outputtype([system.string])]
     [alias('cal', 'event')]
     [cmdletbinding(DefaultParameterSetName = "Today")]
     param(

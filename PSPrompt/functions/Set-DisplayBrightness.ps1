@@ -6,6 +6,16 @@ function Set-DisplayBrightness {
 
     .Description
     custom function to set screen brightness
+    
+    .parameter    
+    -WhatIf [<SwitchParameter>]
+    If this switch is enabled, no actions are performed but informational messages will be displayed that
+    explain what would happen if the command were to run.
+
+    .parameter    
+    -Confirm [<SwitchParameter>]
+    If this switch is enabled, you will be prompted for confirmation before executing any operations that
+    change state.
 
     .Example
     Set-DisplayBrightness 50

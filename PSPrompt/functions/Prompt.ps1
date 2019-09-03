@@ -161,7 +161,10 @@
             Write-Host "]" -NoNewline
         }
     }
-    catch { }
+    catch {
+        # if there is no history then we dont put anything into the prompt
+        ""
+     }
     #endregion
 
     #region reduce the path displayed if it is long

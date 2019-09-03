@@ -7,6 +7,16 @@ function Set-PSPrompt {
     .description
     It has to build a command out of the component pieces as it will be executed everytime a command is executed and therefore cant make use of any parameterisation
 
+    .parameter WhatIf
+    [<SwitchParameter>]
+    If this switch is enabled, no actions are performed but informational messages will be displayed that
+    explain what would happen if the command were to run.
+
+    .parameter Confirm
+    [<SwitchParameter>]
+    If this switch is enabled, you will be prompted for confirmation before executing any operations that
+    change state.
+
     .example
 
     Set-PSPrompt

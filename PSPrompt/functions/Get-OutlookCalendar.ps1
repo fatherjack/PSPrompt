@@ -100,7 +100,7 @@
         Where-Object { $_.start -gt $StartTime -and $_.start -lt $EndTime } |
         Select-Object subject, start, end, busystatus, @{name = 'Duration'; expression = { "*" * (New-TimeSpan -Start $_.start -End $_.end).TotalHours } }
         if ($cal.count -eq 0) {
-            Write-Output "Nothing in your calendar"
+            "Nothing in your calendar"
         }
         else {
             $cal | Select-Object Subject, Start, End, @{name = "Busy status"; expression = { $BusyStatus[$_.busystatus] } }, Duration

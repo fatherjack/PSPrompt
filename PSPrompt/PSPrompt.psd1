@@ -69,8 +69,8 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = 'ConvertFrom-Byte', 'ConvertFrom-Epoch', 'ConvertTo-Epoch', 
-    'Get-BatteryStatus', 'Get-OutlookCalendar', 'Invoke-WebSearch', 
+    FunctionsToExport = 'ConvertFrom-Byte', 'ConvertFrom-Epoch', 'ConvertTo-Epoch',
+    'Get-BatteryStatus', 'Get-OutlookCalendar', 'Invoke-WebSearch',
     'New-ToDo', 'Show-Calendar',
     'Push-PSPrompt', 'Set-DisplayBrightness', 'Set-PSPrompt'
 

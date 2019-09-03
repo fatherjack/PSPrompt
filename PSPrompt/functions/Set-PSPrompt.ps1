@@ -90,12 +90,12 @@ function Set-PSPrompt {
             }
 
             # put 'before' and 'after' content into the profile file
-            $Before | Out-File -FilePath ($profile.CurrentUserAllHosts) 
+            $Before | Out-File -FilePath ($profile.CurrentUserAllHosts)
             $After | Out-File -FilePath ($profile.CurrentUserAllHosts) -append
         }
             return # no more processing in this script
         }
-#endregion Option A 
+#endregion Option A
         #region option 1 - there is config file we can load settings from
 
         # load the settings
@@ -154,16 +154,16 @@ function Set-PSPrompt {
         #$msg = "Do you want to (e)nable these features or (c)onfigure different ones?"
 #
         #do {
-        #    $r = Read-Host -Prompt $msg 
+        #    $r = Read-Host -Prompt $msg
         #}while ($r -notin ('e', 'c'))
       #
         #if ($r -eq 'e') {
         #    write-host "Loading custom fprompt from $Configfiles"
-        #    Push-PSPrompt 
+        #    Push-PSPrompt
         #}
         #else {
         #    Remove-Item    $configFiles
-        #}  
+        #} 
         # TODO:: need to add check its OK - then move to (currently) line 230
         ##Push-PSPrompt $PSPromptData
 
@@ -383,5 +383,5 @@ about your Git status or perhaps additional battery information?
         #endregion (option 4)
 
         #endregion all options
-        
+       
 }

@@ -10,7 +10,7 @@
     The date value that should be converted
 
     .EXAMPLE
-    ConvertTo-Epoch '10-Apr-2015 12:30:00' 
+    ConvertTo-Epoch '10-Apr-2015 12:30:00'
 
 #>
     [outputtype('system.int32')]

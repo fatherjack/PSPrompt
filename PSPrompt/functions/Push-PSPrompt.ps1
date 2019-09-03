@@ -72,7 +72,7 @@
         write-verbose "Function compiled from components and now saved as $PromptFile"
 
         #region Final step is now to apply the prompt to the current session
-        # dot source the prompt function to apply the changes to the prompt 
+        # dot source the prompt function to apply the changes to the prompt
         # and then add prompt function code to the profile
         try {
             Write-Verbose "Dot sourcing $Promptfile"

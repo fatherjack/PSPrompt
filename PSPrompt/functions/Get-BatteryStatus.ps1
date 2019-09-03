@@ -10,9 +10,9 @@
     Get-BatteryStatus
 
     Get the battery status
-        
+       
     .EXAMPLE
-    battery 
+    battery
 
     uses the alias to call this function
     #>
@@ -36,7 +36,7 @@
         else {
             $msg += "/ $($Battery.Remaining) mins - Discharging"
         }
-        
+       
         $msg
     }
 }

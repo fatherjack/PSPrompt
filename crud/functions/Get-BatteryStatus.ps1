@@ -8,9 +8,9 @@
 
     .EXAMPLE
     Get-BatteryStatus
-    
+   
     .EXAMPLE
-    battery 
+    battery
 
     #>
     [alias('battery')]

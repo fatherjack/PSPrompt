@@ -82,9 +82,9 @@ function Set-PSPrompt {
 
         return # no more processing in this script
     }
-    #endregion Option A - Reset Option 
-    
-    #region Option B - no config file to load so we 
+    #endregion Option A - Reset Option
+   
+    #region Option B - no config file to load so we
 
     #endregion Option B
 
@@ -115,7 +115,7 @@ function Set-PSPrompt {
     }
     else {
         # happy red riding hood - just the right amount of file
-        
+       
         Write-Verbose "Loading from (join-path $WorkingFolder $configFiles[$LoadConfig - 1])"
 
         $msg = ("WorkingFolder: {0}; ConfigFiles: {1}" -f $WorkingFolder, $ConfigFiles)
@@ -130,7 +130,7 @@ function Set-PSPrompt {
         }
         if ($choice -eq 'yes') {
             if ($PSCmdlet.ShouldProcess("Console Prompt", "Customising being applied")) {
-                Push-PSPrompt 
+                Push-PSPrompt
 
                 return
             }
@@ -147,7 +147,7 @@ function Set-PSPrompt {
     }
     #endregion Option C
 
-    #region option 1 
+    #region option 1
 
 
     #endregion option 1
@@ -365,5 +365,5 @@ about your Git status or perhaps additional battery information?
     #endregion (option 4)
 
     #endregion all options
-        
+       
 }

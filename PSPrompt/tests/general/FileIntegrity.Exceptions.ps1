@@ -30,5 +30,7 @@ $global:MayContainCommand = @{
 	"Write-Error"  = @()
 	"Write-Output" = @()
 	"Write-Information" = @()
-	"Write-Debug" = @()
+	"Write-Debug"    = @()
+	# have to allow WMI for display control
+	"Get-WmiObject" = @('Set-DisplayBrightness.ps1')
 }

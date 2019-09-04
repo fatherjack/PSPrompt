@@ -1,33 +1,51 @@
-﻿# Description
+﻿# Custom PowerShell Prompt
 
-A customisation of your PS Prompt
+Customised PowerShell prompt with information in terminal and custom functions loaded
 
-Remember, it's the first thing a visitor will see.
+Authored by Jonathan Allen
 
-# Project Setup Instructions
-## Working with the layout
+## The custom prompt
 
- - Don't touch the psm1 file
- - Place functions you export in `functions/` (can have subfolders)
- - Place private/internal functions invisible to the user in `internal/functions` (can have subfolders)
- - Don't add code directly to the `postimport.ps1` or `preimport.ps1`.
-   Those files are designed to import other files only.
- - When adding files you load during `preimport.ps1`, be sure to add corresponding entries to `filesBefore.txt`.
-   The text files are used as reference when compiling the module during the build script.
- - When adding files you load during `postimport.ps1`, be sure to add corresponding entries to `filesAfter.txt`.
-   The text files are used as reference when compiling the module during the build script.
+The PowerShell prompt can give so much more than just a clue regarding your current drive location. It is where we focus when writing our scripts so having useful information in line of sight is easier to reference than going to alternate locations.
 
-## Setting up CI/CD
+With this customised prompt you can see:
 
-> To create a PR validation pipeline, set up tasks like this:
+- whether you are logged in with an Admin level credential
+- how long your last command took to execute
+- how much charge you have left and your estimated run-time if you are running on battery
+- your difference from your home timezone when you are travelling
+- an abbreviated path when you are a long way down your drive levels
+- current date and time
 
- - Install Prerequisites (PowerShell Task; VSTS-Prerequisites.ps1)
- - Validate (PowerShell Task; VSTS-Validate.ps1)
- - Publish Test Results (Publish Test Results; NUnit format; Run no matter what)
+## enabling the custom prompt
 
-> To create a build/publish pipeline, set up tasks like this:
+After installing the module with the command `Import-Module PSPrompt` you can run the command `Set-PSPrompt` to be taken through the customisation process to choose what you what information you want to have available to you.
 
- - Install Prerequisites (PowerShell Task; VSTS-Prerequisites.ps1)
- - Validate (PowerShell Task; VSTS-Validate.ps1)
- - Build (PowerShell Task; VSTS-Build.ps1)
- - Publish Test Results (Publish Test Results; NUnit format; Run no matter what)
+Its a step-by-step process that will let you choose which customisation to accept and your old PowerShell prompt will be preserved so that you can go back to it at any time.
+
+## accelerator functions
+
+The PSPrompt module gets you closer to your search results with a set of functions designed to speed up your fact checking and research. By default, search on DuckDuckGo, Bing, Google and Ask from the command prompt.
+
+| **Alias**      | **Description**                           |
+|---------------:|-------------------------------------------|
+| **Ask**        | Runs search via <https://ask.com>         |
+| **Bing**       | Runs search via <https://bing.com>        |
+| **DuckDuckGo** | Runs search via <https://duckduckgo.com>  |
+| **DDG**        | see DuckDuckGo                            |
+| **Google**     | Runs search via <https://google.co.uk>    |
+
+**Get-OutlookCalendar** [Alias **Cal** or **Events**]
+
+Get details of your calendar appointments in your console.
+
+**Set-DisplayBrightness** [Alias **Dim**]
+
+Control screen brightness from the console.
+
+### Thanks
+
+The idea for the custom prompt came from dbatools, visit <https://github.com/sqlcollaborative/dbatools> for a great module to help manage your databases.
+
+Details of how I created this module from a Plaster (<https://github.com/PowerShell/Plaster>) template can be found here
+<https://sqldbawithabeard.com/2017/11/09/using-plaster-to-create-a-new-powershell-module/>

@@ -2,7 +2,7 @@
 	about_PSPrompt
 	
 SHORT DESCRIPTION
-	PSPrompt PowerShell module provides a way to customise your PowerShell prompt to provide more information 
+	PSPrompt PowerShell module provides a way to customise your PowerShell prompt to provide more information
 	
 LONG DESCRIPTION
 	PSPrompt PowerShell module provides a way to customise your PowerShell prompt to provide more information. There are also a series of functions to assist with general admin tasks

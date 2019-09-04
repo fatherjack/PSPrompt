@@ -9,7 +9,7 @@ $global:BannedCommands = @(
 	#'Write-Debug',
 	
 	# Use CIM instead where possible
-	#'Get-WmiObject',
+	'Get-WmiObject',
 	'Invoke-WmiMethod',
 	'Register-WmiEvent',
 	'Remove-WmiObject',
@@ -30,5 +30,7 @@ $global:MayContainCommand = @{
 	"Write-Error"  = @()
 	"Write-Output" = @()
 	"Write-Information" = @()
-	"Write-Debug" = @()
+	"Write-Debug"    = @()
+	# have to allow WMI for display control
+	"Get-WmiObject" = @('Set-DisplayBrightness.ps1')
 }

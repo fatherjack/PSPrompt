@@ -2,23 +2,37 @@
     <#
     .SYNOPSIS
     Creates quick To Do list in Notepad
-   
+
     .DESCRIPTION
     Creates quick To Do list in Notepad
-   
+
     .PARAMETER List
     semi-colon separated list of items to put in to do list
-   
+
+    .parameter WhatIf
+    [<SwitchParameter>]
+    If this switch is enabled, no actions are performed but informational messages will be displayed that
+    explain what would happen if the command were to run.
+
+    .parameter Confirm
+    [<SwitchParameter>]
+    If this switch is enabled, you will be prompted for confirmation before executing any operations that
+    change state.
+
     .EXAMPLE
     New-ToDo
-   
+
+    Basic execution of this function to start a new ToDo list
+
     .EXAMPLE
     New-ToDo -List "Write todo function", "Update calendar" , "Book travel", "submit expenses claim", "cook dinner"
-   
+
+    Advanced execution of this function to start a new ToDo list with specific items in the list already
+
     .NOTES
     General notes
     #>
-   
+
     [cmdletbinding(SupportsShouldProcess = $true)]
     param(
         # semi-colon separated list of items to put in to do list
@@ -27,12 +41,12 @@
     )
     # split out the items we have been sent
     $items = $List -split (';')
-   
+
     # pad the ToDo items to 5 items with empty lines
     if ($items.count -lt 5) {
         $items.count..5 | ForEach-Object { $items += "" }
     }
-   
+
     # set up header of list
     $txt = @"
 To do list - {0:dd MMM yyyy}`r`n
@@ -54,6 +68,6 @@ To do list - {0:dd MMM yyyy}`r`n
     if ($PSCmdlet.ShouldProcess("new ToDo list file " , "Creating")) {
         $file = New-TemporaryFile
         $txt | set-content $file
-        notepad $file   
-}
+        notepad $file
+    }
 }

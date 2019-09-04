@@ -5,6 +5,16 @@
 
     .description
     Quickly and easily add meetings and reminders to your Outlook calendar via your keyboard without leaving your PowerShell host
+    
+    .parameter WhatIf
+    [<SwitchParameter>]
+    If this switch is enabled, no actions are performed but informational messages will be displayed that
+    explain what would happen if the command were to run.
+
+    .parameter Confirm
+    [<SwitchParameter>]
+    If this switch is enabled, you will be prompted for confirmation before executing any operations that
+    change state.
 
     .example
     New-OutlookCalendar -Start '20-Mar-2019 12:00' -Subject "Get birthday present for Timmy" -Status 'Out of Office'
@@ -15,9 +25,11 @@
     New-OutlookCalendar -Start (get-date -date ((get-date).ToShortDateString())).AddHours(18) -Subject "After work drinks" -Status 'Busy' -duration 180
 
     This example create a 3 hour event in the calendar at 18:00 today with a subject of "After work drinks" with a reminder
+    
     .link
     olItems <https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.olitemtype?view=outlook-pia>
     olBusyStatus https://docs.microsoft.com/en-us/dotnet/api/microsoft.office.interop.outlook.olbusystatus?view=outlook-pia
+    
     #>
     [cmdletbinding(SupportsShouldProcess = $true)]
     param(

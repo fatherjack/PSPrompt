@@ -10,13 +10,13 @@
     Get-BatteryStatus
 
     Get the battery status
-       
+      
     .EXAMPLE
     battery
 
     uses the alias to call this function
     #>
-    [outputtype('system.string')]
+    [outputtype([system.string])]
     [alias('battery')]
     [CmdletBinding()]
     param (    )
@@ -36,7 +36,7 @@
         else {
             $msg += "/ $($Battery.Remaining) mins - Discharging"
         }
-       
+      
         $msg
     }
 }

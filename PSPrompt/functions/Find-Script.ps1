@@ -1,41 +1,47 @@
 ﻿function Find-Script {
     <#
     .SYNOPSIS
-   
-        # script finder
-        # reviews locations known to have .ps1 files in them for specified string
-   
+  
+    script finder
+    
     .DESCRIPTION
-    Long description
-   
+    
+    reviews locations known to have script files in them for specified string
+  
     .EXAMPLE
     Find-Script -Search event -Type ps1
-   
+
+    Example searches for the string 'event' in filenames with extension matching ps1
+  
     .EXAMPLE
     Find-Script -Search audit -Type sql -includecontent
-   
-    .NOTES
-    General notes
+
+    Example searches for the string 'audit' in file names and content with extension matching sql
+  
+    
     #>
     [CmdletBinding()]
-                 
-    param (        
-        [parameter(Mandatory = $false)]$Search, #= 'event',
-        [parameter(Mandatory = $false)]$Type, #= 'ps1'
+                
+    param (
+        # The string you want to search for
+        [parameter(Mandatory = $false)]$Search,
+        # The file type you want to search for
+        [parameter(Mandatory = $false)]$Type,
+        # Do you want to search in file content too
         [parameter(Mandatory = $false)][switch]$IncludeContent
     )
-       
+      
     $Type = '*.' + $Type
     $List = Import-Csv 'C:\Users\jonallen\OneDrive\PowerShellLocations.csv'
-   
+  
     # $Results = [[PSCustomObject]@ {
     #     MatchType = $null
     #     FileName = $null
     #     FilePath = $null
     # }]
     $Results = ForEach ($Item in $List) {
-     
-        write-output ".. Checking $($item.name) .."
+    
+        ".. Checking $($item.name) .."
         foreach ($doc in Get-ChildItem $item.Folder -Recurse -include $Type) {
             if ($doc -match $search) {
                 [pscustomobject]@{
@@ -53,16 +59,16 @@
                                 MatchType = "Content"
                                 FileName  = $($doc.Name)
                                 FilePath  = $($doc.FullName)
-                            }               
+                            }
                         }
                     }
                     catch {
                         write-verbose "unable to open $doc"
-                    }               
+                    }
                 }
             }
         }
     }
     return $Results
-       
+      
 }

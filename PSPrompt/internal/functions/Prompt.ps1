@@ -15,23 +15,28 @@
     - current path  : shortens the path if there are more than 2 directories and truncates those to 7 characters
     - last command  : execution duration of the last command executed
 
+    .Example
+    Prompt
+    
+    There is no valid example for this function - it runs automatically as your console completes commands
+    
     #>
-
+    [outputtype([system.string])]
     [CmdletBinding()]
     #[CmdletBinding(DefaultParameterSetName = 'Custom')]
     Param(
-    #    [parameter(parametersetname = "Custom")][switch]$AddToProfile,
-    #    [parameter(parametersetname = "Custom")][switch]$Admin,
-    #    [parameter(parametersetname = "Custom")][switch]$Battery,
-    #    [parameter(ParameterSetName = "Reset")][switch]$Reset,
-    #    [parameter(ParameterSetName = "Custom")][switch]$Only # reserved for future use
+        #    [parameter(parametersetname = "Custom")][switch]$AddToProfile,
+        #    [parameter(parametersetname = "Custom")][switch]$Admin,
+        #    [parameter(parametersetname = "Custom")][switch]$Battery,
+        #    [parameter(ParameterSetName = "Reset")][switch]$Reset,
+        #    [parameter(ParameterSetName = "Custom")][switch]$Only # reserved for future use
     )
-#    if ($Reset) {
-#        $PromptOptions = get-item "$env:APPDATA\prompt*.ps1" | Select-Object name, LastWriteTime
-#
-#        Write-Output "Prompt returned to original state"
-#        return
-#    }
+    #    if ($Reset) {
+    #        $PromptOptions = get-item "$env:APPDATA\prompt*.ps1" | Select-Object name, LastWriteTime
+    #
+    #        Write-Output "Prompt returned to original state"
+    #        return
+    #    }
     #region Show if using Administrator level account
     #if ($admin) {
     $principal = [Security.Principal.WindowsPrincipal] ([Security.Principal.WindowsIdentity]::GetCurrent())
@@ -164,7 +169,7 @@
     catch {
         # if there is no history then we dont put anything into the prompt
         ""
-     }
+    }
     #endregion
 
     #region reduce the path displayed if it is long

@@ -62,6 +62,7 @@
         [Parameter(ParameterSetName = "Next7Days",
             ValueFromPipelineByPropertyName = $true,
             HelpMessage = "Show calendar events for next 7 days.")]
+        # use Next7 to get the next 7 days of calendar events
         [switch]$Next7
     )
 

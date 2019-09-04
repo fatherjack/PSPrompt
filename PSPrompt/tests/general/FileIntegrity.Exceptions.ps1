@@ -9,7 +9,7 @@ $global:BannedCommands = @(
 	#'Write-Debug',
 	
 	# Use CIM instead where possible
-	#'Get-WmiObject',
+	'Get-WmiObject',
 	'Invoke-WmiMethod',
 	'Register-WmiEvent',
 	'Remove-WmiObject',

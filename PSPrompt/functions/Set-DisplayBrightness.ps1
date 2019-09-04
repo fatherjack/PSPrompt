@@ -33,6 +33,7 @@ function Set-DisplayBrightness {
     This example sets the brightness to 75 using the function alias
     #>
     [alias('dim')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWMICmdlet", "")]
     [cmdletbinding(SupportsShouldProcess = $true)]
     param(# supply the desired brightness as an integer from 1 to 100
         [parameter()]

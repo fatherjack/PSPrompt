@@ -23,9 +23,35 @@ After installing the module with the command `Import-Module PSPrompt` you can ru
 
 Its a step-by-step process that will let you choose which customisation to accept and your old PowerShell prompt will be preserved so that you can go back to it at any time.
 
-## accelerator functions
+## Custom Function
 
-The PSPrompt module gets you closer to your search results with a set of functions designed to speed up your fact checking and research. By default, search on DuckDuckGo, Bing, Google and Ask from the command prompt.
+### ConvertFrom-Byte
+
+Convert a number representing bytes into the number in MB, GB, or TB without the need to specify the denominator.
+
+### ConvertFrom-Epoch
+
+Convert an Epoch time value into a date and time value.
+
+### ConvertTo-Epoch
+
+Convert a date and time value into an Epoch time value.
+
+### Find-Script
+
+Locate that code you wrote all that time ago. Search by name or content.
+
+### Get-BatteryStatus
+
+Get the details of you battery charge state in your command line.
+
+### Get-OutlookCalendar
+
+Check the details in your calendar from your PowerShell command line.
+
+### Invoke-WebSearch
+
+Searching for a script example? Needing to do make a quick reference? The PSPrompt module gets you closer to your search results with a set of functions designed to speed up your fact checking and research. By default, search on DuckDuckGo, Bing, Google and Ask from the command prompt.
 
 | **Alias**      | **Description**                           |
 |---------------:|-------------------------------------------|
@@ -35,15 +61,33 @@ The PSPrompt module gets you closer to your search results with a set of functio
 | **DDG**        | see DuckDuckGo                            |
 | **Google**     | Runs search via <https://google.co.uk>    |
 
-**Get-OutlookCalendar** [Alias **Cal** or **Events**]
+With custom aliases that let you control the search engine that you prefer to use.
 
-Get details of your calendar appointments in your console.
+### New-OutlookCalendar
 
-**Set-DisplayBrightness** [Alias **Dim**]
+Add an item to your calendar while you are writing code, no need to go off to Outlook to create it, just add some key parameter values and its done.
 
-Control screen brightness from the console.
+### New-ToDo
 
-### Thanks
+Create a new To Do list in Notepad just to help you track a few things that  need your attention.
+
+### Push-PSPrompt
+
+This is the function that applies the custom prompt changes that you have set up.
+
+### Set-DisplayBrightness
+
+Adjust the screen brightness from the command line makes it easier to keep working on your code and be comfortable without having to go into the UI and find the setting.
+
+### Set-PSPrompt
+
+This is the function that you use to create your custom PowerShell prompt.
+
+### Show-Calendar
+
+A quick table of your upcoming events, right in your console.
+
+## Thanks
 
 The idea for the custom prompt came from dbatools, visit <https://github.com/sqlcollaborative/dbatools> for a great module to help manage your databases.
 

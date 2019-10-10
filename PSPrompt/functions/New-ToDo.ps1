@@ -82,31 +82,34 @@ To do list - {0:dd MMM yyyy}`r`n
 
 
     ## mark 
-    # did we already create a ToDo today? If so, perhaps we want to append to that one...
-    $History = Import-Csv $ToDoHistory
-
-    if ([datetime]$History.date -ge (get-date).Date) {
-        $splt = @{
-            Caption    = "You have created a ToDo already today" 
-            ChoiceList = "&Append to existing", "&Create new ToDo"
-            Message    = "Do you want to append to it or create a new one?"
-        }
-        $ReadChoice = Read-Choice @splt
-        switch ($ReadChoice) {
-            0 { "OK we add to the file" }
-            1 { "Right, creating a new file" }
-            Default { "Do we need a default" }
-        }
-    }
-    
-
     # create the file and display
     if ($PSCmdlet.ShouldProcess("new ToDo list file " , "Creating")) {
         $file = New-TemporaryFile
-        ## think we need to split the above 3 lines to above the ## mark comment above
+        # did we already create a ToDo today? If so, perhaps we want to append to that one...
+        $History = Import-Csv $ToDoHistory -ErrorAction SilentlyContinue
 
-        ## then this code goes into the appropriate read-host response section
-        $txt | set-content $file
+        if ([datetime]$History.date -ge (get-date).Date) {
+            $splt = @{
+                Caption    = "You have created a ToDo already today" 
+                ChoiceList = "&Append to existing", "&Create new ToDo"
+                Message    = "Do you want to append to it or create a new one?"
+            }
+            $ReadChoice = Read-Choice @splt
+            switch ($ReadChoice) {
+                0 {
+                    "OK we add to the file" 
+                    $file = $History | Sort-Object date -Descending | select -First 1 FileName
+        
+                    $txt | add-Content $file 
+                }
+                1 {
+                    "Right, creating a new file"
+                    $txt | set-Content $file  
+                }
+                Default { "Do we need a default?" }
+            }
+        }
+    
         switch -Regex ($Editor) {
             'notepad' {
                 notepad $file
@@ -117,15 +120,20 @@ To do list - {0:dd MMM yyyy}`r`n
                 &"C:\Program Files (x86)\Notepad++\notepad++.exe" $file
                 break
             }
-            default { notepad $file }
+            default { notepad $file } 
         }
-        # record that we created this file today
-        $record = [pscustomobject]@{
-            Date     = [datetime]("{0:yyyy-MMM-dd-HH:mm}" -f (get-date))
-            FileName = $file.fullname
-        }
-        
-        $record | export-csv -path $todohistory
-
     }
+        
+
+    ## think we need to split the above 3 lines to above the ## mark comment above
+
+    ## then this code goes into the appropriate read-host response section
+    # record that we created this file today
+    $record = [pscustomobject]@{
+        Date     = [datetime]("{0:yyyy-MMM-dd-HH:mm}" -f (get-date))
+        FileName = $file.fullname
+    }
+        
+    $record | Export-Csv -path $todohistory -Append
+
 }

@@ -7,7 +7,7 @@
     Creates quick To Do list in Notepad
 
     .PARAMETER Editor
-    The editor that should open the todo list. By default Notepad++ is preferred as it doesnt lose data on app close
+    The editor that should open the todo list. By default Notepad++ is preferred as it doesn't lose data on app close
 
     .PARAMETER List
     semi-colon separated list of items to put in to do list
@@ -50,10 +50,11 @@
         [string[]]$List
     )
     if (!(test-path "C:\Program Files (x86)\Notepad++\notepad++.exe") -and ($Editor -in ('Notepad++', 'NPP'))) {
-         Write-Warning "Notepad++ not found on this computer. Using Notepad instead"
-         $Editor = 'Notepad'
+        Write-Warning "Notepad++ not found on this computer. Using Notepad instead"
+        $Editor = 'Notepad'
     }
-    
+    $ToDoHistory = "$env:APPDATA\PSPrompt\ToDoArchive.csv"
+
     # split out the items we have been sent
     $items = $List -split (';')
 
@@ -79,9 +80,32 @@ To do list - {0:dd MMM yyyy}`r`n
 `r`n** Done **`r`n
 "@
 
+
+    ## mark 
+    # did we already create a ToDo today? If so, perhaps we want to append to that one...
+    $History = Import-Csv $ToDoHistory
+
+    if ([datetime]$History.date -ge (get-date).Date) {
+        $splt = @{
+            Caption    = "You have created a ToDo already today" 
+            ChoiceList = "&Append to existing", "&Create new ToDo"
+            Message    = "Do you want to append to it or create a new one?"
+        }
+        $ReadChoice = Read-Choice @splt
+        switch ($ReadChoice) {
+            0 { "OK we add to the file" }
+            1 { "Right, creating a new file" }
+            Default { "Do we need a default" }
+        }
+    }
+    
+
     # create the file and display
     if ($PSCmdlet.ShouldProcess("new ToDo list file " , "Creating")) {
         $file = New-TemporaryFile
+        ## think we need to split the above 3 lines to above the ## mark comment above
+
+        ## then this code goes into the appropriate read-host response section
         $txt | set-content $file
         switch -Regex ($Editor) {
             'notepad' {
@@ -89,13 +113,19 @@ To do list - {0:dd MMM yyyy}`r`n
                 break
             }
             { 'Notepad\+\+ | npp' } {
-            # if notepad++ is installed then use that as it is restart-proof
+                # if notepad++ is installed then use that as it is restart-proof
                 &"C:\Program Files (x86)\Notepad++\notepad++.exe" $file
                 break
             }
             default { notepad $file }
         }
+        # record that we created this file today
+        $record = [pscustomobject]@{
+            Date     = [datetime]("{0:yyyy-MMM-dd-HH:mm}" -f (get-date))
+            FileName = $file.fullname
+        }
         
+        $record | export-csv -path $todohistory
 
     }
 }

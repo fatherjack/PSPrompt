@@ -7,7 +7,7 @@
     Creates quick To Do list in Notepad
 
     .PARAMETER Editor
-    The editor that should open the todo list. By default Notepad++ is preferred as it doesnt lose data on app close
+    The editor that should open the todo list. By default Notepad++ is preferred as it doesn't lose data on app close
 
     .PARAMETER List
     semi-colon separated list of items to put in to do list
@@ -81,23 +81,23 @@ To do list - {0:dd MMM yyyy}`r`n
 "@
 
 
-## mark 
+    ## mark 
     # did we already create a ToDo today? If so, perhaps we want to append to that one...
     $History = Import-Csv $ToDoHistory
 
     if ([datetime]$History.date -ge (get-date).Date) {
         $splt = @{
-            Caption = "You have created a ToDo already today" 
+            Caption    = "You have created a ToDo already today" 
             ChoiceList = "&Append to existing", "&Create new ToDo"
-            Message = "Do you want to append to it or create a new one?"
+            Message    = "Do you want to append to it or create a new one?"
         }
         $ReadChoice = Read-Choice @splt
         switch ($ReadChoice) {
             0 { "OK we add to the file" }
             1 { "Right, creating a new file" }
-            Default {"Do we need a default"}
+            Default { "Do we need a default" }
         }
-     }
+    }
     
 
     # create the file and display
@@ -128,3 +128,4 @@ To do list - {0:dd MMM yyyy}`r`n
         $record | export-csv -path $todohistory
 
     }
+}

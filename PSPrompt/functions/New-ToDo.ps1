@@ -53,6 +53,7 @@
         Write-Warning "Notepad++ not found on this computer. Using Notepad instead"
         $Editor = 'Notepad'
     }
+    $ReadChoice = 1
     $ToDoHistory = "$env:APPDATA\PSPrompt\ToDoArchive.csv"
 
     # split out the items we have been sent
@@ -86,30 +87,42 @@ To do list - {0:dd MMM yyyy}`r`n
     if ($PSCmdlet.ShouldProcess("new ToDo list file " , "Creating")) {
         $file = New-TemporaryFile
         # did we already create a ToDo today? If so, perhaps we want to append to that one...
-        $History = Import-Csv $ToDoHistory -ErrorAction SilentlyContinue
-
-        if ([datetime]$History.date -ge (get-date).Date) {
+        # get latest Todo file date
+        if (test-path $todohistory) {
+            $History = Import-Csv $ToDoHistory
+            $Latest = $History | Sort-Object date -Descending | Select-Object -First 1 date
+        }
+        else {
+            $Latest = (get-date).AddYears(-1)
+        }
+            
+# if its today then offer to append
+        if ($Latest.date -ge (get-date).Date) {
             $splt = @{
                 Caption    = "You have created a ToDo already today" 
                 ChoiceList = "&Append to existing", "&Create new ToDo"
                 Message    = "Do you want to append to it or create a new one?"
             }
             $ReadChoice = Read-Choice @splt
-            switch ($ReadChoice) {
-                0 {
-                    "OK we add to the file" 
-                    $file = $History | Sort-Object date -Descending | select -First 1 FileName
+            if ($ReadChoice -eq 0) {
+                Write-Verbose "OK we add to the file" 
+                $file = $History | Sort-Object date -Descending | Select-Object -First 1 FileName
         
-                    $txt | add-Content $file 
-                }
-                1 {
-                    "Right, creating a new file"
-                    $txt | set-Content $file  
-                }
-                Default { "Do we need a default?" }
-            }
+                $txt | add-Content ($file.FileName )
+            }       
+        }
+        else {
+            Write-Verbose "Right, creating a new file" # we only need to know if append is selected - all other options result in 'new'
+            $txt | Set-Content $file  
+                    
+            # record that we created this file today 
+            [pscustomobject]@{
+                Date     = [datetime]("{0:yyyy-MMM-dd-HH:mm}" -f (get-date))
+                FileName = $file.fullname
+            } | Export-Csv -path $ToDoHistory -Append
         }
     
+        # now show the list in selected editor
         switch -Regex ($Editor) {
             'notepad' {
                 notepad $file
@@ -123,17 +136,4 @@ To do list - {0:dd MMM yyyy}`r`n
             default { notepad $file } 
         }
     }
-        
-
-    ## think we need to split the above 3 lines to above the ## mark comment above
-
-    ## then this code goes into the appropriate read-host response section
-    # record that we created this file today
-    $record = [pscustomobject]@{
-        Date     = [datetime]("{0:yyyy-MMM-dd-HH:mm}" -f (get-date))
-        FileName = $file.fullname
-    }
-        
-    $record | Export-Csv -path $todohistory -Append
-
 }

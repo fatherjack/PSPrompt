@@ -82,7 +82,7 @@ To do list - {0:dd MMM yyyy}`r`n
 "@
 
 
-    ## mark 
+    ## mark
     # create the file and display
     if ($PSCmdlet.ShouldProcess("new ToDo list file " , "Creating")) {
         $file = New-TemporaryFile
@@ -95,33 +95,33 @@ To do list - {0:dd MMM yyyy}`r`n
         else {
             $Latest = (get-date).AddYears(-1)
         }
-            
+
 # if its today then offer to append
         if ($Latest.date -ge (get-date).Date) {
             $splt = @{
-                Caption    = "You have created a ToDo already today" 
+                Caption    = "You have created a ToDo already today"
                 ChoiceList = "&Append to existing", "&Create new ToDo"
                 Message    = "Do you want to append to it or create a new one?"
             }
             $ReadChoice = Read-Choice @splt
             if ($ReadChoice -eq 0) {
-                Write-Verbose "OK we add to the file" 
+                Write-Verbose "OK we add to the file"
                 $file = $History | Sort-Object date -Descending | Select-Object -First 1 FileName
-        
+
                 $txt | add-Content ($file.FileName )
-            }       
+            }
         }
         else {
             Write-Verbose "Right, creating a new file" # we only need to know if append is selected - all other options result in 'new'
-            $txt | Set-Content $file  
-                    
-            # record that we created this file today 
+            $txt | Set-Content $file
+        
+            # record that we created this file today
             [pscustomobject]@{
                 Date     = [datetime]("{0:yyyy-MMM-dd-HH:mm}" -f (get-date))
                 FileName = $file.fullname
             } | Export-Csv -path $ToDoHistory -Append
         }
-    
+
         # now show the list in selected editor
         switch -Regex ($Editor) {
             'notepad' {
@@ -133,7 +133,7 @@ To do list - {0:dd MMM yyyy}`r`n
                 &"C:\Program Files (x86)\Notepad++\notepad++.exe" $file
                 break
             }
-            default { notepad $file } 
+            default { notepad $file }
         }
     }
 }

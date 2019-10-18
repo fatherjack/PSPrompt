@@ -81,8 +81,6 @@ To do list - {0:dd MMM yyyy}`r`n
 `r`n** Done **`r`n
 "@
 
-
-    ## mark
     # create the file and display
     if ($PSCmdlet.ShouldProcess("new ToDo list file " , "Creating")) {
         $file = New-TemporaryFile
@@ -96,7 +94,7 @@ To do list - {0:dd MMM yyyy}`r`n
             $Latest = (get-date).AddYears(-1)
         }
 
-# if its today then offer to append
+        # if the latest entry is  today then offer to append new items
         if ($Latest.date -ge (get-date).Date) {
             $splt = @{
                 Caption    = "You have created a ToDo already today"
@@ -108,16 +106,15 @@ To do list - {0:dd MMM yyyy}`r`n
                 Write-Verbose "OK we add to the file"
                 $file = $History | Sort-Object date -Descending | Select-Object -First 1 FileName
 
-                $txt | add-Content ($file.FileName )
+                $txt | Add-Content ($file.FileName )
             }
         }
         else {
-            Write-Verbose "Right, creating a new file" # we only need to know if append is selected - all other options result in 'new'
             $txt | Set-Content $file
         
             # record that we created this file today
             [pscustomobject]@{
-                Date     = [datetime]("{0:yyyy-MMM-dd-HH:mm}" -f (get-date))
+                Date     = [datetime]("{0:yyyy-MM-dd-HH:mm}" -f (get-date))
                 FileName = $file.fullname
             } | Export-Csv -path $ToDoHistory -Append
         }

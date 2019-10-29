@@ -24,7 +24,7 @@
                     "[$($_.Milliseconds)]" | Write-Host  -ForegroundColor Gray -NoNewline
                 }
             }
-            Write-Host "]" -NoNewline
+            #Write-Host "]" -NoNewline
         }
     }
     catch { }

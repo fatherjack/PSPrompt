@@ -9,7 +9,7 @@
     .EXAMPLE
     Get-BatteryStatus
 
-    Get the battery status
+    Get the battery status - showing current charge in percent and also of the battery is charging or discharging
       
     .EXAMPLE
     battery
@@ -34,9 +34,9 @@
             $msg += " $($Battery.IsCharging) "
         }
         else {
-            $msg += "/ $($Battery.Remaining) mins - Discharging"
+            $msg += " / $($Battery.Remaining) mins - Discharging"
         }
       
-        $msg
+        return $msg
     }
 }

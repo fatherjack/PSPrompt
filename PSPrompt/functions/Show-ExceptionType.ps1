@@ -26,7 +26,7 @@
 
     
     .NOTES
-    I didnt create this script but I am sorry to say that I cant recall the source either. 
+    I didnt create this script but I am sorry to say that I cant recall the source either.
     
     Thank you anonymous PowerShell person.
 

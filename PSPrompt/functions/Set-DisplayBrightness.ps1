@@ -6,7 +6,7 @@ function Set-DisplayBrightness {
 
     .Description
     custom function to set screen brightness
-    
+
     .parameter WhatIf
     [<SwitchParameter>]
     If this switch is enabled, no actions are performed but informational messages will be displayed that

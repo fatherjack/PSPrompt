@@ -9,34 +9,49 @@
     .EXAMPLE
     Get-BatteryStatus
 
-    Get the battery status
-      
+    Get the battery status - showing current charge in percent and also of the battery is charging or discharging
+
     .EXAMPLE
     battery
 
-    uses the alias to call this function
+    returns battery status as hashtable - suitable for pipeline usage
+
+    .EXAMPLE
+    Get-BatteryStatus -asmessage
+
+    returns the battery charge and remaining minutes estimate as a string message
     #>
     [outputtype([system.string])]
     [alias('battery')]
     [CmdletBinding()]
-    param (    )
+    param (
+        [parameter()]
+        [switch]
+        $AsMessage
+    )
 
     process {
-        $b = (Get-CimInstance -ClassName CIM_Battery)
+        $b = (Get-CimInstance -ClassName CIM_Battery | Where-Object EstimatedChargeRemaining -ne $null)
 
         $Battery = [PSCustomObject]@{
-            IsCharging = if ($b.BatteryStatus -eq 1) { "Not Charging" } else { "Charging" }
-            Charge     = $b.EstimatedChargeRemaining #.GetValue(1)
-            Remaining  = $b.EstimatedRunTime #.GetValue(1)
+            IsCharging = if ($b.BatteryStatus -eq 1) { $False } else { $True }
+            Charge     = $b.EstimatedChargeRemaining
+            Remaining  = $b.EstimatedRunTime
         }
-        $msg = "$($Battery.Charge)%"
-        if ($Battery.IsCharging -eq "Charging") {
-            $msg += " $($Battery.IsCharging) "
+
+        if ($AsMessage) {
+            $msg = "$($Battery.Charge)%"
+            if ($Battery.IsCharging ) {
+                $msg += " Charging "
+            }
+            else {
+                $msg += " / $($Battery.Remaining) mins - Discharging"
+            }
+
+            return $msg
         }
         else {
-            $msg += "/ $($Battery.Remaining) mins - Discharging"
+            return ($Battery)
         }
-      
-        $msg
     }
 }

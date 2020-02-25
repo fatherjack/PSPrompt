@@ -12,7 +12,7 @@
     RootModule        = 'PSPrompt.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.4.4'
+    ModuleVersion     = '0.4.5'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -69,7 +69,7 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = 'ConvertFrom-Byte', 'ConvertFrom-Epoch', 'ConvertTo-Epoch', 'Find-Script', 
+    FunctionsToExport = 'Compare-StringSet', 'ConvertFrom-Byte', 'ConvertFrom-Epoch', 'ConvertTo-Epoch', 'Find-Script', 
     'Get-BatteryStatus', 'Get-OutlookCalendar', 'Invoke-WebSearch', 'New-OutlookCalendar',
     'New-ToDo', 'Push-PSPrompt', 'Set-DisplayBrightness',
     'Set-PSPrompt', 'Show-Calendar', 'Show-ExceptionType'

@@ -20,7 +20,7 @@ function Set-PSPrompt {
     .example
 
     Set-PSPrompt
-   
+
     This will start the process to configure your custom PowerShell prompt
 
     #>
@@ -396,5 +396,5 @@ about your Git status or perhaps additional battery information?
     #endregion (option 4)
 
     #endregion all options
-      
+
 }

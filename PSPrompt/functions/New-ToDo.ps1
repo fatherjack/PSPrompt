@@ -111,7 +111,7 @@ To do list - {0:dd MMM yyyy}`r`n
         }
         else {
             $txt | Set-Content $file
-        
+
             # record that we created this file today
             [pscustomobject]@{
                 Date     = [datetime]("{0:yyyy-MM-dd-HH:mm}" -f (get-date))

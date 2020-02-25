@@ -2,15 +2,15 @@
     <#
     .SYNOPSIS
     Function to give inheritance of exception types for error handling purposes
-    
+
     .DESCRIPTION
     Take an error and returns all InnerException types for the Error object
-    
+
     .PARAMETER Exception
     The exception as it occurred in your script
-    
+
     .EXAMPLE
-    
+
     try {
         10/0
     }
@@ -24,15 +24,15 @@
     System.Management.Automation.RuntimeException
       System.DivideByZeroException
 
-    
+
     .NOTES
     I didnt create this script but I am sorry to say that I cant recall the source either.
-    
+
     Thank you anonymous PowerShell person.
 
     Script reproduced here as I often forget what I call it and where I save it and it might be useful to others
     #>
-    
+
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
@@ -46,7 +46,7 @@
 
     while ($e) {
         Write-Host ("{0,$indent}{1}" -f ('-' * $indent), $e.GetType().FullName)
-        
+
         $indent += 2
         $e = $e.InnerException
     }

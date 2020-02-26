@@ -1,27 +1,27 @@
 ﻿function Find-Script {
     <#
     .SYNOPSIS
-  
+
     script finder
-    
+
     .DESCRIPTION
-    
+
     reviews locations known to have script files in them for specified string
-  
+
     .EXAMPLE
     Find-Script -Search event -Type ps1
 
     Example searches for the string 'event' in filenames with extension matching ps1
-  
+
     .EXAMPLE
     Find-Script -Search audit -Type sql -includecontent
 
     Example searches for the string 'audit' in file names and content with extension matching sql
-  
-    
+
+
     #>
     [CmdletBinding()]
-                
+
     param (
         # The string you want to search for
         [parameter(Mandatory = $true)]
@@ -37,11 +37,11 @@
         [parameter(Mandatory = $false)]
         [switch]$IncludeContent
     )
-      
+
     $Type = '*.' + $Type
     $List = Import-Csv 'C:\Users\jonallen\OneDrive\PowerShellLocations.csv'
     if ($Locations) { $List += $Locations -split ',' }
-  
+
     # $Results = [[PSCustomObject]@ {
     #     MatchType = $null
     #     FileName = $null
@@ -79,5 +79,5 @@
         }
     }
     return $Results
-      
+
 }

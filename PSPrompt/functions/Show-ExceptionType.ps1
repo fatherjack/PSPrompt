@@ -2,15 +2,15 @@
     <#
     .SYNOPSIS
     Function to give inheritance of exception types for error handling purposes
-    
+
     .DESCRIPTION
     Take an error and returns all InnerException types for the Error object
-    
+
     .PARAMETER Exception
     The exception as it occurred in your script
-    
+
     .EXAMPLE
-    
+
     try {
         10/0
     }
@@ -24,7 +24,6 @@
     Exception details:
     -System.Management.Automation.RuntimeException
     ---System.DivideByZeroException
-
     
     .EXAMPLE
 
@@ -54,7 +53,7 @@
 
     Script reproduced here as I often forget what I call it and where I save it and it might be useful to others
     #>
-    
+
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true,ValueFromPipeline=$true)]
@@ -92,5 +91,4 @@
             }
         }
     }
-
 }

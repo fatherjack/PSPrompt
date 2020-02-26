@@ -21,13 +21,34 @@
     This example causes a Divide by zero error which is Exception type System.DivideByZeroException which is part of the System.Management.Automation.RuntimeException exceptions
 
     Output is :
-    System.Management.Automation.RuntimeException
-      System.DivideByZeroException
+    Exception details:
+    -System.Management.Automation.RuntimeException
+    ---System.DivideByZeroException
+    
+    .EXAMPLE
 
+    Calling this function via the pipeline with the -incmessages parameter to see exception messages as well as  exception names
 
+    $ErrorActionPreference = 'Stop'
+    try {
+        Stop-Service iexplore -erroraction Stop
+    }
+    catch {
+        $_.Exception | Show-ExceptionType -incmessages
+    }
+
+    This example causes a ServiceCommandException because iexplore is not a service name
+    
+    Output is :
+    Exception details:
+    -Microsoft.PowerShell.Commands.ServiceCommandException
+
+    Exception message details:
+    -Cannot find any service with service name 'iexplore'.
+    
     .NOTES
-    I didnt create this script but I am sorry to say that I cant recall the source either.
-
+    I didn't create this script but I am sorry to say that I cant recall the source either.
+    
     Thank you anonymous PowerShell person.
 
     Script reproduced here as I often forget what I call it and where I save it and it might be useful to others
@@ -35,20 +56,39 @@
 
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,ValueFromPipeline=$true)]
         [System.Exception]
-        $Exception
+        $Exception,
+        # switch to control inclusion of error messages
+        [Parameter()]
+        [switch]
+        $IncMessages
     )
 
-    $indent = 1
+    process {
+        $indent = 1
 
-    $e = $Exception
+        $e = $Exception
 
-    while ($e) {
-        Write-Host ("{0,$indent}{1}" -f ('-' * $indent), $e.GetType().FullName)
+        Write-Output "Exception details:"
 
-        $indent += 2
-        $e = $e.InnerException
+        while ($e) {
+            Write-Output ("{0,$indent}{1}" -f ('-' * $indent), $e.GetType().FullName)
+        
+            $indent += 2
+            $e = $e.InnerException
+        }
+
+        if ($IncMessages) {
+            Write-Output "`nException message details:"
+
+            $indent = 1
+            $e = $Exception
+            while ($e) {
+                Write-Output ("{0,$indent}{1}" -f ('-' * $indent), $e.message)
+                $indent += 2
+                $e = $e.InnerException
+            }
+        }
     }
-
 }

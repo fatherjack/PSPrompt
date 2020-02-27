@@ -71,7 +71,7 @@
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport = 'Compare-StringSet', 'ConvertFrom-Byte', 'ConvertFrom-Epoch', 'ConvertTo-Epoch', 'Find-Script', 
     'Get-BatteryStatus', 'Get-OutlookCalendar', 'Invoke-WebSearch', 'New-OutlookCalendar',
-    'New-ToDo', 'Push-PSPrompt', 'Set-DisplayBrightness',
+    'New-ToDo', 'Ping', 'Push-PSPrompt', 'Set-DisplayBrightness',
     'Set-PSPrompt', 'Show-Calendar', 'Show-ExceptionType'
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.

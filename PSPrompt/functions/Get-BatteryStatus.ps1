@@ -6,6 +6,9 @@
     .DESCRIPTION
     Displays battery status to console
 
+    .PARAMETER asmessage
+    a switch to control if the output is a message or for the prompt
+
     .EXAMPLE
     Get-BatteryStatus
 

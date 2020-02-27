@@ -5,12 +5,24 @@
     
     .DESCRIPTION
     Uses Test-NetConnection to check for network statistics
+
+    .PARAMETER quiet
+    To run a quiet Test-NetConnection and return True/False result
+
+    .PARAMETER time
+    How long to run ping tests for
+
+    .PARAMETER count
+    The number of ping packets to send
+    
+    .PARAMETER target
+    The target IP address to test conenction
     
     .EXAMPLE
     Ping -target '8.8.8.8' -quiet
     
     .EXAMPLE
-    Ping -target 8.8.8.8 -time 2
+    Ping -target 8.8.8.8 -time 1
     
     .NOTES
     General notes

@@ -1,6 +1,6 @@
 ﻿#region Battery status
-    $b = (Get-CimInstance -ClassName CIM_Battery)
-    $Battery = $null
+   $b = (Get-CimInstance -ClassName CIM_Battery)
+    $Battery = $extramsg = $null
     $Battery = @{
         IsCharging = if ($b.BatteryStatus -eq 1) { $false } else { $true }
         Charge     = $b.EstimatedChargeRemaining #.GetValue(1)
@@ -13,12 +13,11 @@
         $Battery.Remaining = "$($Battery.Remaining)m"
     }
 
-    Write-Verbose $Battery
+    Write-verbose $Battery
 
     if (!($Battery.IsCharging)) {
         $msg = $b = $extramsg = $null
         switch ($Battery.Charge) {
-
             { $_ -gt 80 } {
                 $colour = "Green"
                 break
@@ -35,14 +34,17 @@
                 $colour = "Red"
                 break
             }
-            default {
-                $extramsg = "BATTERY VERY LOW :: SAVE YOUR WORK"
-                $colour = "yellow"
-            }
         }
-#        $icon = [char]::convertfromutf32(128267)
-        Write-Host "$icon " -NoNewline
-        $msg = ("[{0}%:{1}{2}]" -f $Battery.Charge, $Battery.Remaining, $EXTRAmsg)
-        Write-Host -Object $msg -BackgroundColor $colour -ForegroundColor Black -NoNewline
+        if($Battery.Charge -lt 10){
+                $extramsg = "BATTERY VERY LOW :: SAVE YOUR WORK`n"
+        }
+        #$icon = [char]::convertfromutf32(128267)
+        #Write-Host "$icon " -NoNewline
+            
+    [string]$pct = $Battery.Charge
+    [string]$remain = $battery.Remaining
+
+        [string]$msg = [string]("{2}{0}%:{1}" -f $pct, $remain, $EXTRAmsg)
+        Write-Host $msg -BackgroundColor $colour -ForegroundColor Black -NoNewline
     }
     #endregion
